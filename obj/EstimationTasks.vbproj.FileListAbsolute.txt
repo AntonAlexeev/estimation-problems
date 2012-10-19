@@ -1,0 +1,10 @@
+C:\Users\INaumov.LANIT\Desktop\EvaluationTasks\bin\Debug\EstimationTasks.exe
+C:\Users\INaumov.LANIT\Desktop\EvaluationTasks\bin\Debug\EstimationTasks.pdb
+C:\Users\INaumov.LANIT\Desktop\EvaluationTasks\bin\Debug\EstimationTasks.xml
+C:\Users\INaumov.LANIT\Desktop\EvaluationTasks\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\INaumov.LANIT\Desktop\EvaluationTasks\obj\Debug\EstimationTasks.frmEstimation.resources
+C:\Users\INaumov.LANIT\Desktop\EvaluationTasks\obj\Debug\EstimationTasks.Resources.resources
+C:\Users\INaumov.LANIT\Desktop\EvaluationTasks\obj\Debug\EstimationTasks.vbproj.GenerateResource.Cache
+C:\Users\INaumov.LANIT\Desktop\EvaluationTasks\obj\Debug\EstimationTasks.exe
+C:\Users\INaumov.LANIT\Desktop\EvaluationTasks\obj\Debug\EstimationTasks.xml
+C:\Users\INaumov.LANIT\Desktop\EvaluationTasks\obj\Debug\EstimationTasks.pdb
