@@ -3,7 +3,7 @@ Imports EstimationTasks.mdlGlobal.Direction
 Public Class clsNode
     Private id_ As String
     Private lab As String
-    Private frq As String
+    Private wei As Integer
     Private edgs As New Collection
 
     Public Property id() As String
@@ -30,42 +30,18 @@ Public Class clsNode
         End Get
     End Property
 
-    Public Property Frequency() As Integer
+    Public Property Weight() As Integer
         Get
-            Frequency = frq
+            Weight = wei
         End Get
         Set(ByVal value As Integer)
-            frq = value
+            wei = value
         End Set
     End Property
-
-    Public Function AddEdge(ByRef nod As clsNode, Optional ByVal dir As Integer = dirNone) As clsEdge
-        Dim edg As New clsEdge
-        Select Case dir
-            Case dirForward, dirNone
-                edg.Source = Me
-                edg.Target = nod
-            Case dirBackward
-                edg.Source = nod
-                edg.Target = Me
-        End Select
-        edgs.Add(edg)
-        AddEdge = edg
-    End Function
 
     Public Sub AddEdge(ByRef edg As clsEdge)
         edgs.Add(edg)
     End Sub
-
-    'Public Sub RemoveEdge(ByRef nod As clsNode, Optional ByVal dir As Integer = dirNone)
-    '    Dim edg As New clsEdge
-    '    For Each edg In edgs
-    '        If edg.Sibling(Me) Is nod Then
-    '            edgs.
-    '        End If
-    '    Next edg
-    '    edgs.Add(edg)
-    'End Sub
 
     Public Function Siblings(Optional ByVal dir As Integer = dirNone) As Collection
         Dim edg As clsEdge

@@ -1,5 +1,6 @@
 Public Class clsEdge
     Private id_ As String
+    Private lab As String
     Private wei As Integer
     Private src As clsNode
     Private tar As clsNode
@@ -10,6 +11,15 @@ Public Class clsEdge
         End Get
         Set(ByVal value As String)
             id_ = value
+        End Set
+    End Property
+
+    Public Property Label() As String
+        Get
+            Label = lab
+        End Get
+        Set(ByVal value As String)
+            lab = value
         End Set
     End Property
 
@@ -40,7 +50,7 @@ Public Class clsEdge
         End Set
     End Property
 
-    Function Sibling(ByRef nod As clsNode) As clsNode
+    Public Function Sibling(ByRef nod As clsNode) As clsNode
         If nod Is src Then
             Sibling = tar
         ElseIf nod Is tar Then
@@ -50,7 +60,4 @@ Public Class clsEdge
         End If
     End Function
 
-    Protected Overrides Sub Finalize()
-        MyBase.Finalize()
-    End Sub
 End Class

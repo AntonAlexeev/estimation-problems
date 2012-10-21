@@ -1,3 +1,5 @@
+Imports EstimationTasks.mdlGlobal.strEstimation
+
 Public Class frmEstimation
     Private networks As Collection
     Private lbActive As ListBox
@@ -8,7 +10,7 @@ Public Class frmEstimation
     End Sub
 
     Private Sub btnEstimate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEstimate.Click
-        Dim netSD As clsNetwork, netSP As clsNetwork
+        Dim netSD As clsNetwork, netSP As clsNetwork, item As Object, est As strEstimation
         netSD = JoinNetworks(lbSubjectDomain.Items)
         If netSD Is Nothing Then
             MsgBox("Не удалось сформировать семантическую сеть предметной области")
@@ -19,8 +21,19 @@ Public Class frmEstimation
             MsgBox("Не удалось сформировать семантическую сеть обучающегося")
             Exit Sub
         End If
-
-
+        dgvUnsolvedProblems.Rows.Clear()
+        For Each item In lbUnsolvedProblem.Items
+            Dim dgvRow As New DataGridViewRow
+            Dim dgvCell As DataGridViewCell
+            est = EstimateNetwork(netSD, netSP, networks(item))
+            dgvCell = New DataGridViewTextBoxCell()
+            dgvCell.Value = item
+            dgvRow.Cells.Add(dgvCell)
+            dgvCell = New DataGridViewTextBoxCell()
+            dgvCell.Value = est.Estimation
+            dgvRow.Cells.Add(dgvCell)
+            dgvUnsolvedProblems.Rows.Add(dgvRow)
+        Next
     End Sub
 
     Private Function JoinNetworks(ByRef list As ListBox.ObjectCollection) As clsNetwork
@@ -35,10 +48,15 @@ Public Class frmEstimation
                 ' Объединение сетей
                 JoinNetworks = New clsNetwork
                 For Each item In list
-                    JoinNetworks.Join(networks.Item(item))
+                    JoinNetworks.Join(networks(item))
                 Next
             End If
         End If
+    End Function
+
+    Private Function EstimateNetwork(ByRef netSD As clsNetwork, ByRef netSP As clsNetwork, ByRef net As clsNetwork) As strEstimation
+        EstimateNetwork = New strEstimation
+        EstimateNetwork.Estimation = 0
     End Function
 
     Private Sub btnLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoad.Click
@@ -142,5 +160,9 @@ Public Class frmEstimation
             lbUnused.Items.Add(e.Data.GetData(DataFormats.Text).ToString)
             lbActive.Items.Remove(lbActive.Items(lbActive.SelectedIndex))
         End If
+    End Sub
+
+    Private Sub dgvUnsolvedProblems_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvUnsolvedProblems.CellContentClick
+
     End Sub
 End Class
