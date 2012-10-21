@@ -4,4 +4,8 @@ Module mdlGlobal
         dirForward = 1
         dirBackward = 2
     End Enum
+
+    Public Structure strEstimation
+        Public Estimation As Integer
+    End Structure
 End Module

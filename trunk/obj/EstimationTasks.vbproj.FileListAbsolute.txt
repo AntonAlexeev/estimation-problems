@@ -8,3 +8,13 @@ C:\Users\INaumov.LANIT\Desktop\EvaluationTasks\obj\Debug\EstimationTasks.vbproj.
 C:\Users\INaumov.LANIT\Desktop\EvaluationTasks\obj\Debug\EstimationTasks.exe
 C:\Users\INaumov.LANIT\Desktop\EvaluationTasks\obj\Debug\EstimationTasks.xml
 C:\Users\INaumov.LANIT\Desktop\EvaluationTasks\obj\Debug\EstimationTasks.pdb
+C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.exe
+C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.xml
+C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.pdb
+C:\Users\Naigsa\Desktop\EstimationProblem\bin\Debug\EstimationTasks.exe
+C:\Users\Naigsa\Desktop\EstimationProblem\bin\Debug\EstimationTasks.pdb
+C:\Users\Naigsa\Desktop\EstimationProblem\bin\Debug\EstimationTasks.xml
+C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.frmEstimation.resources
+C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.Resources.resources
+C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.vbproj.GenerateResource.Cache
