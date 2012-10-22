@@ -1,5 +1,6 @@
 Imports System.IO
 Imports System.Xml
+Imports EstimationTasks.mdlGlobal.strEstimation
 
 Public Class clsNetwork
     Private nam As String
@@ -16,6 +17,15 @@ Public Class clsNetwork
         End Set
     End Property
 
+    Public Property URL()
+        Get
+            URL = url_
+        End Get
+        Set(ByVal value)
+            url_ = value
+        End Set
+    End Property
+
     Public ReadOnly Property GetNodes()
         Get
             GetNodes = nodes
@@ -26,15 +36,6 @@ Public Class clsNetwork
         Get
             GetEdges = edges
         End Get
-    End Property
-
-    Public Property URL()
-        Get
-            URL = url_
-        End Get
-        Set(ByVal value)
-            url_ = value
-        End Set
     End Property
 
     Public Function Load(ByVal path As String) As Collection
@@ -123,7 +124,7 @@ Public Class clsNetwork
                                 tarnod = nodes.Item(tar)
                                 edg.Source = srcnod
                                 edg.Target = tarnod
-                                edg.Label = srcnod.Label & "-" & tarnod.Label
+                                'edg.Label = srcnod.Label & "-" & tarnod.Label
                                 edg.Weight = lab
                                 edg.id = id
                                 srcnod.AddEdge(edg)
@@ -157,7 +158,8 @@ Public Class clsNetwork
         For Each e In net.GetEdges
             src = e.Source.Label
             tar = e.Target.Label
-            lab = src & "-" & tar
+            'lab = src & "-" & tar
+            lab = e.Label
             If edges.Contains(lab) Then
                 edg = edges(lab)
                 edg.Weight = edg.Weight + e.Weight
@@ -167,12 +169,36 @@ Public Class clsNetwork
                 edg.Target = nodes(e.Target.Label)
                 nodes(src).AddEdge(edg)
                 nodes(tar).AddEdge(edg)
-                edg.Label = lab
+                'edg.Label = lab
                 edg.Weight = e.Weight
                 edges.Add(edg, lab)
             End If
         Next
         Join = True
+    End Function
+
+    Public Function Complexity(ByRef net As clsNetwork) As Double
+        Dim e As clsEdge, edgs As Collection, lab As String
+        Dim src As clsNode, tar As clsNode
+        Complexity = 0
+        For Each e In net.GetEdges
+            ' Поиск прямых связей
+            lab = e.Label
+            If edges.Contains(lab) Then
+                Complexity += edges(lab).Weight
+            End If
+            lab = e.Label(True)
+            If edges.Contains(lab) Then
+                Complexity += edges(lab).Weight
+            End If
+            ' Поиск косвенных связей
+            If Complexity <= 0 Then
+                'Поиск связи глубиной 2
+                src = nodes(e.Source.Label)
+                tar = e.Target
+
+            End If
+        Next
     End Function
 
     Public Sub New()

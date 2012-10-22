@@ -6,6 +6,31 @@ Module mdlGlobal
     End Enum
 
     Public Structure strEstimation
-        Public Estimation As Integer
+        Private dif As Double
+        Private SD As Double
+        Private SP As Double
+        Public ReadOnly Property Difficulty() As Double
+            Get
+                Difficulty = dif
+            End Get
+        End Property
+        Public Property SDComplexity() As Double
+            Get
+                SDComplexity = SD
+            End Get
+            Set(ByVal value As Double)
+                SD = value
+                dif = SD - SP
+            End Set
+        End Property
+        Public Property SPComplexity() As Double
+            Get
+                SPComplexity = SP
+            End Get
+            Set(ByVal value As Double)
+                SP = value
+                dif = SD - SP
+            End Set
+        End Property
     End Structure
 End Module

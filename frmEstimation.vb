@@ -13,27 +13,31 @@ Public Class frmEstimation
         Dim netSD As clsNetwork, netSP As clsNetwork, item As Object, est As strEstimation
         netSD = JoinNetworks(lbSubjectDomain.Items)
         If netSD Is Nothing Then
-            MsgBox("Не удалось сформировать семантическую сеть предметной области")
+            MsgBox("Не удалось сформировать семантическую сеть предметной области.")
             Exit Sub
         End If
         netSP = JoinNetworks(lbSolvedProblem.Items)
         If netSP Is Nothing Then
-            MsgBox("Не удалось сформировать семантическую сеть обучающегося")
+            MsgBox("Не удалось сформировать семантическую сеть обучающегося.")
             Exit Sub
         End If
-        dgvUnsolvedProblems.Rows.Clear()
-        For Each item In lbUnsolvedProblem.Items
-            Dim dgvRow As New DataGridViewRow
-            Dim dgvCell As DataGridViewCell
-            est = EstimateNetwork(netSD, netSP, networks(item))
-            dgvCell = New DataGridViewTextBoxCell()
-            dgvCell.Value = item
-            dgvRow.Cells.Add(dgvCell)
-            dgvCell = New DataGridViewTextBoxCell()
-            dgvCell.Value = est.Estimation
-            dgvRow.Cells.Add(dgvCell)
-            dgvUnsolvedProblems.Rows.Add(dgvRow)
-        Next
+        If lbUnsolvedProblem.Items.Count > 0 Then
+            dgvUnsolvedProblems.Rows.Clear()
+            For Each item In lbUnsolvedProblem.Items
+                Dim dgvRow As New DataGridViewRow
+                Dim dgvCell As DataGridViewCell
+                est = EstimateNetwork(netSD, netSP, networks(item))
+                dgvCell = New DataGridViewTextBoxCell()
+                dgvCell.Value = item
+                dgvRow.Cells.Add(dgvCell)
+                dgvCell = New DataGridViewTextBoxCell()
+                dgvCell.Value = est.Difficulty
+                dgvRow.Cells.Add(dgvCell)
+                dgvUnsolvedProblems.Rows.Add(dgvRow)
+            Next
+        Else
+            MsgBox("Отсутсвуют задачи для оценки.")
+        End If
     End Sub
 
     Private Function JoinNetworks(ByRef list As ListBox.ObjectCollection) As clsNetwork
@@ -56,7 +60,8 @@ Public Class frmEstimation
 
     Private Function EstimateNetwork(ByRef netSD As clsNetwork, ByRef netSP As clsNetwork, ByRef net As clsNetwork) As strEstimation
         EstimateNetwork = New strEstimation
-        EstimateNetwork.Estimation = 0
+        EstimateNetwork.SDComplexity = netSD.Complexity(net)
+        EstimateNetwork.SPComplexity = netSP.Complexity(net)
     End Function
 
     Private Sub btnLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoad.Click
