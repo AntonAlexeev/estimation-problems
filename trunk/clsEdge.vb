@@ -1,6 +1,5 @@
 Public Class clsEdge
     Private id_ As String
-    Private lab As String
     Private wei As Integer
     Private src As clsNode
     Private tar As clsNode
@@ -11,15 +10,6 @@ Public Class clsEdge
         End Get
         Set(ByVal value As String)
             id_ = value
-        End Set
-    End Property
-
-    Public Property Label() As String
-        Get
-            Label = lab
-        End Get
-        Set(ByVal value As String)
-            lab = value
         End Set
     End Property
 
@@ -49,6 +39,14 @@ Public Class clsEdge
             tar = value
         End Set
     End Property
+
+    Public Function Label(Optional ByVal inverted As Boolean = False) As String
+        If inverted Then
+            Label = IIf(tar Is Nothing, "", tar.Label) & "-" & IIf(src Is Nothing, "", src.Label)
+        Else
+            Label = IIf(src Is Nothing, "", src.Label) & "-" & IIf(tar Is Nothing, "", tar.Label)
+        End If
+    End Function
 
     Public Function Sibling(ByRef nod As clsNode) As clsNode
         If nod Is src Then
