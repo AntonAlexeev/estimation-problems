@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmNetwork
+Partial Class frmNodes
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,21 +22,28 @@ Partial Class frmNetwork
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.dgvNetowrk = New System.Windows.Forms.DataGridView
+        Me.dgvNodes = New System.Windows.Forms.DataGridView
+        Me.clmId = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.clmNode = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.clmEdges = New System.Windows.Forms.DataGridViewTextBoxColumn
-        CType(Me.dgvNetowrk, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvNodes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'dgvNetowrk
+        'dgvNodes
         '
-        Me.dgvNetowrk.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvNetowrk.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.clmNode, Me.clmEdges})
-        Me.dgvNetowrk.Location = New System.Drawing.Point(-2, 0)
-        Me.dgvNetowrk.Name = "dgvNetowrk"
-        Me.dgvNetowrk.RowTemplate.Height = 24
-        Me.dgvNetowrk.Size = New System.Drawing.Size(1099, 600)
-        Me.dgvNetowrk.TabIndex = 0
+        Me.dgvNodes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvNodes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.clmId, Me.clmNode, Me.clmEdges})
+        Me.dgvNodes.Location = New System.Drawing.Point(-2, 0)
+        Me.dgvNodes.Name = "dgvNodes"
+        Me.dgvNodes.RowTemplate.Height = 24
+        Me.dgvNodes.Size = New System.Drawing.Size(1099, 600)
+        Me.dgvNodes.TabIndex = 0
+        '
+        'clmId
+        '
+        Me.clmId.HeaderText = "Id"
+        Me.clmId.Name = "clmId"
+        Me.clmId.ReadOnly = True
         '
         'clmNode
         '
@@ -53,19 +60,20 @@ Partial Class frmNetwork
         Me.clmEdges.ReadOnly = True
         Me.clmEdges.Width = 72
         '
-        'frmNetwork
+        'frmNodes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1099, 600)
-        Me.Controls.Add(Me.dgvNetowrk)
-        Me.Name = "frmNetwork"
+        Me.Controls.Add(Me.dgvNodes)
+        Me.Name = "frmNodes"
         Me.Text = "frmNetwork"
-        CType(Me.dgvNetowrk, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvNodes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents dgvNetowrk As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvNodes As System.Windows.Forms.DataGridView
+    Friend WithEvents clmId As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents clmNode As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents clmEdges As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

@@ -52,6 +52,12 @@
     <Compile Include="clsEdge.vb" />
     <Compile Include="clsNetwork.vb" />
     <Compile Include="clsNode.vb" />
+    <Compile Include="frmEdges.Designer.vb">
+      <DependentUpon>frmEdges.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmEdges.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmEstimation.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -59,10 +65,10 @@
       <DependentUpon>frmEstimation.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmNetwork.Designer.vb">
-      <DependentUpon>frmNetwork.vb</DependentUpon>
+    <Compile Include="frmNodes.Designer.vb">
+      <DependentUpon>frmNodes.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmNetwork.vb">
+    <Compile Include="frmNodes.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="mdlGlobal.vb" />
@@ -83,13 +89,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmEdges.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmEdges.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmEstimation.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmEstimation.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmNetwork.resx">
+    <EmbeddedResource Include="frmNodes.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>frmNetwork.vb</DependentUpon>
+      <DependentUpon>frmNodes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
