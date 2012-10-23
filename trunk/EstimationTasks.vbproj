@@ -59,6 +59,12 @@
       <DependentUpon>frmEstimation.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmNetwork.Designer.vb">
+      <DependentUpon>frmNetwork.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmNetwork.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="mdlGlobal.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -80,6 +86,10 @@
     <EmbeddedResource Include="frmEstimation.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmEstimation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNetwork.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmNetwork.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
