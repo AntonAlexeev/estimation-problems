@@ -118,14 +118,13 @@ Public Class clsNetwork
                                     xnod.ReadToNextSibling("data")
                                 End If
                             End While
-                            If id <> "" And src <> "" And tar <> "" And lab <> "" Then
+                            If id <> "" And src <> "" And tar <> "" Then
                                 Dim srcnod As clsNode, tarnod As clsNode, edg As New clsEdge
                                 srcnod = nodes.Item(src)
                                 tarnod = nodes.Item(tar)
                                 edg.Source = srcnod
                                 edg.Target = tarnod
-                                'edg.Label = srcnod.Label & "-" & tarnod.Label
-                                edg.Weight = lab
+                                edg.Weight = CInt(IIf(lab = "", 1, lab))
                                 edg.id = id
                                 srcnod.AddEdge(edg)
                                 tarnod.AddEdge(edg)

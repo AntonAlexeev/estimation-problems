@@ -5,7 +5,8 @@ Public Class frmEstimation
     Private networks As Collection
     Private lbActive As ListBox
     Private WithEvents mnuListBox As ContextMenu
-    Private WithEvents itmDetail As MenuItem
+    Private WithEvents itmDetailNodes As MenuItem
+    Private WithEvents itmDetailEdges As MenuItem
     Private WithEvents itmDelete As MenuItem
 
     Private Function JoinNetworks(ByRef list As ListBox.ObjectCollection) As clsNetwork
@@ -41,13 +42,16 @@ Public Class frmEstimation
         cmbNetworkType.SelectedIndex = 0
         ' Формирвоание контекстного меню ListBox
         mnuListBox = New ContextMenu
-        itmDetail = New MenuItem
+        itmDetailNodes = New MenuItem
+        itmDetailEdges = New MenuItem
         itmDelete = New MenuItem
-        mnuListBox.MenuItems.AddRange(New MenuItem() {itmDetail, itmDelete})
-        itmDetail.Index = 0
-        itmDetail.Text = "Detail"
-        itmDelete.Index = 1
-        itmDelete.Text = "Delete"
+        mnuListBox.MenuItems.AddRange(New MenuItem() {itmDetailNodes, itmDetailEdges, itmDelete})
+        itmDetailNodes.Index = 0
+        itmDetailNodes.Text = "Вершины"
+        itmDetailEdges.Index = 1
+        itmDetailEdges.Text = "Отношения"
+        itmDelete.Index = 2
+        itmDelete.Text = "Удалить"
         ' Назначение событий
         AddHandler lbSubjectDomain.MouseDown, AddressOf lbNetwork_MouseDown
         AddHandler lbSolvedProblem.MouseDown, AddressOf lbNetwork_MouseDown
@@ -97,25 +101,29 @@ Public Class frmEstimation
         Dim net As New clsNetwork, nodes As Collection, nam As String, path As String
         nam = tbNetworkName.Text
         path = tbFileName.Text
-        If nam <> "" And path <> "" Then
-            If Not networks.Contains(nam) Then
-                nodes = net.Load(path)
-                net.Name = nam
-                net.URL = path
-                networks.Add(net, nam)
-                Select Case cmbNetworkType.SelectedIndex
-                    Case 0
-                        lbSolvedProblem.Items.Add(nam)
-                    Case 1
-                        lbUnsolvedProblem.Items.Add(nam)
-                    Case 2
-                        lbSubjectDomain.Items.Add(nam)
-                End Select
-            Else
-                MsgBox("Такое имя семантической сети уже используется")
-            End If
+        If nam <> "" Then
+            'MsgBox("Введите имя семантической сети")
+            'Exit Sub
+        End If
+        If path <> "" Then
+            'MsgBox("Выберите файл семантической сети")
+            'Exit Sub
+        End If
+        If Not networks.Contains(nam) Then
+            nodes = net.Load(path)
+            net.Name = nam
+            net.URL = path
+            networks.Add(net, nam)
+            Select Case cmbNetworkType.SelectedIndex
+                Case 0
+                    lbSolvedProblem.Items.Add(nam)
+                Case 1
+                    lbUnsolvedProblem.Items.Add(nam)
+                Case 2
+                    lbSubjectDomain.Items.Add(nam)
+            End Select
         Else
-            MsgBox("Заполните все данные")
+            MsgBox("Такое имя семантической сети уже используется")
         End If
     End Sub
 
@@ -151,17 +159,20 @@ Public Class frmEstimation
         End If
     End Sub
 
-    Private Sub itmDetail_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmDetail.Click
+    Private Sub itmDetailNodes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmDetailNodes.Click
         Dim dtv As DataGridView, net As clsNetwork, lab As String
         Dim dgvRow As DataGridViewRow, dgvCell As DataGridViewCell
         Dim nod As clsNode, edg As clsEdge
-        dtv = frmNetwork.dgvNetowrk
+        dtv = frmNodes.dgvNodes
         lab = lbActive.SelectedItem
         net = networks(lab)
-        frmNetwork.Text = lab
+        frmNodes.Text = lab
         dtv.Rows.Clear()
         For Each nod In net.GetNodes
             dgvRow = New DataGridViewRow
+            dgvCell = New DataGridViewTextBoxCell()
+            dgvCell.Value = nod.id
+            dgvRow.Cells.Add(dgvCell)
             dgvCell = New DataGridViewTextBoxCell()
             dgvCell.Value = nod.Label
             dgvRow.Cells.Add(dgvCell)
@@ -172,11 +183,37 @@ Public Class frmEstimation
             dgvRow.Cells.Add(dgvCell)
             dtv.Rows.Add(dgvRow)
         Next
-        frmNetwork.ShowDialog(Me)
+        frmNodes.ShowDialog(Me)
+    End Sub
+
+    Private Sub itmDetailEdges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmDetailEdges.Click
+        Dim dtv As DataGridView, net As clsNetwork, lab As String
+        Dim dgvRow As DataGridViewRow, dgvCell As DataGridViewCell
+        Dim edg As clsEdge
+        dtv = frmEdges.dgvEdges
+        lab = lbActive.SelectedItem
+        net = networks(lab)
+        frmNodes.Text = lab
+        dtv.Rows.Clear()
+        For Each edg In net.GetEdges
+            dgvRow = New DataGridViewRow
+            dgvCell = New DataGridViewTextBoxCell()
+            dgvCell.Value = edg.id
+            dgvRow.Cells.Add(dgvCell)
+            dgvCell = New DataGridViewTextBoxCell()
+            dgvRow.Cells.Add(dgvCell)
+            dgvCell.Value = edg.Source.Label
+            dgvCell = New DataGridViewTextBoxCell()
+            dgvRow.Cells.Add(dgvCell)
+            dgvCell.Value = edg.Target.Label
+            dtv.Rows.Add(dgvRow)
+        Next
+        frmEdges.ShowDialog(Me)
     End Sub
 
     Private Sub itmDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmDelete.Click
         networks.Remove(lbActive.SelectedItem)
         lbActive.Items.Remove(lbActive.SelectedItem)
     End Sub
+
 End Class
