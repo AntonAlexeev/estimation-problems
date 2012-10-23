@@ -158,7 +158,6 @@ Public Class clsNetwork
         For Each e In net.GetEdges
             src = e.Source.Label
             tar = e.Target.Label
-            'lab = src & "-" & tar
             lab = e.Label
             If edges.Contains(lab) Then
                 edg = edges(lab)
@@ -169,7 +168,6 @@ Public Class clsNetwork
                 edg.Target = nodes(e.Target.Label)
                 nodes(src).AddEdge(edg)
                 nodes(tar).AddEdge(edg)
-                'edg.Label = lab
                 edg.Weight = e.Weight
                 edges.Add(edg, lab)
             End If
@@ -179,7 +177,6 @@ Public Class clsNetwork
 
     Public Function Complexity(ByRef net As clsNetwork) As Double
         Dim e As clsEdge, edgs As Collection, lab As String
-        Dim src As clsNode, tar As clsNode
         Complexity = 0
         For Each e In net.GetEdges
             ' Поиск прямых связей
@@ -193,10 +190,20 @@ Public Class clsNetwork
             End If
             ' Поиск косвенных связей
             If Complexity <= 0 Then
-                'Поиск связи глубиной 2
-                src = nodes(e.Source.Label)
+                Dim src As clsNode, tar As clsNode, e1 As clsEdge, e2 As clsEdge
+                Dim w1 As Integer, w2 As Integer
+                'Поиск связей глубиной 2
+                src = e.Source
                 tar = e.Target
-
+                For Each e1 In src.Edges
+                    For Each e2 In tar.Edges
+                        If e1.Sibling(src) Is e2.Sibling(tar) Then
+                            w1 = e1.Weight
+                            w2 = e2.Weight
+                            Complexity += IIf(w1 > w2, w1, w2) / 2
+                        End If
+                    Next
+                Next
             End If
         Next
     End Function

@@ -28,3 +28,4 @@ C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\ResolveAssemblyReferenc
 C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.frmEstimation.resources
 C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.Resources.resources
 C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.vbproj.GenerateResource.Cache
+C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.frmNetwork.resources
