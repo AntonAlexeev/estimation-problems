@@ -25,6 +25,7 @@ Partial Class frmNodes
         Me.dgvNodes = New System.Windows.Forms.DataGridView
         Me.clmId = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.clmNode = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.clmFrequency = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.clmEdges = New System.Windows.Forms.DataGridViewTextBoxColumn
         CType(Me.dgvNodes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -32,7 +33,7 @@ Partial Class frmNodes
         'dgvNodes
         '
         Me.dgvNodes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvNodes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.clmId, Me.clmNode, Me.clmEdges})
+        Me.dgvNodes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.clmId, Me.clmNode, Me.clmFrequency, Me.clmEdges})
         Me.dgvNodes.Location = New System.Drawing.Point(-2, 0)
         Me.dgvNodes.Name = "dgvNodes"
         Me.dgvNodes.RowTemplate.Height = 24
@@ -51,6 +52,12 @@ Partial Class frmNodes
         Me.clmNode.Name = "clmNode"
         Me.clmNode.ReadOnly = True
         Me.clmNode.Width = 200
+        '
+        'clmFrequency
+        '
+        Me.clmFrequency.HeaderText = "Частота"
+        Me.clmFrequency.Name = "clmFrequency"
+        Me.clmFrequency.ReadOnly = True
         '
         'clmEdges
         '
@@ -75,5 +82,6 @@ Partial Class frmNodes
     Friend WithEvents dgvNodes As System.Windows.Forms.DataGridView
     Friend WithEvents clmId As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents clmNode As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents clmFrequency As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents clmEdges As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class
