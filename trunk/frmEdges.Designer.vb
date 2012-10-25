@@ -26,17 +26,18 @@ Partial Class frmEdges
         Me.clmId = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.clmSource = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.clmTarget = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.clmWeight = New System.Windows.Forms.DataGridViewTextBoxColumn
         CType(Me.dgvEdges, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'dgvEdges
         '
         Me.dgvEdges.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvEdges.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.clmId, Me.clmSource, Me.clmTarget})
+        Me.dgvEdges.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.clmId, Me.clmSource, Me.clmTarget, Me.clmWeight})
         Me.dgvEdges.Location = New System.Drawing.Point(1, 2)
         Me.dgvEdges.Name = "dgvEdges"
         Me.dgvEdges.RowTemplate.Height = 24
-        Me.dgvEdges.Size = New System.Drawing.Size(520, 590)
+        Me.dgvEdges.Size = New System.Drawing.Size(631, 590)
         Me.dgvEdges.TabIndex = 0
         '
         'clmId
@@ -60,11 +61,17 @@ Partial Class frmEdges
         Me.clmTarget.ReadOnly = True
         Me.clmTarget.Width = 200
         '
+        'clmWeight
+        '
+        Me.clmWeight.HeaderText = "Вес"
+        Me.clmWeight.Name = "clmWeight"
+        Me.clmWeight.ReadOnly = True
+        '
         'frmEdges
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(523, 594)
+        Me.ClientSize = New System.Drawing.Size(631, 594)
         Me.Controls.Add(Me.dgvEdges)
         Me.Name = "frmEdges"
         Me.Text = "frmEdge"
@@ -76,4 +83,5 @@ Partial Class frmEdges
     Friend WithEvents clmId As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents clmSource As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents clmTarget As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents clmWeight As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

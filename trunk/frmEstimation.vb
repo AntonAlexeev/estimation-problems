@@ -101,13 +101,13 @@ Public Class frmEstimation
         Dim net As New clsNetwork, nodes As Collection, nam As String, path As String
         nam = tbNetworkName.Text
         path = tbFileName.Text
-        If nam <> "" Then
-            'MsgBox("Введите имя семантической сети")
-            'Exit Sub
+        If nam = "" Then
+            MsgBox("Введите имя семантической сети")
+            Exit Sub
         End If
-        If path <> "" Then
-            'MsgBox("Выберите файл семантической сети")
-            'Exit Sub
+        If path = "" Then
+            MsgBox("Выберите файл семантической сети")
+            Exit Sub
         End If
         If Not networks.Contains(nam) Then
             nodes = net.Load(path)
@@ -177,6 +177,9 @@ Public Class frmEstimation
             dgvCell.Value = nod.Label
             dgvRow.Cells.Add(dgvCell)
             dgvCell = New DataGridViewTextBoxCell()
+            dgvCell.Value = nod.Weight
+            dgvRow.Cells.Add(dgvCell)
+            dgvCell = New DataGridViewTextBoxCell()
             For Each edg In nod.Edges
                 dgvCell.Value += edg.Sibling(nod).Label & " | "
             Next
@@ -206,6 +209,9 @@ Public Class frmEstimation
             dgvCell = New DataGridViewTextBoxCell()
             dgvRow.Cells.Add(dgvCell)
             dgvCell.Value = edg.Target.Label
+            dgvCell = New DataGridViewTextBoxCell()
+            dgvRow.Cells.Add(dgvCell)
+            dgvCell.Value = edg.Weight
             dtv.Rows.Add(dgvRow)
         Next
         frmEdges.ShowDialog(Me)

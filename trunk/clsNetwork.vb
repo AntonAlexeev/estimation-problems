@@ -45,22 +45,24 @@ Public Class clsNetwork
             If xr.IsStartElement Then
                 Select Case xr.Name
                     Case "node"
-                        Dim id As String, frq As Integer, lab As String
-                        id = "" : frq = 0 : lab = ""
+                        Dim id As String, wei As Integer, lab As String, str As String
+                        id = "" : wei = 1 : lab = ""
                         id = xr.GetAttribute("id")
                         xnod = xr.ReadSubtree()
                         If xnod.ReadToFollowing("data") Then
-                            While xnod.Read()
+                            Do
                                 If xnod.IsStartElement Then
                                     Select Case xnod.GetAttribute("key")
                                         Case "d4"
-                                            frq = CInt(xnod.ReadString())
-                                        Case "d6"
+                                            str = xnod.ReadString()
+                                            If IsNumeric(str) Then
+                                                wei = CInt(str)
+                                            End If
                                         Case Else
                                             xdat = xnod.ReadSubtree()
                                             If xdat.ReadToFollowing("y:ShapeNode") Then
                                                 xshp = xnod.ReadSubtree()
-                                                While xshp.Read()
+                                                Do
                                                     If xr.IsStartElement Then
                                                         Select Case xshp.LocalName
                                                             Case "Geometry"
@@ -71,17 +73,17 @@ Public Class clsNetwork
                                                             Case "Shape"
                                                         End Select
                                                     End If
-                                                End While
+                                                Loop While xshp.Read()
                                             End If
                                     End Select
                                     xnod.ReadToNextSibling("data")
                                 End If
-                            End While
+                            Loop While xnod.Read()
                             If id <> "" And lab <> "" Then
                                 Dim nod As New clsNode
                                 nod.id = id
                                 nod.Label = lab
-                                nod.Weight = frq
+                                nod.Weight = wei
                                 nodes.Add(nod, id)
                             End If
                         End If
@@ -93,7 +95,7 @@ Public Class clsNetwork
                         tar = xr.GetAttribute("target")
                         xnod = xr.ReadSubtree()
                         If xnod.ReadToFollowing("data") Then
-                            While xnod.Read()
+                            Do
                                 If xnod.IsStartElement Then
                                     Select Case xnod.GetAttribute("key")
                                         Case "d9"
@@ -101,7 +103,7 @@ Public Class clsNetwork
                                             xdat = xnod.ReadSubtree()
                                             If xdat.ReadToFollowing("y:PolyLineEdge") Then
                                                 xshp = xnod.ReadSubtree()
-                                                While xshp.Read()
+                                                Do
                                                     If xr.IsStartElement Then
                                                         Select Case xshp.LocalName
                                                             Case "Path"
@@ -112,23 +114,27 @@ Public Class clsNetwork
                                                             Case "BendStyle"
                                                         End Select
                                                     End If
-                                                End While
+                                                Loop While xshp.Read()
                                             End If
                                     End Select
                                     xnod.ReadToNextSibling("data")
                                 End If
-                            End While
+                            Loop While xnod.Read()
                             If id <> "" And src <> "" And tar <> "" Then
                                 Dim srcnod As clsNode, tarnod As clsNode, edg As New clsEdge
                                 srcnod = nodes.Item(src)
                                 tarnod = nodes.Item(tar)
                                 edg.Source = srcnod
                                 edg.Target = tarnod
-                                edg.Weight = CInt(IIf(lab = "", 1, lab))
+                                If IsNumeric(lab) Then
+                                    edg.Weight = CInt(lab)
+                                Else
+                                    edg.Weight = 1
+                                End If
                                 edg.id = id
                                 srcnod.AddEdge(edg)
                                 tarnod.AddEdge(edg)
-                                edges.Add(edg)
+                                edges.Add(edg, id)
                             End If
                         End If
                 End Select
