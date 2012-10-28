@@ -181,35 +181,50 @@ Public Class clsNetwork
     End Function
 
     Public Function Complexity(ByRef net As clsNetwork) As Double
-        Dim e As clsEdge, edgs As Collection, lab As String
+        Dim e As clsEdge, ed As clsEdge, lab As String, est As Double
         Complexity = 0
         For Each e In net.GetEdges
-            ' Поиск прямых связей
+            est = 0
             lab = e.Label
-            If edges.Contains(lab) Then
-                Complexity += edges(lab).Weight
-            End If
-            lab = e.Label(True)
-            If edges.Contains(lab) Then
-                Complexity += edges(lab).Weight
-            End If
+            ' Поиск прямых связей
+            For Each ed In edges
+                If ed.Label() = lab Or ed.Label(True) = lab Then
+                    est += ed.Weight
+                End If
+            Next
             ' Поиск косвенных связей
-            If Complexity <= 0 Then
-                Dim src As clsNode, tar As clsNode, e1 As clsEdge, e2 As clsEdge
-                Dim w1 As Integer, w2 As Integer
+            If est = 0 Then
+                Dim n As clsNode, src As clsNode, tar As clsNode, e1 As clsEdge, e2 As clsEdge
+                Dim n1 As clsNode, n2 As clsNode
+                Dim w1 As Integer, w2 As Integer, buf As Double
+                src = Nothing
+                tar = Nothing
                 'Поиск связей глубиной 2
-                src = e.Source
-                tar = e.Target
-                For Each e1 In src.Edges
-                    For Each e2 In tar.Edges
-                        If e1.Sibling(src) Is e2.Sibling(tar) Then
-                            w1 = e1.Weight
-                            w2 = e2.Weight
-                            Complexity += IIf(w1 > w2, w1, w2) / 2
-                        End If
+                For Each n In nodes
+                    If n.Label = e.Source.Label Then
+                        src = n
+                    End If
+                    If n.Label = e.Target.Label Then
+                        tar = n
+                    End If
+                Next n
+                If Not src Is Nothing And Not tar Is Nothing Then
+                    For Each e1 In src.Edges
+                        n1 = e1.Sibling(src)
+                        For Each e2 In tar.Edges
+                            If n1 Is e2.Sibling(tar) Then
+                                w1 = e1.Weight
+                                w2 = e2.Weight
+                                est += IIf(w1 < w2, w1, w2) / 2
+                                'If buf < est Or est = 0 Then
+                                'est = buf
+                                'End If
+                            End If
+                        Next
                     Next
-                Next
+                End If
             End If
+            Complexity += est
         Next
     End Function
 

@@ -35,9 +35,10 @@ Partial Class frmNodes
         Me.dgvNodes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvNodes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.clmId, Me.clmNode, Me.clmFrequency, Me.clmEdges})
         Me.dgvNodes.Location = New System.Drawing.Point(-2, 0)
+        Me.dgvNodes.Margin = New System.Windows.Forms.Padding(2)
         Me.dgvNodes.Name = "dgvNodes"
         Me.dgvNodes.RowTemplate.Height = 24
-        Me.dgvNodes.Size = New System.Drawing.Size(1099, 600)
+        Me.dgvNodes.Size = New System.Drawing.Size(720, 488)
         Me.dgvNodes.TabIndex = 0
         '
         'clmId
@@ -65,14 +66,15 @@ Partial Class frmNodes
         Me.clmEdges.HeaderText = "Связи"
         Me.clmEdges.Name = "clmEdges"
         Me.clmEdges.ReadOnly = True
-        Me.clmEdges.Width = 72
+        Me.clmEdges.Width = 63
         '
         'frmNodes
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1099, 600)
+        Me.ClientSize = New System.Drawing.Size(740, 488)
         Me.Controls.Add(Me.dgvNodes)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "frmNodes"
         Me.Text = "frmNetwork"
         CType(Me.dgvNodes, System.ComponentModel.ISupportInitialize).EndInit()
