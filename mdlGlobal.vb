@@ -20,7 +20,7 @@ Module mdlGlobal
             End Get
             Set(ByVal value As Double)
                 SD = value
-                dif = SD - SP
+                dif = IIf(SD - SP > 0, SD - SP, 0)
             End Set
         End Property
         Public Property SPComplexity() As Double
@@ -29,7 +29,7 @@ Module mdlGlobal
             End Get
             Set(ByVal value As Double)
                 SP = value
-                dif = SD - SP
+                dif = IIf(SD - SP > 0, SD - SP, 0)
             End Set
         End Property
     End Structure

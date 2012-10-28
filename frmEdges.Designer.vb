@@ -35,9 +35,10 @@ Partial Class frmEdges
         Me.dgvEdges.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEdges.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.clmId, Me.clmSource, Me.clmTarget, Me.clmWeight})
         Me.dgvEdges.Location = New System.Drawing.Point(1, 2)
+        Me.dgvEdges.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.dgvEdges.Name = "dgvEdges"
         Me.dgvEdges.RowTemplate.Height = 24
-        Me.dgvEdges.Size = New System.Drawing.Size(631, 590)
+        Me.dgvEdges.Size = New System.Drawing.Size(594, 479)
         Me.dgvEdges.TabIndex = 0
         '
         'clmId
@@ -69,10 +70,11 @@ Partial Class frmEdges
         '
         'frmEdges
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(631, 594)
+        Me.ClientSize = New System.Drawing.Size(620, 483)
         Me.Controls.Add(Me.dgvEdges)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "frmEdges"
         Me.Text = "frmEdge"
         CType(Me.dgvEdges, System.ComponentModel.ISupportInitialize).EndInit()

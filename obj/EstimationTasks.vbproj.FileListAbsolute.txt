@@ -30,3 +30,5 @@ C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.Resourc
 C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.vbproj.GenerateResource.Cache
 C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.frmEdges.resources
 C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.frmNodes.resources
+C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.frmEdges.resources
+C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.frmNodes.resources
