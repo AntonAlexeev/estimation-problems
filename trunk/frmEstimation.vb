@@ -15,15 +15,11 @@ Public Class frmEstimation
         cnt = list.Count
         JoinNetworks = Nothing
         If cnt > 0 Then
-            If cnt = 1 Then
-                JoinNetworks = networks.Item(list(0))
-            Else
-                ' Объединение сетей
-                JoinNetworks = New clsNetwork
-                For Each item In list
-                    JoinNetworks.Join(networks(item))
-                Next
-            End If
+            ' Объединение сетей
+            JoinNetworks = New clsNetwork
+            For Each item In list
+                JoinNetworks.Join(networks(item))
+            Next
         End If
     End Function
 
