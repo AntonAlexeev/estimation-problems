@@ -167,6 +167,9 @@ Public Class clsNetwork
             If edges.Contains(lab) Then
                 edg = edges(lab)
                 edg.Weight = edg.Weight + e.Weight
+            ElseIf edges.Contains(e.Label(True)) Then ' Объединение дуг, имеющих обратное направление
+                edg = edges(e.Label(True))
+                edg.Weight = edg.Weight + e.Weight
             Else
                 edg = New clsEdge
                 edg.Source = nodes(e.Source.Label)
@@ -216,9 +219,6 @@ Public Class clsNetwork
                                 w1 = e1.Weight
                                 w2 = e2.Weight
                                 est += IIf(w1 < w2, w1, w2) / 2
-                                'If buf < est Or est = 0 Then
-                                'est = buf
-                                'End If
                             End If
                         Next
                     Next
