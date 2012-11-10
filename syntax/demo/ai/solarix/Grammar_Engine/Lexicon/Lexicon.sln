@@ -1,0 +1,52 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lexicon", "Lexicon.vcproj", "{5DA4C0E3-7A7B-4478-ABCB-1EA44072B6F9}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FilterStat", "..\..\argon\FilterEfficiency\FilterStat\FilterStat.vcproj", "{721DE9A0-CA75-4CAB-BE9E-45E696C2E270}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Debug-development = Debug-development
+		Debug-lite-development = Debug-lite-development
+		Release = Release
+		Release-development-Pro = Release-development-Pro
+		Release-old-cpu = Release-old-cpu
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{5DA4C0E3-7A7B-4478-ABCB-1EA44072B6F9}.Debug.ActiveCfg = Debug|Win32
+		{5DA4C0E3-7A7B-4478-ABCB-1EA44072B6F9}.Debug.Build.0 = Debug|Win32
+		{5DA4C0E3-7A7B-4478-ABCB-1EA44072B6F9}.Debug-development.ActiveCfg = Debug-development|Win32
+		{5DA4C0E3-7A7B-4478-ABCB-1EA44072B6F9}.Debug-development.Build.0 = Debug-development|Win32
+		{5DA4C0E3-7A7B-4478-ABCB-1EA44072B6F9}.Debug-lite-development.ActiveCfg = Release-MySQL|Win32
+		{5DA4C0E3-7A7B-4478-ABCB-1EA44072B6F9}.Debug-lite-development.Build.0 = Release-MySQL|Win32
+		{5DA4C0E3-7A7B-4478-ABCB-1EA44072B6F9}.Release.ActiveCfg = Release|Win32
+		{5DA4C0E3-7A7B-4478-ABCB-1EA44072B6F9}.Release.Build.0 = Release|Win32
+		{5DA4C0E3-7A7B-4478-ABCB-1EA44072B6F9}.Release-development-Pro.ActiveCfg = Debug-development|Win32
+		{5DA4C0E3-7A7B-4478-ABCB-1EA44072B6F9}.Release-development-Pro.Build.0 = Debug-development|Win32
+		{5DA4C0E3-7A7B-4478-ABCB-1EA44072B6F9}.Release-old-cpu.ActiveCfg = Release|Win32
+		{5DA4C0E3-7A7B-4478-ABCB-1EA44072B6F9}.Release-old-cpu.Build.0 = Release|Win32
+		{721DE9A0-CA75-4CAB-BE9E-45E696C2E270}.Debug.ActiveCfg = Debug|Win32
+		{721DE9A0-CA75-4CAB-BE9E-45E696C2E270}.Debug.Build.0 = Debug|Win32
+		{721DE9A0-CA75-4CAB-BE9E-45E696C2E270}.Debug-development.ActiveCfg = Debug|Win32
+		{721DE9A0-CA75-4CAB-BE9E-45E696C2E270}.Debug-development.Build.0 = Debug|Win32
+		{721DE9A0-CA75-4CAB-BE9E-45E696C2E270}.Debug-lite-development.ActiveCfg = Release|Win32
+		{721DE9A0-CA75-4CAB-BE9E-45E696C2E270}.Debug-lite-development.Build.0 = Release|Win32
+		{721DE9A0-CA75-4CAB-BE9E-45E696C2E270}.Release.ActiveCfg = Release|Win32
+		{721DE9A0-CA75-4CAB-BE9E-45E696C2E270}.Release.Build.0 = Release|Win32
+		{721DE9A0-CA75-4CAB-BE9E-45E696C2E270}.Release-development-Pro.ActiveCfg = Release|Win32
+		{721DE9A0-CA75-4CAB-BE9E-45E696C2E270}.Release-development-Pro.Build.0 = Release|Win32
+		{721DE9A0-CA75-4CAB-BE9E-45E696C2E270}.Release-old-cpu.ActiveCfg = Release|Win32
+		{721DE9A0-CA75-4CAB-BE9E-45E696C2E270}.Release-old-cpu.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
+		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,7 @@
+C:\Users\Naigsa\Desktop\EstimationProblem\syntax\demo\ai\solarix\Grammar_Engine\LexiconFX\bin\Debug\LexiconFX.exe
+C:\Users\Naigsa\Desktop\EstimationProblem\syntax\demo\ai\solarix\Grammar_Engine\LexiconFX\bin\Debug\LexiconFX.pdb
+C:\Users\Naigsa\Desktop\EstimationProblem\syntax\demo\ai\solarix\Grammar_Engine\LexiconFX\bin\Debug\gren_consts.dll
+C:\Users\Naigsa\Desktop\EstimationProblem\syntax\demo\ai\solarix\Grammar_Engine\LexiconFX\bin\Debug\gren_fx.dll
+C:\Users\Naigsa\Desktop\EstimationProblem\syntax\demo\ai\solarix\Grammar_Engine\LexiconFX\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Naigsa\Desktop\EstimationProblem\syntax\demo\ai\solarix\Grammar_Engine\LexiconFX\obj\Debug\LexiconFX.exe
+C:\Users\Naigsa\Desktop\EstimationProblem\syntax\demo\ai\solarix\Grammar_Engine\LexiconFX\obj\Debug\LexiconFX.pdb

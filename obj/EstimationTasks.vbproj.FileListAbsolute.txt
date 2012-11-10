@@ -32,3 +32,5 @@ C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.frmEdge
 C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.frmNodes.resources
 C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.frmEdges.resources
 C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.frmNodes.resources
+C:\Users\Naigsa\Desktop\EstimationProblem\bin\Debug\gren_fx.dll
+C:\Users\Naigsa\Desktop\EstimationProblem\bin\Debug\gren_consts.dll
