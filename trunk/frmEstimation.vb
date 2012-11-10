@@ -218,4 +218,11 @@ Public Class frmEstimation
         lbActive.Items.Remove(lbActive.SelectedItem)
     End Sub
 
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Dim syn As clsSyntax = New clsSyntax()
+        If Not syn.CreateGrammarEngine("..\..\syntax\bin-windows\dictionary.xml") Then
+            MsgBox("Ошибка загрузки словаря")
+        End If
+        syn.SyntaxAnalisis("пила злобно лежит на дубовом столе", "rus")
+    End Sub
 End Class

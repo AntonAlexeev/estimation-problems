@@ -31,6 +31,14 @@
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="gren_consts, Version=1.0.4632.12360, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>syntax\lib\gren_consts.dll</HintPath>
+    </Reference>
+    <Reference Include="gren_fx, Version=8.10.4632.12438, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>syntax\lib\gren_fx.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -52,6 +60,7 @@
     <Compile Include="clsEdge.vb" />
     <Compile Include="clsNetwork.vb" />
     <Compile Include="clsNode.vb" />
+    <Compile Include="clsSyntax.vb" />
     <Compile Include="frmEdges.Designer.vb">
       <DependentUpon>frmEdges.vb</DependentUpon>
     </Compile>
