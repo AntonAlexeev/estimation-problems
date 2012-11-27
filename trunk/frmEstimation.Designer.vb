@@ -44,8 +44,9 @@ Partial Class frmEstimation
         Me.lbUnsolvedProblem = New System.Windows.Forms.ListBox
         Me.lbSolvedProblem = New System.Windows.Forms.ListBox
         Me.gbEstimation = New System.Windows.Forms.GroupBox
-        Me.btnEstimate = New System.Windows.Forms.Button
         Me.Button1 = New System.Windows.Forms.Button
+        Me.btnEstimate = New System.Windows.Forms.Button
+        Me.Button2 = New System.Windows.Forms.Button
         CType(Me.dgvUnsolvedProblems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbLoadNetwork.SuspendLayout()
         Me.gbNetworks.SuspendLayout()
@@ -55,7 +56,7 @@ Partial Class frmEstimation
         'btnLoad
         '
         Me.btnLoad.Location = New System.Drawing.Point(272, 53)
-        Me.btnLoad.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnLoad.Margin = New System.Windows.Forms.Padding(2)
         Me.btnLoad.Name = "btnLoad"
         Me.btnLoad.Size = New System.Drawing.Size(75, 20)
         Me.btnLoad.TabIndex = 0
@@ -68,7 +69,7 @@ Partial Class frmEstimation
         Me.cmbNetworkType.FormattingEnabled = True
         Me.cmbNetworkType.Items.AddRange(New Object() {"Решенная задача", "Нерешенная задача", "Предметная область"})
         Me.cmbNetworkType.Location = New System.Drawing.Point(185, 19)
-        Me.cmbNetworkType.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.cmbNetworkType.Margin = New System.Windows.Forms.Padding(2)
         Me.cmbNetworkType.Name = "cmbNetworkType"
         Me.cmbNetworkType.Size = New System.Drawing.Size(162, 21)
         Me.cmbNetworkType.TabIndex = 1
@@ -81,7 +82,7 @@ Partial Class frmEstimation
         Me.dgvUnsolvedProblems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Problem, Me.Difficulty, Me.Complexity})
         Me.dgvUnsolvedProblems.Cursor = System.Windows.Forms.Cursors.Default
         Me.dgvUnsolvedProblems.Location = New System.Drawing.Point(15, 36)
-        Me.dgvUnsolvedProblems.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.dgvUnsolvedProblems.Margin = New System.Windows.Forms.Padding(2)
         Me.dgvUnsolvedProblems.Name = "dgvUnsolvedProblems"
         Me.dgvUnsolvedProblems.ReadOnly = True
         Me.dgvUnsolvedProblems.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -113,7 +114,7 @@ Partial Class frmEstimation
         'tbNetworkName
         '
         Me.tbNetworkName.Location = New System.Drawing.Point(14, 19)
-        Me.tbNetworkName.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.tbNetworkName.Margin = New System.Windows.Forms.Padding(2)
         Me.tbNetworkName.Name = "tbNetworkName"
         Me.tbNetworkName.Size = New System.Drawing.Size(162, 20)
         Me.tbNetworkName.TabIndex = 7
@@ -124,7 +125,7 @@ Partial Class frmEstimation
         Me.lbSubjectDomain.AllowDrop = True
         Me.lbSubjectDomain.FormattingEnabled = True
         Me.lbSubjectDomain.Location = New System.Drawing.Point(18, 36)
-        Me.lbSubjectDomain.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.lbSubjectDomain.Margin = New System.Windows.Forms.Padding(2)
         Me.lbSubjectDomain.Name = "lbSubjectDomain"
         Me.lbSubjectDomain.Size = New System.Drawing.Size(151, 160)
         Me.lbSubjectDomain.TabIndex = 8
@@ -132,7 +133,7 @@ Partial Class frmEstimation
         'btnOpenDialog
         '
         Me.btnOpenDialog.Location = New System.Drawing.Point(185, 53)
-        Me.btnOpenDialog.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnOpenDialog.Margin = New System.Windows.Forms.Padding(2)
         Me.btnOpenDialog.Name = "btnOpenDialog"
         Me.btnOpenDialog.Size = New System.Drawing.Size(75, 20)
         Me.btnOpenDialog.TabIndex = 9
@@ -151,9 +152,9 @@ Partial Class frmEstimation
         Me.gbLoadNetwork.Controls.Add(Me.cmbNetworkType)
         Me.gbLoadNetwork.Controls.Add(Me.btnLoad)
         Me.gbLoadNetwork.Location = New System.Drawing.Point(10, 392)
-        Me.gbLoadNetwork.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.gbLoadNetwork.Margin = New System.Windows.Forms.Padding(2)
         Me.gbLoadNetwork.Name = "gbLoadNetwork"
-        Me.gbLoadNetwork.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.gbLoadNetwork.Padding = New System.Windows.Forms.Padding(2)
         Me.gbLoadNetwork.Size = New System.Drawing.Size(359, 84)
         Me.gbLoadNetwork.TabIndex = 11
         Me.gbLoadNetwork.TabStop = False
@@ -162,7 +163,7 @@ Partial Class frmEstimation
         'tbFileName
         '
         Me.tbFileName.Location = New System.Drawing.Point(14, 54)
-        Me.tbFileName.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.tbFileName.Margin = New System.Windows.Forms.Padding(2)
         Me.tbFileName.Name = "tbFileName"
         Me.tbFileName.Size = New System.Drawing.Size(162, 20)
         Me.tbFileName.TabIndex = 10
@@ -179,9 +180,9 @@ Partial Class frmEstimation
         Me.gbNetworks.Controls.Add(Me.lbSolvedProblem)
         Me.gbNetworks.Controls.Add(Me.lbSubjectDomain)
         Me.gbNetworks.Location = New System.Drawing.Point(15, 10)
-        Me.gbNetworks.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.gbNetworks.Margin = New System.Windows.Forms.Padding(2)
         Me.gbNetworks.Name = "gbNetworks"
-        Me.gbNetworks.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.gbNetworks.Padding = New System.Windows.Forms.Padding(2)
         Me.gbNetworks.Size = New System.Drawing.Size(380, 488)
         Me.gbNetworks.TabIndex = 12
         Me.gbNetworks.TabStop = False
@@ -235,7 +236,7 @@ Partial Class frmEstimation
         Me.lbUnused.ForeColor = System.Drawing.Color.Red
         Me.lbUnused.FormattingEnabled = True
         Me.lbUnused.Location = New System.Drawing.Point(18, 224)
-        Me.lbUnused.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.lbUnused.Margin = New System.Windows.Forms.Padding(2)
         Me.lbUnused.Name = "lbUnused"
         Me.lbUnused.Size = New System.Drawing.Size(151, 160)
         Me.lbUnused.TabIndex = 12
@@ -245,7 +246,7 @@ Partial Class frmEstimation
         Me.lbUnsolvedProblem.AllowDrop = True
         Me.lbUnsolvedProblem.FormattingEnabled = True
         Me.lbUnsolvedProblem.Location = New System.Drawing.Point(214, 224)
-        Me.lbUnsolvedProblem.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.lbUnsolvedProblem.Margin = New System.Windows.Forms.Padding(2)
         Me.lbUnsolvedProblem.Name = "lbUnsolvedProblem"
         Me.lbUnsolvedProblem.Size = New System.Drawing.Size(151, 160)
         Me.lbUnsolvedProblem.TabIndex = 11
@@ -255,34 +256,25 @@ Partial Class frmEstimation
         Me.lbSolvedProblem.AllowDrop = True
         Me.lbSolvedProblem.FormattingEnabled = True
         Me.lbSolvedProblem.Location = New System.Drawing.Point(214, 36)
-        Me.lbSolvedProblem.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.lbSolvedProblem.Margin = New System.Windows.Forms.Padding(2)
         Me.lbSolvedProblem.Name = "lbSolvedProblem"
         Me.lbSolvedProblem.Size = New System.Drawing.Size(151, 160)
         Me.lbSolvedProblem.TabIndex = 10
         '
         'gbEstimation
         '
+        Me.gbEstimation.Controls.Add(Me.Button2)
         Me.gbEstimation.Controls.Add(Me.Button1)
         Me.gbEstimation.Controls.Add(Me.btnEstimate)
         Me.gbEstimation.Controls.Add(Me.dgvUnsolvedProblems)
         Me.gbEstimation.Location = New System.Drawing.Point(404, 10)
-        Me.gbEstimation.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.gbEstimation.Margin = New System.Windows.Forms.Padding(2)
         Me.gbEstimation.Name = "gbEstimation"
-        Me.gbEstimation.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.gbEstimation.Padding = New System.Windows.Forms.Padding(2)
         Me.gbEstimation.Size = New System.Drawing.Size(372, 488)
         Me.gbEstimation.TabIndex = 13
         Me.gbEstimation.TabStop = False
         Me.gbEstimation.Text = "Оценка нерешенных задач"
-        '
-        'btnEstimate
-        '
-        Me.btnEstimate.Location = New System.Drawing.Point(292, 451)
-        Me.btnEstimate.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.btnEstimate.Name = "btnEstimate"
-        Me.btnEstimate.Size = New System.Drawing.Size(75, 20)
-        Me.btnEstimate.TabIndex = 7
-        Me.btnEstimate.Text = "Оценить"
-        Me.btnEstimate.UseVisualStyleBackColor = True
         '
         'Button1
         '
@@ -293,6 +285,25 @@ Partial Class frmEstimation
         Me.Button1.Text = "Button1"
         Me.Button1.UseVisualStyleBackColor = True
         '
+        'btnEstimate
+        '
+        Me.btnEstimate.Location = New System.Drawing.Point(292, 451)
+        Me.btnEstimate.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnEstimate.Name = "btnEstimate"
+        Me.btnEstimate.Size = New System.Drawing.Size(75, 20)
+        Me.btnEstimate.TabIndex = 7
+        Me.btnEstimate.Text = "Оценить"
+        Me.btnEstimate.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(35, 434)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 9
+        Me.Button2.Text = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'frmEstimation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -301,7 +312,7 @@ Partial Class frmEstimation
         Me.Controls.Add(Me.gbEstimation)
         Me.Controls.Add(Me.gbNetworks)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MaximizeBox = False
         Me.Name = "frmEstimation"
         Me.Text = "Evaluation"
@@ -337,5 +348,6 @@ Partial Class frmEstimation
     Friend WithEvents Complexity As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents tbFileName As System.Windows.Forms.TextBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Button2 As System.Windows.Forms.Button
 
 End Class
