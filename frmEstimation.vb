@@ -1,6 +1,7 @@
 Imports System.Windows.Forms
 Imports EstimationTasks.mdlGlobal.strEstimation
 
+
 Public Class frmEstimation
     Private networks As Collection
     Private lbActive As ListBox
@@ -224,5 +225,10 @@ Public Class frmEstimation
             MsgBox("Ошибка загрузки словаря")
         End If
         syn.SyntaxAnalisis("пила злобно лежит на дубовом столе", "rus")
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        Dim syn As New clsSeman
+        syn.Test()
     End Sub
 End Class
