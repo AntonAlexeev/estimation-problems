@@ -1,0 +1,395 @@
+﻿// Created by Microsoft (R) C/C++ Compiler Version 15.00.30729.01 (363aaa60).
+//
+// c:\users\naigsa\desktop\aot\source\testsemancom\debug\seman.tlh
+//
+// C++ source equivalent of Win32 type library ../../bin/seman.tlb
+// compiler-generated file created 11/28/12 at 21:32:03 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+namespace SEMANLib {
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("bd87fbf9-4917-4c26-a85c-1b4e86d39066"))
+/* LIBID */ __SEMANLib;
+struct /* coclass */ SemStructure;
+struct __declspec(uuid("6e6815e7-3f0b-4fa2-9b56-ff1c1ac5136a"))
+/* dual interface */ ISemStructure;
+struct __declspec(uuid("a6ae5bc7-9cdd-468e-8e10-ea37350a6cec"))
+/* dual interface */ IComSemNode;
+enum __MIDL___MIDL_itf_seman_0000_0000_0001;
+struct __declspec(uuid("bce1821b-ec2b-4e22-877a-69e960bf07ee"))
+/* dual interface */ IComSemWord;
+struct __declspec(uuid("25c2205c-8d1f-45c1-977e-d7cf7b486a12"))
+/* dual interface */ IComSemRelation;
+struct /* coclass */ ComSemNode;
+struct /* coclass */ ComSemWord;
+struct /* coclass */ ComSemRelation;
+typedef enum __MIDL___MIDL_itf_seman_0000_0000_0001 idlDictTypeEnum;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(IComSemWord, __uuidof(IComSemWord));
+_COM_SMARTPTR_TYPEDEF(IComSemNode, __uuidof(IComSemNode));
+_COM_SMARTPTR_TYPEDEF(IComSemRelation, __uuidof(IComSemRelation));
+_COM_SMARTPTR_TYPEDEF(ISemStructure, __uuidof(ISemStructure));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("de070989-f926-404d-b5ec-5790e28e12f3"))
+SemStructure;
+    // [ default ] interface ISemStructure
+
+enum __MIDL___MIDL_itf_seman_0000_0000_0001
+{
+    idlNoneRoss = 1,
+    idlRoss = 2,
+    idlLocRoss = 3,
+    idlCollocRoss = 4,
+    idlTimeRoss = 5,
+    idlOborRoss = 6,
+    idlAoss = 7,
+    idlEngCollocRoss = 8,
+    idlEngObor = 9,
+    idlFinRoss = 10,
+    idlCompRoss = 11,
+    idlOmniRoss = 12
+};
+
+struct __declspec(uuid("bce1821b-ec2b-4e22-877a-69e960bf07ee"))
+IComSemWord : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetWordStr))
+    _bstr_t WordStr;
+    __declspec(property(get=GetLemma))
+    _bstr_t Lemma;
+    __declspec(property(get=GetSyntaxWordNo))
+    long SyntaxWordNo;
+    __declspec(property(get=GetPoses))
+    long Poses;
+    __declspec(property(get=GetGrammems))
+    __int64 Grammems;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    _bstr_t GetWordStr ( );
+    _bstr_t GetLemma ( );
+    long GetSyntaxWordNo ( );
+    long GetPoses ( );
+    __int64 GetGrammems ( );
+
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall get_WordStr (
+        /*[out,retval]*/ BSTR * pVal ) = 0;
+      virtual HRESULT __stdcall get_Lemma (
+        /*[out,retval]*/ BSTR * pVal ) = 0;
+      virtual HRESULT __stdcall get_SyntaxWordNo (
+        /*[out,retval]*/ long * pVal ) = 0;
+      virtual HRESULT __stdcall get_Poses (
+        /*[out,retval]*/ long * pVal ) = 0;
+      virtual HRESULT __stdcall get_Grammems (
+        /*[out,retval]*/ __int64 * pVal ) = 0;
+};
+
+struct __declspec(uuid("a6ae5bc7-9cdd-468e-8e10-ea37350a6cec"))
+IComSemNode : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetDictType))
+    idlDictTypeEnum DictType;
+    __declspec(property(get=GetUnitNo))
+    unsigned short UnitNo;
+    __declspec(property(get=GetWordsCount))
+    long WordsCount;
+    __declspec(property(get=GetWords))
+    IComSemWordPtr Words[];
+    __declspec(property(get=GetGramCodes))
+    _bstr_t GramCodes;
+    __declspec(property(get=GetGrammems))
+    __int64 Grammems;
+    __declspec(property(get=GetClauseNo))
+    long ClauseNo;
+    __declspec(property(get=GetPoses))
+    long Poses;
+    __declspec(property(get=GetRelOperatorsCount))
+    int RelOperatorsCount;
+    __declspec(property(get=GetRelOperators))
+    _bstr_t RelOperators[];
+    __declspec(property(get=GetPrep))
+    _bstr_t Prep;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    idlDictTypeEnum GetDictType ( );
+    unsigned short GetUnitNo ( );
+    long GetWordsCount ( );
+    IComSemWordPtr GetWords (
+        long pos );
+    _bstr_t GetGramCodes ( );
+    __int64 GetGrammems ( );
+    long GetClauseNo ( );
+    long GetPoses ( );
+    int GetRelOperatorsCount ( );
+    _bstr_t GetRelOperators (
+        int Index );
+    _bstr_t GetPrep ( );
+
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall get_DictType (
+        /*[out,retval]*/ idlDictTypeEnum * pVal ) = 0;
+      virtual HRESULT __stdcall get_UnitNo (
+        /*[out,retval]*/ unsigned short * pVal ) = 0;
+      virtual HRESULT __stdcall get_WordsCount (
+        /*[out,retval]*/ long * pVal ) = 0;
+      virtual HRESULT __stdcall get_Words (
+        /*[in]*/ long pos,
+        /*[out,retval]*/ struct IComSemWord * * pVal ) = 0;
+      virtual HRESULT __stdcall get_GramCodes (
+        /*[out,retval]*/ BSTR * pVal ) = 0;
+      virtual HRESULT __stdcall get_Grammems (
+        /*[out,retval]*/ __int64 * pVal ) = 0;
+      virtual HRESULT __stdcall get_ClauseNo (
+        /*[out,retval]*/ long * pVal ) = 0;
+      virtual HRESULT __stdcall get_Poses (
+        /*[out,retval]*/ long * pVal ) = 0;
+      virtual HRESULT __stdcall get_RelOperatorsCount (
+        /*[out,retval]*/ int * pVal ) = 0;
+      virtual HRESULT __stdcall get_RelOperators (
+        /*[in]*/ int Index,
+        /*[out,retval]*/ BSTR * pVal ) = 0;
+      virtual HRESULT __stdcall get_Prep (
+        /*[out,retval]*/ BSTR * pVal ) = 0;
+};
+
+struct __declspec(uuid("25c2205c-8d1f-45c1-977e-d7cf7b486a12"))
+IComSemRelation : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetSourceNodeNo))
+    long SourceNodeNo;
+    __declspec(property(get=GetTargetNodeNo))
+    long TargetNodeNo;
+    __declspec(property(get=GetName))
+    _bstr_t Name;
+    __declspec(property(get=GetWordRealization))
+    _bstr_t WordRealization;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    long GetSourceNodeNo ( );
+    long GetTargetNodeNo ( );
+    _bstr_t GetName ( );
+    _bstr_t GetWordRealization ( );
+
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall get_SourceNodeNo (
+        /*[out,retval]*/ long * pVal ) = 0;
+      virtual HRESULT __stdcall get_TargetNodeNo (
+        /*[out,retval]*/ long * pVal ) = 0;
+      virtual HRESULT __stdcall get_Name (
+        /*[out,retval]*/ BSTR * pVal ) = 0;
+      virtual HRESULT __stdcall get_WordRealization (
+        /*[out,retval]*/ BSTR * pVal ) = 0;
+};
+
+struct __declspec(uuid("6e6815e7-3f0b-4fa2-9b56-ff1c1ac5136a"))
+ISemStructure : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetModuleTimeStatistics))
+    _bstr_t ModuleTimeStatistics;
+    __declspec(property(get=GetCurrentTime,put=PutCurrentTime))
+    long CurrentTime;
+    __declspec(property(get=GetShouldBuildTclGraph,put=PutShouldBuildTclGraph))
+    long ShouldBuildTclGraph;
+    __declspec(property(get=GetNodesCount))
+    long NodesCount;
+    __declspec(property(get=GetLastError))
+    _bstr_t LastError;
+    __declspec(property(get=GetNodes))
+    IComSemNodePtr Nodes[];
+    __declspec(property(get=GetRelationsCount))
+    long RelationsCount;
+    __declspec(property(get=GetRelations))
+    IComSemRelationPtr Relations[];
+    __declspec(property(get=GetSilentMode,put=PutSilentMode))
+    long SilentMode;
+    __declspec(property(get=GetDopRelationsCount))
+    long DopRelationsCount;
+    __declspec(property(get=GetDopRelations))
+    IComSemRelationPtr DopRelations[];
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    HRESULT InitPresemanDicts ( );
+    HRESULT InitSemanDicts ( );
+    _bstr_t GetSyntaxTreeByText (
+        _bstr_t text,
+        int ClauseVarNo );
+    long GetCurrentTime ( );
+    void PutCurrentTime (
+        long pVal );
+    _bstr_t FindSituations (
+        _bstr_t text,
+        long UserTreeVariantNo,
+        _bstr_t PO,
+        long PanicTreeVariantCount,
+        long UserClauseVariantsCombinationNo,
+        _bstr_t AllowableLexVars );
+    _bstr_t TranslateToEnglish ( );
+    _bstr_t BuildSentence ( );
+    _bstr_t GetLastError ( );
+    long FindSituationsForNextSentence ( );
+    HRESULT InitializeIndices ( );
+    long GetNodesCount ( );
+    IComSemNodePtr GetNodes (
+        long pos );
+    long GetRelationsCount ( );
+    IComSemRelationPtr GetRelations (
+        long pos );
+    HRESULT Stop ( );
+    _bstr_t GetModuleTimeStatistics ( );
+    long GetShouldBuildTclGraph ( );
+    void PutShouldBuildTclGraph (
+        long pVal );
+    long GetSilentMode ( );
+    void PutSilentMode (
+        long pVal );
+    _bstr_t SyntRusSentence ( );
+    HRESULT SetLemmasToReplace (
+        _bstr_t LemmasToReplace );
+    HRESULT SaveThisSentence ( );
+    HRESULT ClearSavedSentences ( );
+    _bstr_t Answer ( );
+    long GetDopRelationsCount ( );
+    IComSemRelationPtr GetDopRelations (
+        long pos );
+
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall raw_InitPresemanDicts ( ) = 0;
+      virtual HRESULT __stdcall raw_InitSemanDicts ( ) = 0;
+      virtual HRESULT __stdcall raw_GetSyntaxTreeByText (
+        /*[in]*/ BSTR text,
+        /*[in]*/ int ClauseVarNo,
+        /*[out,retval]*/ BSTR * Graph ) = 0;
+      virtual HRESULT __stdcall get_CurrentTime (
+        /*[out,retval]*/ long * pVal ) = 0;
+      virtual HRESULT __stdcall put_CurrentTime (
+        /*[in]*/ long pVal ) = 0;
+      virtual HRESULT __stdcall raw_FindSituations (
+        /*[in]*/ BSTR text,
+        /*[in]*/ long UserTreeVariantNo,
+        /*[in]*/ BSTR PO,
+        /*[in]*/ long PanicTreeVariantCount,
+        /*[in]*/ long UserClauseVariantsCombinationNo,
+        /*[in]*/ BSTR AllowableLexVars,
+        /*[out,retval]*/ BSTR * Graph ) = 0;
+      virtual HRESULT __stdcall raw_TranslateToEnglish (
+        /*[out,retval]*/ BSTR * Graph ) = 0;
+      virtual HRESULT __stdcall raw_BuildSentence (
+        /*[out,retval]*/ BSTR * Sentence ) = 0;
+      virtual HRESULT __stdcall get_LastError (
+        /*[out,retval]*/ BSTR * pVal ) = 0;
+      virtual HRESULT __stdcall raw_FindSituationsForNextSentence (
+        /*[out,retval]*/ long * Result ) = 0;
+      virtual HRESULT __stdcall raw_InitializeIndices ( ) = 0;
+      virtual HRESULT __stdcall get_NodesCount (
+        /*[out,retval]*/ long * pVal ) = 0;
+      virtual HRESULT __stdcall get_Nodes (
+        /*[in]*/ long pos,
+        /*[out,retval]*/ struct IComSemNode * * pVal ) = 0;
+      virtual HRESULT __stdcall get_RelationsCount (
+        /*[out,retval]*/ long * pVal ) = 0;
+      virtual HRESULT __stdcall get_Relations (
+        /*[in]*/ long pos,
+        /*[out,retval]*/ struct IComSemRelation * * pVal ) = 0;
+      virtual HRESULT __stdcall raw_Stop ( ) = 0;
+      virtual HRESULT __stdcall get_ModuleTimeStatistics (
+        /*[out,retval]*/ BSTR * pVal ) = 0;
+      virtual HRESULT __stdcall get_ShouldBuildTclGraph (
+        /*[out,retval]*/ long * pVal ) = 0;
+      virtual HRESULT __stdcall put_ShouldBuildTclGraph (
+        /*[in]*/ long pVal ) = 0;
+      virtual HRESULT __stdcall get_SilentMode (
+        /*[out,retval]*/ long * pVal ) = 0;
+      virtual HRESULT __stdcall put_SilentMode (
+        /*[in]*/ long pVal ) = 0;
+      virtual HRESULT __stdcall raw_SyntRusSentence (
+        /*[out,retval]*/ BSTR * Sentence ) = 0;
+      virtual HRESULT __stdcall raw_SetLemmasToReplace (
+        /*[in]*/ BSTR LemmasToReplace ) = 0;
+      virtual HRESULT __stdcall raw_SaveThisSentence ( ) = 0;
+      virtual HRESULT __stdcall raw_ClearSavedSentences ( ) = 0;
+      virtual HRESULT __stdcall raw_Answer (
+        /*[out,retval]*/ BSTR * sAnswer ) = 0;
+      virtual HRESULT __stdcall get_DopRelationsCount (
+        /*[out,retval]*/ long * pVal ) = 0;
+      virtual HRESULT __stdcall get_DopRelations (
+        /*[in]*/ long pos,
+        /*[out,retval]*/ struct IComSemRelation * * pVal ) = 0;
+};
+
+struct __declspec(uuid("2fa2acdc-1a64-448f-bace-eb5ae4122271"))
+ComSemNode;
+    // [ default ] interface IComSemNode
+
+struct __declspec(uuid("2e3267a1-d488-4904-8030-61929cb1e58c"))
+ComSemWord;
+    // [ default ] interface IComSemWord
+
+struct __declspec(uuid("576ab855-e069-4c26-844b-72f9d0df2ba9"))
+ComSemRelation;
+    // [ default ] interface IComSemRelation
+
+//
+// Wrapper method implementations
+//
+
+#include "c:\users\naigsa\desktop\aot\source\testsemancom\debug\seman.tli"
+
+} // namespace SEMANLib
+
+#pragma pack(pop)
