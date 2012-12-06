@@ -38,7 +38,103 @@ Public Class clsNetwork
         End Get
     End Property
 
-    Public Function Load(ByVal path As String) As Collection
+    Public Function Load(ByVal path As String) As Boolean
+        Dim ext As String
+        ext = IO.Path.GetExtension(path)
+        Select Case ext
+            Case ".graphml"
+                Load = GraphML(path)
+            Case ".unl"
+                Load = UNL(path)
+        End Select
+    End Function
+
+    Public Function Join(ByRef net As clsNetwork) As Boolean
+        Dim n As clsNode, e As clsEdge, lab As String, edg As clsEdge, nod As clsNode
+        Dim src As String, tar As String
+        ' Объединение вершин
+        For Each n In net.GetNodes
+            lab = n.Label
+            If nodes.Contains(lab) Then
+                nod = nodes(lab)
+                nod.Weight = nod.Weight + n.Weight
+            Else
+                nod = New clsNode
+                nod.Label = lab
+                nod.Weight = n.Weight
+                nodes.Add(nod, lab)
+            End If
+        Next
+        ' Объединение дуг
+        For Each e In net.GetEdges
+            src = e.Source.Label
+            tar = e.Target.Label
+            lab = e.Label
+            If edges.Contains(lab) Then
+                edg = edges(lab)
+                edg.Weight = edg.Weight + e.Weight
+            ElseIf edges.Contains(e.Label(True)) Then ' Объединение дуг, имеющих обратное направление
+                edg = edges(e.Label(True))
+                edg.Weight = edg.Weight + e.Weight
+            Else
+                edg = New clsEdge
+                edg.Source = nodes(e.Source.Label)
+                edg.Target = nodes(e.Target.Label)
+                nodes(src).AddEdge(edg)
+                nodes(tar).AddEdge(edg)
+                edg.Weight = e.Weight
+                edges.Add(edg, lab)
+            End If
+        Next
+        Join = True
+    End Function
+
+    Public Function Complexity(ByRef net As clsNetwork) As Double
+        Dim e As clsEdge, ed As clsEdge, lab As String, est As Double
+        Complexity = 0
+        For Each e In net.GetEdges
+            est = 0
+            lab = e.Label
+            ' Поиск прямых связей
+            For Each ed In edges
+                If ed.Label() = lab Or ed.Label(True) = lab Then
+                    est += ed.Weight
+                End If
+            Next
+            ' Поиск косвенных связей
+            If est = 0 Then
+                Dim n As clsNode, src As clsNode, tar As clsNode, e1 As clsEdge, e2 As clsEdge
+                Dim n1 As clsNode, n2 As clsNode
+                Dim w1 As Integer, w2 As Integer, buf As Double
+                src = Nothing
+                tar = Nothing
+                'Поиск связей глубиной 2
+                For Each n In nodes
+                    If n.Label = e.Source.Label Then
+                        src = n
+                    End If
+                    If n.Label = e.Target.Label Then
+                        tar = n
+                    End If
+                Next n
+                If Not src Is Nothing And Not tar Is Nothing Then
+                    For Each e1 In src.Edges
+                        n1 = e1.Sibling(src)
+                        For Each e2 In tar.Edges
+                            If n1 Is e2.Sibling(tar) Then
+                                w1 = e1.Weight
+                                w2 = e2.Weight
+                                est += IIf(w1 < w2, w1, w2) / 2
+                            End If
+                        Next
+                    Next
+                End If
+            End If
+            Complexity += est
+        Next
+    End Function
+
+    Private Function GraphML(ByVal path As String) As Boolean
         Dim xr As XmlReader = XmlReader.Create(path)
         Dim xnod As XmlReader, xshp As XmlReader, xdat As XmlReader
         While xr.Read()
@@ -140,92 +236,40 @@ Public Class clsNetwork
                 End Select
             End If
         End While
-        Load = nodes
+        GraphML = True
     End Function
 
-    Public Function Join(ByRef net As clsNetwork) As Boolean
-        Dim n As clsNode, e As clsEdge, lab As String, edg As clsEdge, nod As clsNode
-        Dim src As String, tar As String
-        ' Объединение вершин
-        For Each n In net.GetNodes
-            lab = n.Label
-            If nodes.Contains(lab) Then
-                nod = nodes(lab)
-                nod.Weight = nod.Weight + n.Weight
-            Else
-                nod = New clsNode
-                nod.Label = lab
-                nod.Weight = n.Weight
-                nodes.Add(nod, lab)
-            End If
-        Next
-        ' Объединение дуг
-        For Each e In net.GetEdges
-            src = e.Source.Label
-            tar = e.Target.Label
-            lab = e.Label
-            If edges.Contains(lab) Then
-                edg = edges(lab)
-                edg.Weight = edg.Weight + e.Weight
-            ElseIf edges.Contains(e.Label(True)) Then ' Объединение дуг, имеющих обратное направление
-                edg = edges(e.Label(True))
-                edg.Weight = edg.Weight + e.Weight
-            Else
-                edg = New clsEdge
-                edg.Source = nodes(e.Source.Label)
-                edg.Target = nodes(e.Target.Label)
-                nodes(src).AddEdge(edg)
-                nodes(tar).AddEdge(edg)
-                edg.Weight = e.Weight
-                edges.Add(edg, lab)
-            End If
-        Next
-        Join = True
-    End Function
-
-    Public Function Complexity(ByRef net As clsNetwork) As Double
-        Dim e As clsEdge, ed As clsEdge, lab As String, est As Double
-        Complexity = 0
-        For Each e In net.GetEdges
-            est = 0
-            lab = e.Label
-            ' Поиск прямых связей
-            For Each ed In edges
-                If ed.Label() = lab Or ed.Label(True) = lab Then
-                    est += ed.Weight
-                End If
-            Next
-            ' Поиск косвенных связей
-            If est = 0 Then
-                Dim n As clsNode, src As clsNode, tar As clsNode, e1 As clsEdge, e2 As clsEdge
-                Dim n1 As clsNode, n2 As clsNode
-                Dim w1 As Integer, w2 As Integer, buf As Double
-                src = Nothing
-                tar = Nothing
-                'Поиск связей глубиной 2
-                For Each n In nodes
-                    If n.Label = e.Source.Label Then
-                        src = n
-                    End If
-                    If n.Label = e.Target.Label Then
-                        tar = n
-                    End If
-                Next n
-                If Not src Is Nothing And Not tar Is Nothing Then
-                    For Each e1 In src.Edges
-                        n1 = e1.Sibling(src)
-                        For Each e2 In tar.Edges
-                            If n1 Is e2.Sibling(tar) Then
-                                w1 = e1.Weight
-                                w2 = e2.Weight
-                                est += IIf(w1 < w2, w1, w2) / 2
+    Private Function UNL(ByVal path) As Boolean
+        Dim xr As XmlReader = XmlReader.Create(path)
+        Dim sen As XmlReader, wrd As XmlReader
+        Dim dom As String, id As String, link As String, feat As String, lemma As String
+        While xr.Read()
+            If xr.IsStartElement Then
+                If xr.Name = "S" Then
+                    wrd = xr.ReadSubtree()
+                    If wrd.ReadToFollowing("W") Then
+                        Do
+                            If wrd.IsStartElement Then
+                                dom = wrd.GetAttribute("DOM")
+                                feat = wrd.GetAttribute("FEAT")
+                                id = wrd.GetAttribute("ID")
+                                lemma = wrd.GetAttribute("LEMMA")
+                                link = wrd.GetAttribute("LINK")
+                                wrd.ReadToNextSibling("W")
                             End If
-                        Next
-                    Next
+                        Loop While wrd.Read()
+                        If id <> "" And lemma <> "" Then
+                            Dim nod As New clsNode
+                            nod.id = id
+                            nod.Label = lemma
+                            nod.Weight = wei
+                            nodes.Add(nod, id)
+                        End If
+                    End If
                 End If
             End If
-            Complexity += est
-        Next
+        End While
+        UNL = True
     End Function
 
     Public Sub New()

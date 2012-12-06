@@ -95,7 +95,7 @@ Public Class frmEstimation
     End Sub
 
     Private Sub btnLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoad.Click
-        Dim net As New clsNetwork, nodes As Collection, nam As String, path As String
+        Dim net As New clsNetwork, nam As String, path As String
         nam = tbNetworkName.Text
         path = tbFileName.Text
         If nam = "" Then
@@ -107,7 +107,10 @@ Public Class frmEstimation
             Exit Sub
         End If
         If Not networks.Contains(nam) Then
-            nodes = net.Load(path)
+            If Not net.Load(path) Then
+                MsgBox("Не удалось загрузить семантичскую сеть")
+                Exit Sub
+            End If
             net.Name = nam
             net.URL = path
             networks.Add(net, nam)
