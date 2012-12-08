@@ -33,4 +33,12 @@ Module mdlGlobal
             End Set
         End Property
     End Structure
+
+    Public Structure strWord
+        Public Id As String
+        Public Lemma As String
+        Public Link As String
+        Public Dom As String
+        Public Feat As String
+    End Structure
 End Module

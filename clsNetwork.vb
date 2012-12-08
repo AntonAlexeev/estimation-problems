@@ -240,9 +240,11 @@ Public Class clsNetwork
     End Function
 
     Private Function UNL(ByVal path) As Boolean
-        Dim xr As XmlReader = XmlReader.Create(path)
-        Dim sen As XmlReader, wrd As XmlReader
-        Dim dom As String, id As String, link As String, feat As String, lemma As String
+        Dim xr As XmlReader = XmlReader.Create(path), wrd As XmlReader
+        Dim tree As New clsNetwork, nods As Collection, edgs As Collection
+        nods = tree.nodes
+        edgs = tree.edges
+        Dim i As Integer
         While xr.Read()
             If xr.IsStartElement Then
                 If xr.Name = "S" Then
@@ -250,26 +252,53 @@ Public Class clsNetwork
                     If wrd.ReadToFollowing("W") Then
                         Do
                             If wrd.IsStartElement Then
-                                dom = wrd.GetAttribute("DOM")
-                                feat = wrd.GetAttribute("FEAT")
-                                id = wrd.GetAttribute("ID")
-                                lemma = wrd.GetAttribute("LEMMA")
-                                link = wrd.GetAttribute("LINK")
-                                wrd.ReadToNextSibling("W")
+                                Dim word As strWord, srcnod As clsNode, tarnod As clsNode, edg As clsEdge
+                                word.Id = wrd.GetAttribute("ID")
+                                word.Lemma = wrd.GetAttribute("LEMMA")
+                                word.Link = wrd.GetAttribute("LINK")
+                                word.Dom = wrd.GetAttribute("DOM")
+                                word.Feat = wrd.GetAttribute("FEAT")
+                                If Not nods.Contains(word.Id) Then
+                                    srcnod = New clsNode
+                                    nods.Add(srcnod, word.Id)
+                                Else
+                                    srcnod = nods.Item(word.Id)
+                                End If
+                                srcnod.Word = word
+                                srcnod.Weight = 1
+                                If word.Dom <> "_root" Then
+                                    If Not nods.Contains(word.Dom) Then
+                                        tarnod = New clsNode
+                                        nods.Add(tarnod, word.Dom)
+                                    Else
+                                        tarnod = nods.Item(word.Dom)
+                                    End If
+                                    edg = New clsEdge
+                                    edg.id = CStr(i)
+                                    edg.Weight = 1
+                                    srcnod.AddEdge(edg)
+                                    tarnod.AddEdge(edg)
+                                    edges.Add(edg, i)
+                                    i += 1
+                                End If
                             End If
                         Loop While wrd.Read()
-                        If id <> "" And lemma <> "" Then
-                            Dim nod As New clsNode
-                            nod.id = id
-                            nod.Label = lemma
-                            nod.Weight = wei
-                            nodes.Add(nod, id)
-                        End If
                     End If
                 End If
             End If
         End While
+        ' Конвертация семантической сети дерева в семантическую сеть понятий
+        If tree.ToConcepts() Then
+        End If
+        ' Присоединение к сущетсвующей сети
+        If Join(tree) Then
+        End If
         UNL = True
+UNL_Error:
+    End Function
+
+    Private Function ToConcepts() As Boolean
+        ToConcepts = True
     End Function
 
     Public Sub New()
