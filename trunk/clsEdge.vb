@@ -1,8 +1,8 @@
 Public Class clsEdge
     Private id_ As String
-    Private wei As Integer
-    Private src As clsNode
-    Private tar As clsNode
+    Private weight_ As Integer
+    Private source_ As clsNode
+    Private target_ As clsNode
 
     Public Property id() As String
         Get
@@ -15,44 +15,44 @@ Public Class clsEdge
 
     Property Weight() As Integer
         Get
-            Weight = wei
+            Weight = weight_
         End Get
         Set(ByVal value As Integer)
-            wei = value
+            weight_ = value
         End Set
     End Property
 
     Property Source() As clsNode
         Get
-            Source = src
+            Source = source_
         End Get
         Set(ByVal value As clsNode)
-            src = value
+            source_ = value
         End Set
     End Property
 
     Property Target() As clsNode
         Get
-            Target = tar
+            Target = target_
         End Get
         Set(ByVal value As clsNode)
-            tar = value
+            target_ = value
         End Set
     End Property
 
     Public Function Label(Optional ByVal inverted As Boolean = False) As String
         If inverted Then
-            Label = IIf(tar Is Nothing, "", tar.Label) & "-" & IIf(src Is Nothing, "", src.Label)
+            Label = IIf(target_ Is Nothing, "", target_.Label) & "-" & IIf(source_ Is Nothing, "", source_.Label)
         Else
-            Label = IIf(src Is Nothing, "", src.Label) & "-" & IIf(tar Is Nothing, "", tar.Label)
+            Label = IIf(source_ Is Nothing, "", source_.Label) & "-" & IIf(target_ Is Nothing, "", target_.Label)
         End If
     End Function
 
     Public Function Sibling(ByRef nod As clsNode) As clsNode
-        If nod Is src Then
-            Sibling = tar
-        ElseIf nod Is tar Then
-            Sibling = src
+        If nod Is source_ Then
+            Sibling = target_
+        ElseIf nod Is target_ Then
+            Sibling = source_
         Else
             Sibling = Nothing
         End If

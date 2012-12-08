@@ -31,14 +31,6 @@
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="gren_consts, Version=1.0.4632.12360, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>syntax\lib\gren_consts.dll</HintPath>
-    </Reference>
-    <Reference Include="gren_fx, Version=8.10.4632.12438, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>syntax\lib\gren_fx.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -60,8 +52,6 @@
     <Compile Include="clsEdge.vb" />
     <Compile Include="clsNetwork.vb" />
     <Compile Include="clsNode.vb" />
-    <Compile Include="clsSeman.vb" />
-    <Compile Include="clsSyntax.vb" />
     <Compile Include="frmEdges.Designer.vb">
       <DependentUpon>frmEdges.vb</DependentUpon>
     </Compile>
@@ -128,64 +118,6 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="AGRAMTABLib">
-      <Guid>{ECD62F71-19B6-11D3-A77A-2679A7000000}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
-    <COMReference Include="GRAPHANLib">
-      <Guid>{ECDEABCD-0855-11D3-A75D-AA5D93000000}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
-    <COMReference Include="LEMMATIZERLib">
-      <Guid>{CA8CF90E-FBB6-11D2-9C98-00105A68BAF2}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
-    <COMReference Include="MAPOSTLib">
-      <Guid>{5AAB9713-1406-11D3-8C2B-00105A68ADF3}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
-    <COMReference Include="SEMANLib">
-      <Guid>{BD87FBF9-4917-4C26-A85C-1B4E86D39066}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
-    <COMReference Include="STRUCTDICTLib">
-      <Guid>{FCD15161-23C4-11D3-A78B-0EEA0E000000}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
-    <COMReference Include="SYNANLib">
-      <Guid>{79995331-E12C-11D2-8BE2-00105A68ADF3}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
