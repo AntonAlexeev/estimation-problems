@@ -276,6 +276,8 @@ Public Class clsNetwork
                                     edg = New clsEdge
                                     edg.id = CStr(i)
                                     edg.Weight = 1
+                                    edg.Source = srcnod
+                                    edg.Target = tarnod
                                     srcnod.AddEdge(edg)
                                     tarnod.AddEdge(edg)
                                     edges.Add(edg, i)
