@@ -44,3 +44,7 @@ C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.vbproj.Gen
 C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.exe
 C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.xml
 C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.pdb
+C:\Users\INaumov.LANIT\Desktop\EstimationTasks\bin\Debug\Microsoft.GLEE.dll
+C:\Users\INaumov.LANIT\Desktop\EstimationTasks\bin\Debug\Microsoft.GLEE.Drawing.dll
+C:\Users\INaumov.LANIT\Desktop\EstimationTasks\bin\Debug\Microsoft.GLEE.GraphViewerGDI.dll
+C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.frmGlee.resources

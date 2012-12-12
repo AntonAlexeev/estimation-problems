@@ -9,6 +9,7 @@ Public Class frmEstimation
     Private WithEvents itmDetailNodes As MenuItem
     Private WithEvents itmDetailEdges As MenuItem
     Private WithEvents itmDelete As MenuItem
+    Private WithEvents itmGraph As MenuItem
 
     Private Function JoinNetworks(ByRef list As ListBox.ObjectCollection) As clsNetwork
         Dim cnt As Integer
@@ -41,13 +42,16 @@ Public Class frmEstimation
         mnuListBox = New ContextMenu
         itmDetailNodes = New MenuItem
         itmDetailEdges = New MenuItem
+        itmGraph = New MenuItem
         itmDelete = New MenuItem
-        mnuListBox.MenuItems.AddRange(New MenuItem() {itmDetailNodes, itmDetailEdges, itmDelete})
+        mnuListBox.MenuItems.AddRange(New MenuItem() {itmDetailNodes, itmDetailEdges, itmGraph, itmDelete})
         itmDetailNodes.Index = 0
         itmDetailNodes.Text = "Вершины"
         itmDetailEdges.Index = 1
         itmDetailEdges.Text = "Отношения"
-        itmDelete.Index = 2
+        itmGraph.Index = 2
+        itmGraph.Text = "Граф"
+        itmDelete.Index = 3
         itmDelete.Text = "Удалить"
         ' Назначение событий
         AddHandler lbSubjectDomain.MouseDown, AddressOf lbNetwork_MouseDown
@@ -215,6 +219,10 @@ Public Class frmEstimation
             dtv.Rows.Add(dgvRow)
         Next
         frmEdges.ShowDialog(Me)
+    End Sub
+
+    Private Sub itmGraph_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmGraph.Click
+        frmGlee.CreateView(networks(lbActive.SelectedItem))
     End Sub
 
     Private Sub itmDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmDelete.Click
