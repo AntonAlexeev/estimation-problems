@@ -259,19 +259,19 @@ Public Class clsNetwork
                                 word.Dom = wrd.GetAttribute("DOM")
                                 word.Feat = wrd.GetAttribute("FEAT")
                                 If Not nods.Contains(word.Id) Then
-                                    srcnod = New clsNode
-                                    nods.Add(srcnod, word.Id)
+                                    tarnod = New clsNode
+                                    nods.Add(tarnod, word.Id)
                                 Else
-                                    srcnod = nods.Item(word.Id)
+                                    tarnod = nods.Item(word.Id)
                                 End If
-                                srcnod.Word = word
-                                srcnod.Weight = 1
+                                tarnod.Word = word
+                                tarnod.Weight = 1
                                 If word.Dom <> "_root" Then
                                     If Not nods.Contains(word.Dom) Then
-                                        tarnod = New clsNode
-                                        nods.Add(tarnod, word.Dom)
+                                        srcnod = New clsNode
+                                        nods.Add(srcnod, word.Dom)
                                     Else
-                                        tarnod = nods.Item(word.Dom)
+                                        srcnod = nods.Item(word.Dom)
                                     End If
                                     edg = New clsEdge
                                     edg.id = CStr(i)
@@ -280,7 +280,7 @@ Public Class clsNetwork
                                     edg.Target = tarnod
                                     srcnod.AddEdge(edg)
                                     tarnod.AddEdge(edg)
-                                    edges.Add(edg, i)
+                                    edgs.Add(edg, i)
                                     i += 1
                                 End If
                             End If
@@ -295,6 +295,8 @@ Public Class clsNetwork
         ' Присоединение к сущетсвующей сети
         If Join(tree) Then
         End If
+        nodes = tree.nodes
+        edges = tree.edges
         UNL = True
 UNL_Error:
     End Function
