@@ -27,12 +27,13 @@ Partial Class frmGlee
         '
         'frmGlee
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(282, 255)
+        Me.ClientSize = New System.Drawing.Size(657, 458)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "frmGlee"
-        Me.Text = "frmGlee"
+        Me.Text = "Граф"
         Me.ResumeLayout(False)
 
     End Sub

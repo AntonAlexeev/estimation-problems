@@ -284,7 +284,7 @@ Public Class clsNetwork
                                     i += 1
                                 End If
                             End If
-                        Loop While wrd.Read()
+                        Loop While wrd.ReadToFollowing("W")
                     End If
                 End If
             End If
