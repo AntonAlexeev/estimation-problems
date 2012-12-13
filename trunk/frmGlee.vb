@@ -1,12 +1,16 @@
-Imports Microsoft.Glee
+Imports Microsoft.Glee.GraphViewerGdi
+Imports Microsoft.Glee.Drawing
+Imports System.Windows
 
 Public Class frmGlee
     Public Sub CreateView(ByRef net As clsNetwork)
-        Dim n As clsNode, e As clsEdge, dn As Drawing.Node
-        Dim viewer As GraphViewerGdi.GViewer = New GraphViewerGdi.GViewer()
-        Dim graph As Drawing.Graph = New Microsoft.Glee.Drawing.Graph("graph")
+        Dim n As clsNode, e As clsEdge, dn As Node, de As Edge
+        Dim viewer As GViewer = New GViewer()
+        Dim graph As Graph = New Graph("graph")
+        Me.Controls.Clear()
         For Each e In net.GetEdges
-            graph.AddEdge(e.Source.Id, e.Weight.ToString, e.Target.Id)
+            de = graph.AddEdge(e.Source.Id, e.Weight.ToString, e.Target.Id)
+            de.Attr.Color = Color.DarkBlue
         Next
         For Each n In net.GetNodes
             dn = Nothing
@@ -15,12 +19,12 @@ Public Class frmGlee
                 dn = graph.AddNode(n.Id)
             End If
             dn.Attr.Label = n.Label
-            dn.Attr.Fillcolor = Drawing.Color.LightBlue
-            dn.Attr.Shape = Drawing.Shape.Ellipse
+            dn.Attr.Fillcolor = Color.LightBlue
+            dn.Attr.Shape = Shape.Ellipse
         Next
         viewer.Graph = graph
         Me.SuspendLayout()
-        viewer.Dock = System.Windows.Forms.DockStyle.Fill
+        viewer.Dock = Forms.DockStyle.Fill
         Me.Controls.Add(viewer)
         Me.ResumeLayout()
         Me.ShowDialog()
