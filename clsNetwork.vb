@@ -105,7 +105,7 @@ Public Class clsNetwork
             If est = 0 Then
                 Dim n As clsNode, src As clsNode, tar As clsNode, e1 As clsEdge, e2 As clsEdge
                 Dim n1 As clsNode, n2 As clsNode
-                Dim w1 As Integer, w2 As Integer, buf As Double
+                Dim w1 As Integer, w2 As Integer
                 src = Nothing
                 tar = Nothing
                 'Поиск связей глубиной 2
