@@ -1,8 +1,13 @@
 Module mdlGlobal
-    Public Enum Direction
+    Public Enum enDirection
         dirNone = 0
         dirForward = 1
         dirBackward = 2
+    End Enum
+
+    Public Enum enEdge
+        edgWord = 0
+        edgLFunction = 1
     End Enum
 
     Public Structure strEstimation
@@ -40,5 +45,11 @@ Module mdlGlobal
         Public Link As String
         Public Dom As String
         Public Feat As String
+    End Structure
+
+    Public Structure strLFunction
+        Public LFArg As String
+        Public LFFunc As String
+        Public LFVal As String
     End Structure
 End Module

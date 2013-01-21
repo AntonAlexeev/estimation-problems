@@ -1,6 +1,7 @@
 Imports System.IO
 Imports System.Xml
 Imports EstimationTasks.mdlGlobal.strEstimation
+Imports EstimationTasks.mdlGlobal.enEdge
 
 Public Class clsNetwork
     Private nam As String
@@ -240,7 +241,7 @@ Public Class clsNetwork
     End Function
 
     Private Function UNL(ByVal path) As Boolean
-        Dim xr As XmlReader = XmlReader.Create(path), wrd As XmlReader
+        Dim xr As XmlReader = XmlReader.Create(path)
         Dim tree As New clsNetwork, nods As Collection, edgs As Collection
         nods = tree.nodes
         edgs = tree.edges
@@ -248,33 +249,64 @@ Public Class clsNetwork
         While xr.Read()
             If xr.IsStartElement Then
                 If xr.Name = "S" Then
-                    wrd = xr.ReadSubtree()
-                    If wrd.ReadToFollowing("W") Then
-                        Do
-                            If wrd.IsStartElement Then
-                                Dim word As strWord, srcnod As clsNode, tarnod As clsNode, edg As clsEdge
-                                word.Id = wrd.GetAttribute("ID")
-                                word.Lemma = wrd.GetAttribute("LEMMA")
-                                word.Link = wrd.GetAttribute("LINK")
-                                word.Dom = wrd.GetAttribute("DOM")
-                                word.Feat = wrd.GetAttribute("FEAT")
-                                If Not nods.Contains(word.Id) Then
-                                    tarnod = New clsNode
-                                    nods.Add(tarnod, word.Id)
-                                Else
-                                    tarnod = nods.Item(word.Id)
-                                End If
-                                tarnod.Word = word
-                                tarnod.Weight = 1
-                                If word.Dom <> "_root" Then
-                                    If Not nods.Contains(word.Dom) Then
-                                        srcnod = New clsNode
-                                        nods.Add(srcnod, word.Dom)
+                    While xr.Read()
+                        If xr.IsStartElement Then
+                            Select Case xr.Name
+                                Case "W"
+                                    Dim word As strWord, srcnod As clsNode, tarnod As clsNode, edg As clsEdge
+                                    word.Id = xr.GetAttribute("ID")
+                                    word.Lemma = xr.GetAttribute("LEMMA")
+                                    word.Link = xr.GetAttribute("LINK")
+                                    word.Dom = xr.GetAttribute("DOM")
+                                    word.Feat = xr.GetAttribute("FEAT")
+                                    If Not nods.Contains(word.Id) Then
+                                        tarnod = New clsNode
+                                        nods.Add(tarnod, word.Id)
                                     Else
-                                        srcnod = nods.Item(word.Dom)
+                                        tarnod = nods.Item(word.Id)
+                                    End If
+                                    tarnod.Word = word
+                                    tarnod.Weight = 1
+                                    If word.Dom <> "_root" Then
+                                        If Not nods.Contains(word.Dom) Then
+                                            srcnod = New clsNode
+                                            nods.Add(srcnod, word.Dom)
+                                        Else
+                                            srcnod = nods.Item(word.Dom)
+                                        End If
+                                        edg = New clsEdge
+                                        edg.id = CStr(i)
+                                        edg.Type = edgWord
+                                        edg.Weight = 1
+                                        edg.Source = srcnod
+                                        edg.Target = tarnod
+                                        srcnod.AddEdge(edg)
+                                        tarnod.AddEdge(edg)
+                                        edgs.Add(edg, i)
+                                        i += 1
+                                    End If
+                                Case "LF"
+                                    Dim lf As strLFunction, srcnod As clsNode, tarnod As clsNode, edg As clsEdge
+                                    lf.LFArg = xr.GetAttribute("LFARG")
+                                    lf.LFFunc = xr.GetAttribute("LFFUNC")
+                                    lf.LFVal = xr.GetAttribute("LFVAL")
+                                    If Not nods.Contains(lf.LFVal) Then
+                                        tarnod = New clsNode
+                                        nods.Add(tarnod, lf.LFVal)
+                                    Else
+                                        tarnod = nods.Item(lf.LFVal)
+                                    End If
+                                    tarnod.Weight = 1
+                                    If Not nods.Contains(lf.LFArg) Then
+                                        srcnod = New clsNode
+                                        nods.Add(srcnod, lf.LFArg)
+                                    Else
+                                        srcnod = nods.Item(lf.LFArg)
                                     End If
                                     edg = New clsEdge
                                     edg.id = CStr(i)
+                                    edg.Type = edgLFunction
+                                    edg.LFunction = lf
                                     edg.Weight = 1
                                     edg.Source = srcnod
                                     edg.Target = tarnod
@@ -282,10 +314,9 @@ Public Class clsNetwork
                                     tarnod.AddEdge(edg)
                                     edgs.Add(edg, i)
                                     i += 1
-                                End If
-                            End If
-                        Loop While wrd.ReadToFollowing("W")
-                    End If
+                            End Select
+                        End If
+                    End While
                 End If
             End If
         End While

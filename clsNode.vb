@@ -1,4 +1,4 @@
-Imports EstimationTasks.mdlGlobal.Direction
+Imports EstimationTasks.mdlGlobal.enDirection
 
 Public Class clsNode
     Private id_ As String
