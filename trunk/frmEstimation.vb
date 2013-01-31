@@ -5,11 +5,15 @@ Imports EstimationTasks.mdlGlobal.strEstimation
 Public Class frmEstimation
     Private networks As Collection
     Private lbActive As ListBox
-    Private WithEvents mnuListBox As ContextMenu
+    Private WithEvents mnuSingle As ContextMenu
+    Private WithEvents mnuMulti As ContextMenu
     Private WithEvents itmDetailNodes As MenuItem
     Private WithEvents itmDetailEdges As MenuItem
+    Private WithEvents itmRename As MenuItem
     Private WithEvents itmDelete As MenuItem
     Private WithEvents itmGraph As MenuItem
+    Private WithEvents itmCombain As MenuItem
+    Private WithEvents itmComboGraph As MenuItem
 
     Private Function JoinNetworks(ByRef list As ListBox.ObjectCollection) As clsNetwork
         Dim cnt As Integer
@@ -38,21 +42,33 @@ Public Class frmEstimation
     Private Sub frmEstimation_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         networks = New Collection
         cmbNetworkType.SelectedIndex = 0
-        ' Формирвоание контекстного меню ListBox
-        mnuListBox = New ContextMenu
+        ' Формирвоание контекстного меню mnuSingle
+        mnuSingle = New ContextMenu
         itmDetailNodes = New MenuItem
         itmDetailEdges = New MenuItem
         itmGraph = New MenuItem
+        itmRename = New MenuItem
         itmDelete = New MenuItem
-        mnuListBox.MenuItems.AddRange(New MenuItem() {itmDetailNodes, itmDetailEdges, itmGraph, itmDelete})
+        mnuSingle.MenuItems.AddRange(New MenuItem() {itmDetailNodes, itmDetailEdges, itmGraph, itmRename, itmDelete})
         itmDetailNodes.Index = 0
         itmDetailNodes.Text = "Вершины"
         itmDetailEdges.Index = 1
         itmDetailEdges.Text = "Отношения"
         itmGraph.Index = 2
         itmGraph.Text = "Граф"
-        itmDelete.Index = 3
+        itmRename.Index = 3
+        itmRename.Text = "Переименовать"
+        itmDelete.Index = 4
         itmDelete.Text = "Удалить"
+        ' Формирвоание контекстного меню mnuMulti
+        mnuMulti = New ContextMenu
+        itmCombain = New MenuItem
+        itmComboGraph = New MenuItem
+        mnuMulti.MenuItems.AddRange(New MenuItem() {itmCombain, itmComboGraph})
+        itmCombain.Index = 0
+        itmCombain.Text = "Объединить"
+        itmComboGraph.Index = 1
+        itmComboGraph.Text = "Граф"
         ' Назначение событий
         AddHandler lbSubjectDomain.MouseDown, AddressOf lbNetwork_MouseDown
         AddHandler lbSolvedProblem.MouseDown, AddressOf lbNetwork_MouseDown
@@ -99,45 +115,36 @@ Public Class frmEstimation
     End Sub
 
     Private Sub btnLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoad.Click
-        Dim net As New clsNetwork, nam As String, path As String
-        nam = tbNetworkName.Text
-        path = tbFileName.Text
-        If nam = "" Then
-            MsgBox("Введите имя семантической сети")
-            Exit Sub
-        End If
-        If path = "" Then
-            MsgBox("Выберите файл семантической сети")
-            Exit Sub
-        End If
-        If Not networks.Contains(nam) Then
-            If Not net.Load(path) Then
-                MsgBox("Не удалось загрузить семантичскую сеть")
-                Exit Sub
-            End If
-            net.Name = nam
-            net.URL = path
-            networks.Add(net, nam)
-            Select Case cmbNetworkType.SelectedIndex
-                Case 0
-                    lbSolvedProblem.Items.Add(nam)
-                Case 1
-                    lbUnsolvedProblem.Items.Add(nam)
-                Case 2
-                    lbSubjectDomain.Items.Add(nam)
-            End Select
-        Else
-            MsgBox("Такое имя семантической сети уже используется")
-        End If
-    End Sub
-
-    Private Sub btnOpenDialog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenDialog.Click
-        OpenFileDialog.Title = "Выберите файл"
+        OpenFileDialog.Title = "Выберите файл(ы)"
         OpenFileDialog.ShowDialog()
     End Sub
 
     Private Sub OpenFileDialog_FileOk(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles OpenFileDialog.FileOk
-        tbFileName.Text = OpenFileDialog.FileName.ToString()
+        Dim nam As String, net As clsNetwork, path As String
+        For Each path In OpenFileDialog.FileNames
+            nam = IO.Path.GetFileNameWithoutExtension(path)
+            If Not networks.Contains(nam) Then
+                net = New clsNetwork
+                If Not net.Load(path) Then
+                    MsgBox("Не удалось загрузить семантичскую сеть " & nam)
+                    Continue For
+                End If
+                net.Name = nam
+                net.URL = path
+                networks.Add(net, nam)
+                Select Case cmbNetworkType.SelectedIndex
+                    Case 0
+                        lbSolvedProblem.Items.Add(nam)
+                    Case 1
+                        lbUnsolvedProblem.Items.Add(nam)
+                    Case 2
+                        lbSubjectDomain.Items.Add(nam)
+                End Select
+            Else
+                MsgBox("Имя " & nam & " уже используется")
+                Continue For
+            End If
+        Next
     End Sub
 
     Private Sub lbNetwork_MouseDown(ByVal sender As Object, ByVal e As MouseEventArgs)
@@ -147,7 +154,13 @@ Public Class frmEstimation
             Case MouseButtons.Left
                 sender.DoDragDrop(sender.Items(sender.SelectedIndex).ToString, DragDropEffects.Copy Or DragDropEffects.Move)
             Case MouseButtons.Right
-                mnuListBox.Show(sender, New Point(e.X, e.Y))
+                Dim cnt As Integer
+                cnt = sender.SelectedItems.Count
+                If cnt = 1 Then
+                    mnuSingle.Show(sender, New Point(e.X, e.Y))
+                ElseIf cnt > 1 Then
+                    mnuMulti.Show(sender, New Point(e.X, e.Y))
+                End If
             Case MouseButtons.Middle
         End Select
     End Sub
@@ -175,7 +188,7 @@ Public Class frmEstimation
         For Each nod In net.GetNodes
             dgvRow = New DataGridViewRow
             dgvCell = New DataGridViewTextBoxCell()
-            dgvCell.Value = nod.id
+            dgvCell.Value = nod.Id
             dgvRow.Cells.Add(dgvCell)
             dgvCell = New DataGridViewTextBoxCell()
             dgvCell.Value = nod.Label
@@ -228,6 +241,35 @@ Public Class frmEstimation
     Private Sub itmDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmDelete.Click
         networks.Remove(lbActive.SelectedItem)
         lbActive.Items.Remove(lbActive.SelectedItem)
+    End Sub
+
+    Private Sub itmRename_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmRename.Click
+        Dim nam As String, oldnam As String, net As clsNetwork
+        frmRename.ShowDialog()
+        nam = frmRename.tbName.Text
+        If nam <> "" Then
+            If networks.Contains(nam) Then
+                MsgBox("Это имя уже используется")
+                Exit Sub
+            End If
+            oldnam = lbActive.SelectedItem
+            net = networks(oldnam)
+            networks.Remove(oldnam)
+            networks.Add(net, nam)
+            lbActive.Items(lbActive.SelectedIndex) = nam
+        End If
+    End Sub
+
+    Private Sub itmComboGraph_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmComboGraph.Click
+        Dim itm As Object, net As New clsNetwork
+        For Each itm In lbActive.SelectedItems
+            net.Join(networks(itm))
+        Next
+        frmGlee.CreateView(net)
+    End Sub
+
+    Private Sub itmCombo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmComboGraph.Click
+
     End Sub
 
     'Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click

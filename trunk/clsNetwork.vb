@@ -62,6 +62,7 @@ Public Class clsNetwork
             Else
                 nod = New clsNode
                 nod.Label = lab
+                nod.Id = lab
                 nod.Weight = n.Weight
                 nodes.Add(nod, lab)
             End If
