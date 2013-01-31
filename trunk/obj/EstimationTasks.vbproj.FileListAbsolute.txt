@@ -85,3 +85,4 @@ C:\Users\INaumov.LANIT\Desktop\EstimationTasks\estimation-problems\obj\Debug\Est
 C:\Users\INaumov.LANIT\Desktop\EstimationTasks\estimation-problems\obj\Debug\EstimationTasks.Resources.resources
 C:\Users\INaumov.LANIT\Desktop\EstimationTasks\estimation-problems\obj\Debug\EstimationTasks.vbproj.GenerateResource.Cache
 C:\Users\INaumov.LANIT\Desktop\EstimationTasks\estimation-problems\obj\Debug\EstimationTasks.frmRename.resources
+C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.frmRename.resources

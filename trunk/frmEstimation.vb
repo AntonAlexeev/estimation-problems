@@ -7,13 +7,16 @@ Public Class frmEstimation
     Private lbActive As ListBox
     Private WithEvents mnuSingle As ContextMenu
     Private WithEvents mnuMulti As ContextMenu
-    Private WithEvents itmDetailNodes As MenuItem
-    Private WithEvents itmDetailEdges As MenuItem
+    Private WithEvents itmNodes As MenuItem
+    Private WithEvents itmMNodes As MenuItem
+    Private WithEvents itmEdges As MenuItem
+    Private WithEvents itmMEdges As MenuItem
     Private WithEvents itmRename As MenuItem
-    Private WithEvents itmDelete As MenuItem
-    Private WithEvents itmGraph As MenuItem
     Private WithEvents itmCombain As MenuItem
-    Private WithEvents itmComboGraph As MenuItem
+    Private WithEvents itmDelete As MenuItem
+    Private WithEvents itmMDelete As MenuItem
+    Private WithEvents itmGraph As MenuItem
+    Private WithEvents itmMGraph As MenuItem
 
     Private Function JoinNetworks(ByRef list As ListBox.ObjectCollection) As clsNetwork
         Dim cnt As Integer
@@ -44,31 +47,30 @@ Public Class frmEstimation
         cmbNetworkType.SelectedIndex = 0
         ' Формирвоание контекстного меню mnuSingle
         mnuSingle = New ContextMenu
-        itmDetailNodes = New MenuItem
-        itmDetailEdges = New MenuItem
+        itmNodes = New MenuItem
+        itmEdges = New MenuItem
         itmGraph = New MenuItem
         itmRename = New MenuItem
         itmDelete = New MenuItem
-        mnuSingle.MenuItems.AddRange(New MenuItem() {itmDetailNodes, itmDetailEdges, itmGraph, itmRename, itmDelete})
-        itmDetailNodes.Index = 0
-        itmDetailNodes.Text = "Вершины"
-        itmDetailEdges.Index = 1
-        itmDetailEdges.Text = "Отношения"
-        itmGraph.Index = 2
-        itmGraph.Text = "Граф"
-        itmRename.Index = 3
-        itmRename.Text = "Переименовать"
-        itmDelete.Index = 4
-        itmDelete.Text = "Удалить"
+        mnuSingle.MenuItems.AddRange(New MenuItem() {itmNodes, itmEdges, itmGraph, itmRename, itmDelete})
+        itmNodes.Index = 0 : itmNodes.Text = "Вершины"
+        itmEdges.Index = 1 : itmEdges.Text = "Отношения"
+        itmGraph.Index = 2 : itmGraph.Text = "Граф"
+        itmRename.Index = 3 : itmRename.Text = "Переименовать"
+        itmDelete.Index = 4 : itmDelete.Text = "Удалить"
         ' Формирвоание контекстного меню mnuMulti
         mnuMulti = New ContextMenu
+        itmMNodes = New MenuItem
+        itmMEdges = New MenuItem
         itmCombain = New MenuItem
-        itmComboGraph = New MenuItem
-        mnuMulti.MenuItems.AddRange(New MenuItem() {itmCombain, itmComboGraph})
-        itmCombain.Index = 0
-        itmCombain.Text = "Объединить"
-        itmComboGraph.Index = 1
-        itmComboGraph.Text = "Граф"
+        itmMGraph = New MenuItem
+        itmMDelete = New MenuItem
+        mnuMulti.MenuItems.AddRange(New MenuItem() {itmMNodes, itmMEdges, itmMGraph, itmCombain, itmMDelete})
+        itmMNodes.Index = 0 : itmMNodes.Text = "Вершины"
+        itmMEdges.Index = 1 : itmMEdges.Text = "Отношения"
+        itmMGraph.Index = 2 : itmMGraph.Text = "Граф"
+        itmCombain.Index = 3 : itmCombain.Text = "Объединить"
+        itmMDelete.Index = 4 : itmMDelete.Text = "Удалить"
         ' Назначение событий
         AddHandler lbSubjectDomain.MouseDown, AddressOf lbNetwork_MouseDown
         AddHandler lbSolvedProblem.MouseDown, AddressOf lbNetwork_MouseDown
@@ -176,13 +178,25 @@ Public Class frmEstimation
         End If
     End Sub
 
-    Private Sub itmDetailNodes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmDetailNodes.Click
-        Dim dtv As DataGridView, net As clsNetwork, lab As String
+    Private Sub itmNodes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmNodes.Click, itmMNodes.Click
+        Dim dtv As DataGridView, net As clsNetwork, lab As String, cnt As Integer, itm As Object
         Dim dgvRow As DataGridViewRow, dgvCell As DataGridViewCell
         Dim nod As clsNode, edg As clsEdge
         dtv = frmNodes.dgvNodes
-        lab = lbActive.SelectedItem
-        net = networks(lab)
+        cnt = lbActive.SelectedItems.Count
+        lab = ""
+        If cnt = 1 Then
+            lab = lbActive.SelectedItem
+            net = networks(lab)
+        ElseIf cnt > 1 Then
+            net = New clsNetwork
+            For Each itm In lbActive.SelectedItems
+                net.Join(networks(itm))
+                lab = lab & itm & "| "
+            Next
+        Else
+            Exit Sub
+        End If
         frmNodes.Text = lab
         dtv.Rows.Clear()
         For Each nod In net.GetNodes
@@ -206,13 +220,25 @@ Public Class frmEstimation
         frmNodes.ShowDialog(Me)
     End Sub
 
-    Private Sub itmDetailEdges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmDetailEdges.Click
-        Dim dtv As DataGridView, net As clsNetwork, lab As String
+    Private Sub itmEdges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmEdges.Click, itmMEdges.Click
+        Dim dtv As DataGridView, net As clsNetwork, lab As String, cnt As Integer, itm As Object
         Dim dgvRow As DataGridViewRow, dgvCell As DataGridViewCell
         Dim edg As clsEdge
         dtv = frmEdges.dgvEdges
-        lab = lbActive.SelectedItem
-        net = networks(lab)
+        cnt = lbActive.SelectedItems.Count
+        lab = ""
+        If cnt = 1 Then
+            lab = lbActive.SelectedItem
+            net = networks(lab)
+        ElseIf cnt > 1 Then
+            net = New clsNetwork
+            For Each itm In lbActive.SelectedItems
+                net.Join(networks(itm))
+                lab = lab & itm & "| "
+            Next
+        Else
+            Exit Sub
+        End If
         frmNodes.Text = lab
         dtv.Rows.Clear()
         For Each edg In net.GetEdges
@@ -234,42 +260,69 @@ Public Class frmEstimation
         frmEdges.ShowDialog(Me)
     End Sub
 
-    Private Sub itmGraph_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmGraph.Click
-        frmGlee.CreateView(networks(lbActive.SelectedItem))
+    Private Sub itmGraph_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmGraph.Click, itmMGraph.Click
+        Dim itm As Object, net As New clsNetwork, cnt As Integer
+        cnt = lbActive.SelectedItems.Count
+        If cnt = 1 Then
+            net = networks(lbActive.SelectedItem)
+        ElseIf cnt > 1 Then
+            net = New clsNetwork
+            For Each itm In lbActive.SelectedItems
+                net.Join(networks(itm))
+            Next
+        Else
+            Exit Sub
+        End If
+        frmGlee.CreateView(net)
     End Sub
 
-    Private Sub itmDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmDelete.Click
-        networks.Remove(lbActive.SelectedItem)
-        lbActive.Items.Remove(lbActive.SelectedItem)
+    Private Sub itmDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmDelete.Click, itmMDelete.Click
+        Dim i As Integer, nam As String, net As New clsNetwork, cnt As Integer
+        cnt = lbActive.SelectedItems.Count
+        If cnt = 1 Then
+            networks.Remove(lbActive.SelectedItem)
+            lbActive.Items.Remove(lbActive.SelectedItem)
+        ElseIf cnt > 1 Then
+            For i = 0 To cnt - 1
+                nam = lbActive.SelectedItems(0)
+                networks.Remove(nam)
+                lbActive.Items.Remove(nam)
+            Next
+        Else
+            Exit Sub
+        End If
     End Sub
 
-    Private Sub itmRename_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmRename.Click
-        Dim nam As String, oldnam As String, net As clsNetwork
+    Private Sub itmRename_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmRename.Click, itmCombain.Click
+        Dim nam As String, oldnam As String, net As clsNetwork, cnt As Integer, i As Integer
         frmRename.ShowDialog()
         nam = frmRename.tbName.Text
         If nam <> "" Then
             If networks.Contains(nam) Then
-                MsgBox("Это имя уже используется")
+                MsgBox("Имя " & nam & " уже используется")
                 Exit Sub
             End If
-            oldnam = lbActive.SelectedItem
-            net = networks(oldnam)
-            networks.Remove(oldnam)
-            networks.Add(net, nam)
-            lbActive.Items(lbActive.SelectedIndex) = nam
+            cnt = lbActive.SelectedItems.Count
+            If cnt = 1 Then
+                oldnam = lbActive.SelectedItem
+                net = networks(oldnam)
+                networks.Remove(oldnam)
+                networks.Add(net, nam)
+                lbActive.Items(lbActive.SelectedIndex) = nam
+            ElseIf cnt > 1 Then
+                net = New clsNetwork
+                For i = 0 To cnt - 1
+                    oldnam = lbActive.SelectedItems(0)
+                    net.Join(networks(oldnam))
+                    networks.Remove(oldnam)
+                    lbActive.Items.Remove(oldnam)
+                Next
+                networks.Add(net, nam)
+                lbActive.Items.Add(nam)
+            Else
+                Exit Sub
+            End If
         End If
-    End Sub
-
-    Private Sub itmComboGraph_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmComboGraph.Click
-        Dim itm As Object, net As New clsNetwork
-        For Each itm In lbActive.SelectedItems
-            net.Join(networks(itm))
-        Next
-        frmGlee.CreateView(net)
-    End Sub
-
-    Private Sub itmCombo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmComboGraph.Click
-
     End Sub
 
     'Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
