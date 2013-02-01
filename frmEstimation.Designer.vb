@@ -225,13 +225,14 @@ Partial Class frmEstimation
         'lbSolvedProblem
         '
         Me.lbSolvedProblem.AllowDrop = True
+        Me.lbSolvedProblem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lbSolvedProblem.FormattingEnabled = True
         Me.lbSolvedProblem.ItemHeight = 16
         Me.lbSolvedProblem.Location = New System.Drawing.Point(285, 44)
         Me.lbSolvedProblem.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbSolvedProblem.Name = "lbSolvedProblem"
         Me.lbSolvedProblem.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lbSolvedProblem.Size = New System.Drawing.Size(200, 196)
+        Me.lbSolvedProblem.Size = New System.Drawing.Size(200, 194)
         Me.lbSolvedProblem.TabIndex = 10
         '
         'gbEstimation
