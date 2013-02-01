@@ -84,6 +84,10 @@ Public Class frmEstimation
         AddHandler lbSolvedProblem.DragDrop, AddressOf lbNetwork_DragDrop
         AddHandler lbUnsolvedProblem.DragDrop, AddressOf lbNetwork_DragDrop
         AddHandler lbUnused.DragDrop, AddressOf lbNetwork_DragDrop
+        AddHandler lbSubjectDomain.KeyPress, AddressOf lbNetwork_KeyPress
+        AddHandler lbSolvedProblem.KeyPress, AddressOf lbNetwork_KeyPress
+        AddHandler lbUnsolvedProblem.KeyPress, AddressOf lbNetwork_KeyPress
+        AddHandler lbUnused.KeyPress, AddressOf lbNetwork_KeyPress
     End Sub
 
     Private Sub btnEstimate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEstimate.Click
@@ -176,6 +180,16 @@ Public Class frmEstimation
             sender.Items.Add(e.Data.GetData(DataFormats.Text).ToString)
             lbActive.Items.Remove(lbActive.Items(lbActive.SelectedIndex))
         End If
+    End Sub
+
+    Private Sub lbNetwork_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+        Dim i As Integer
+        Select Case e.KeyChar
+            Case Chr(1)
+                For i = 0 To sender.Items.Count - 1
+                    sender.SetSelected(i, True)
+                Next
+        End Select
     End Sub
 
     Private Sub itmNodes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmNodes.Click, itmMNodes.Click
