@@ -5,8 +5,12 @@ Imports EstimationTasks.mdlGlobal.strEstimation
 Public Class frmEstimation
     Private networks As Collection
     Private lbActive As ListBox
+    Private WithEvents mnuEmpty As ContextMenu
     Private WithEvents mnuSingle As ContextMenu
     Private WithEvents mnuMulti As ContextMenu
+    Private WithEvents itmLoad As MenuItem
+    Private WithEvents itmSLoad As MenuItem
+    Private WithEvents itmMLoad As MenuItem
     Private WithEvents itmNodes As MenuItem
     Private WithEvents itmMNodes As MenuItem
     Private WithEvents itmEdges As MenuItem
@@ -44,33 +48,41 @@ Public Class frmEstimation
 
     Private Sub frmEstimation_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         networks = New Collection
-        cmbNetworkType.SelectedIndex = 0
+        ' Формирвоание контекстного меню mnuEmpty
+        mnuEmpty = New ContextMenu
+        itmLoad = New MenuItem
+        mnuEmpty.MenuItems.AddRange(New MenuItem() {itmLoad})
+        itmLoad.Index = 0 : itmLoad.Text = "Загрузить"
         ' Формирвоание контекстного меню mnuSingle
         mnuSingle = New ContextMenu
+        itmSLoad = New MenuItem
         itmNodes = New MenuItem
         itmEdges = New MenuItem
         itmGraph = New MenuItem
         itmRename = New MenuItem
         itmDelete = New MenuItem
-        mnuSingle.MenuItems.AddRange(New MenuItem() {itmNodes, itmEdges, itmGraph, itmRename, itmDelete})
-        itmNodes.Index = 0 : itmNodes.Text = "Вершины"
-        itmEdges.Index = 1 : itmEdges.Text = "Отношения"
-        itmGraph.Index = 2 : itmGraph.Text = "Граф"
-        itmRename.Index = 3 : itmRename.Text = "Переименовать"
-        itmDelete.Index = 4 : itmDelete.Text = "Удалить"
+        mnuSingle.MenuItems.AddRange(New MenuItem() {itmSLoad, itmNodes, itmEdges, itmGraph, itmRename, itmDelete})
+        itmSLoad.Index = 0 : itmSLoad.Text = "Загрузить"
+        itmNodes.Index = 1 : itmNodes.Text = "Вершины"
+        itmEdges.Index = 2 : itmEdges.Text = "Отношения"
+        itmGraph.Index = 3 : itmGraph.Text = "Граф"
+        itmRename.Index = 4 : itmRename.Text = "Переименовать"
+        itmDelete.Index = 5 : itmDelete.Text = "Удалить"
         ' Формирвоание контекстного меню mnuMulti
         mnuMulti = New ContextMenu
+        itmMLoad = New MenuItem
         itmMNodes = New MenuItem
         itmMEdges = New MenuItem
         itmCombain = New MenuItem
         itmMGraph = New MenuItem
         itmMDelete = New MenuItem
-        mnuMulti.MenuItems.AddRange(New MenuItem() {itmMNodes, itmMEdges, itmMGraph, itmCombain, itmMDelete})
-        itmMNodes.Index = 0 : itmMNodes.Text = "Вершины"
-        itmMEdges.Index = 1 : itmMEdges.Text = "Отношения"
-        itmMGraph.Index = 2 : itmMGraph.Text = "Граф"
-        itmCombain.Index = 3 : itmCombain.Text = "Объединить"
-        itmMDelete.Index = 4 : itmMDelete.Text = "Удалить"
+        mnuMulti.MenuItems.AddRange(New MenuItem() {itmMLoad, itmMNodes, itmMEdges, itmMGraph, itmCombain, itmMDelete})
+        itmMLoad.Index = 0 : itmMLoad.Text = "Загрузить"
+        itmMNodes.Index = 1 : itmMNodes.Text = "Вершины"
+        itmMEdges.Index = 2 : itmMEdges.Text = "Отношения"
+        itmMGraph.Index = 3 : itmMGraph.Text = "Граф"
+        itmCombain.Index = 4 : itmCombain.Text = "Объединить"
+        itmMDelete.Index = 5 : itmMDelete.Text = "Удалить"
         ' Назначение событий
         AddHandler lbSubjectDomain.MouseDown, AddressOf lbNetwork_MouseDown
         AddHandler lbSolvedProblem.MouseDown, AddressOf lbNetwork_MouseDown
@@ -120,53 +132,24 @@ Public Class frmEstimation
         End If
     End Sub
 
-    Private Sub btnLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoad.Click
-        OpenFileDialog.Title = "Выберите файл(ы)"
-        OpenFileDialog.ShowDialog()
-    End Sub
-
-    Private Sub OpenFileDialog_FileOk(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles OpenFileDialog.FileOk
-        Dim nam As String, net As clsNetwork, path As String
-        For Each path In OpenFileDialog.FileNames
-            nam = IO.Path.GetFileNameWithoutExtension(path)
-            If Not networks.Contains(nam) Then
-                net = New clsNetwork
-                If Not net.Load(path) Then
-                    MsgBox("Не удалось загрузить семантичскую сеть " & nam)
-                    Continue For
-                End If
-                net.Name = nam
-                net.URL = path
-                networks.Add(net, nam)
-                Select Case cmbNetworkType.SelectedIndex
-                    Case 0
-                        lbSolvedProblem.Items.Add(nam)
-                    Case 1
-                        lbUnsolvedProblem.Items.Add(nam)
-                    Case 2
-                        lbSubjectDomain.Items.Add(nam)
-                End Select
-            Else
-                MsgBox("Имя " & nam & " уже используется")
-                Continue For
-            End If
-        Next
-    End Sub
-
     Private Sub lbNetwork_MouseDown(ByVal sender As Object, ByVal e As MouseEventArgs)
-        If sender.SelectedIndex < 0 Then Return
+        Dim cnt As Integer
         lbActive = sender
+        cnt = lbActive.SelectedItems.Count
         Select Case e.Button
             Case MouseButtons.Left
-                sender.DoDragDrop(sender.Items(sender.SelectedIndex).ToString, DragDropEffects.Copy Or DragDropEffects.Move)
-            Case MouseButtons.Right
-                Dim cnt As Integer
-                cnt = sender.SelectedItems.Count
                 If cnt = 1 Then
-                    mnuSingle.Show(sender, New Point(e.X, e.Y))
-                ElseIf cnt > 1 Then
-                    mnuMulti.Show(sender, New Point(e.X, e.Y))
+                    sender.DoDragDrop(sender.Items(sender.SelectedIndex).ToString, DragDropEffects.Copy Or DragDropEffects.Move)
                 End If
+            Case MouseButtons.Right
+                Select Case cnt
+                    Case 0
+                        mnuEmpty.Show(sender, New Point(e.X, e.Y))
+                    Case 1
+                        mnuSingle.Show(sender, New Point(e.X, e.Y))
+                    Case Is > 1
+                        mnuMulti.Show(sender, New Point(e.X, e.Y))
+                End Select
             Case MouseButtons.Middle
         End Select
     End Sub
@@ -190,6 +173,32 @@ Public Class frmEstimation
                     sender.SetSelected(i, True)
                 Next
         End Select
+    End Sub
+
+    Private Sub OpenFileDialog_FileOk(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles OpenFileDialog.FileOk
+        Dim nam As String, net As clsNetwork, path As String
+        For Each path In OpenFileDialog.FileNames
+            nam = IO.Path.GetFileNameWithoutExtension(path)
+            If Not networks.Contains(nam) Then
+                net = New clsNetwork
+                If Not net.Load(path) Then
+                    MsgBox("Не удалось загрузить семантичскую сеть " & nam)
+                    Continue For
+                End If
+                net.Name = nam
+                net.URL = path
+                networks.Add(net, nam)
+                lbActive.Items.Add(nam)
+            Else
+                MsgBox("Имя " & nam & " уже используется")
+                Continue For
+            End If
+        Next
+    End Sub
+
+    Private Sub itmLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmLoad.Click, itmSLoad.Click, itmMLoad.Click
+        OpenFileDialog.Title = "Выберите файл(ы)"
+        OpenFileDialog.ShowDialog()
     End Sub
 
     Private Sub itmNodes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmNodes.Click, itmMNodes.Click
