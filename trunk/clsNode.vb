@@ -51,8 +51,12 @@ Public Class clsNode
         End Set
     End Property
 
-    Public Sub AddEdge(ByRef edg As clsEdge)
-        edges_.Add(edg)
+    Public Sub AddEdge(ByRef edg As clsEdge, Optional ByVal key As String = "")
+        If key = "" Then
+            edges_.Add(edg)
+        Else
+            edges_.Add(edg, key)
+        End If
     End Sub
 
     Public Function Siblings(Optional ByVal dir As Integer = dirNone) As Collection

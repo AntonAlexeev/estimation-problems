@@ -62,8 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsEdge.vb" />
+    <Compile Include="clsGraphml.vb" />
     <Compile Include="clsNetwork.vb" />
     <Compile Include="clsNode.vb" />
+    <Compile Include="clsUNL.vb" />
     <Compile Include="frmEdges.Designer.vb">
       <DependentUpon>frmEdges.vb</DependentUpon>
     </Compile>
