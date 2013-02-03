@@ -32,33 +32,44 @@ Partial Class frmNodes
         '
         'dgvNodes
         '
+        Me.dgvNodes.AllowUserToAddRows = False
+        Me.dgvNodes.AllowUserToDeleteRows = False
+        Me.dgvNodes.BackgroundColor = System.Drawing.SystemColors.Control
         Me.dgvNodes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvNodes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.clmId, Me.clmNode, Me.clmFrequency, Me.clmEdges})
         Me.dgvNodes.Location = New System.Drawing.Point(-2, 0)
         Me.dgvNodes.Margin = New System.Windows.Forms.Padding(2)
         Me.dgvNodes.Name = "dgvNodes"
+        Me.dgvNodes.ReadOnly = True
+        Me.dgvNodes.RowHeadersVisible = False
         Me.dgvNodes.RowTemplate.Height = 24
         Me.dgvNodes.Size = New System.Drawing.Size(720, 488)
         Me.dgvNodes.TabIndex = 0
         '
         'clmId
         '
+        Me.clmId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.clmId.HeaderText = "Id"
+        Me.clmId.MinimumWidth = 50
         Me.clmId.Name = "clmId"
         Me.clmId.ReadOnly = True
+        Me.clmId.Width = 50
         '
         'clmNode
         '
+        Me.clmNode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.clmNode.HeaderText = "Вершина"
+        Me.clmNode.MinimumWidth = 100
         Me.clmNode.Name = "clmNode"
         Me.clmNode.ReadOnly = True
-        Me.clmNode.Width = 200
         '
         'clmFrequency
         '
+        Me.clmFrequency.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.clmFrequency.HeaderText = "Частота"
         Me.clmFrequency.Name = "clmFrequency"
         Me.clmFrequency.ReadOnly = True
+        Me.clmFrequency.Width = 74
         '
         'clmEdges
         '

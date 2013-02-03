@@ -40,14 +40,28 @@ Public Class clsNetwork
     End Property
 
     Public Function Load(ByVal path As String) As Boolean
-        Dim ext As String
+        Dim ext As String, net As clsNetwork
+        net = Nothing
         ext = IO.Path.GetExtension(path)
         Select Case ext
             Case ".graphml"
-                Load = GraphML(path)
+                Dim graphml As New clsGraphml
+                If graphml.Load(path) Then
+                    net = graphml.GetNetwork
+                End If
             Case ".unl"
-                Load = UNL(path)
+                Dim unl As New clsUNL
+                If unl.Load(path) Then
+                    net = unl.GetNetwork
+                End If
         End Select
+        If Not net Is Nothing Then
+            nodes = net.GetNodes
+            edges = net.GetEdges
+            '    If Join(net) Then
+            Load = True
+            '    End If
+        End If
     End Function
 
     Public Function Join(ByRef net As clsNetwork) As Boolean
@@ -82,11 +96,14 @@ Public Class clsNetwork
                 edg = New clsEdge
                 edg.Source = nodes(e.Source.Label)
                 edg.Target = nodes(e.Target.Label)
-                nodes(src).AddEdge(edg)
-                nodes(tar).AddEdge(edg)
+                nodes(src).AddEdge(edg, lab)
+                If src <> tar Then
+                    nodes(tar).AddEdge(edg, lab)
+                End If
                 edg.Weight = e.Weight
+                edg.id = lab
                 edges.Add(edg, lab)
-            End If
+                End If
         Next
         Join = True
     End Function
@@ -136,206 +153,51 @@ Public Class clsNetwork
         Next
     End Function
 
-    Private Function GraphML(ByVal path As String) As Boolean
-        Dim xr As XmlReader = XmlReader.Create(path)
-        Dim xnod As XmlReader, xshp As XmlReader, xdat As XmlReader
-        While xr.Read()
-            If xr.IsStartElement Then
-                Select Case xr.Name
-                    Case "node"
-                        Dim id As String, wei As Integer, lab As String, str As String
-                        id = "" : wei = 1 : lab = ""
-                        id = xr.GetAttribute("id")
-                        xnod = xr.ReadSubtree()
-                        If xnod.ReadToFollowing("data") Then
-                            Do
-                                If xnod.IsStartElement Then
-                                    Select Case xnod.GetAttribute("key")
-                                        Case "d4"
-                                            str = xnod.ReadString()
-                                            If IsNumeric(str) Then
-                                                wei = CInt(str)
-                                            End If
-                                        Case Else
-                                            xdat = xnod.ReadSubtree()
-                                            If xdat.ReadToFollowing("y:ShapeNode") Then
-                                                xshp = xnod.ReadSubtree()
-                                                Do
-                                                    If xr.IsStartElement Then
-                                                        Select Case xshp.LocalName
-                                                            Case "Geometry"
-                                                            Case "Fill"
-                                                            Case "BorderStyle"
-                                                            Case "NodeLabel"
-                                                                lab = xshp.ReadString
-                                                            Case "Shape"
-                                                        End Select
-                                                    End If
-                                                Loop While xshp.Read()
-                                            End If
-                                    End Select
-                                    xnod.ReadToNextSibling("data")
-                                End If
-                            Loop While xnod.Read()
-                            If id <> "" And lab <> "" Then
-                                Dim nod As New clsNode
-                                nod.id = id
-                                nod.Label = lab
-                                nod.Weight = wei
-                                nodes.Add(nod, id)
-                            End If
-                        End If
-                    Case "edge"
-                        Dim id As String, src As String, tar As String, lab As String
-                        id = "" : lab = "" : src = "" : tar = ""
-                        id = xr.GetAttribute("id")
-                        src = xr.GetAttribute("source")
-                        tar = xr.GetAttribute("target")
-                        xnod = xr.ReadSubtree()
-                        If xnod.ReadToFollowing("data") Then
-                            Do
-                                If xnod.IsStartElement Then
-                                    Select Case xnod.GetAttribute("key")
-                                        Case "d9"
-                                        Case Else
-                                            xdat = xnod.ReadSubtree()
-                                            If xdat.ReadToFollowing("y:PolyLineEdge") Then
-                                                xshp = xnod.ReadSubtree()
-                                                Do
-                                                    If xr.IsStartElement Then
-                                                        Select Case xshp.LocalName
-                                                            Case "Path"
-                                                            Case "LineStyle"
-                                                            Case "Arrows"
-                                                            Case "EdgeLabel"
-                                                                lab = xshp.ReadString
-                                                            Case "BendStyle"
-                                                        End Select
-                                                    End If
-                                                Loop While xshp.Read()
-                                            End If
-                                    End Select
-                                    xnod.ReadToNextSibling("data")
-                                End If
-                            Loop While xnod.Read()
-                            If id <> "" And src <> "" And tar <> "" Then
-                                Dim srcnod As clsNode, tarnod As clsNode, edg As New clsEdge
-                                srcnod = nodes.Item(src)
-                                tarnod = nodes.Item(tar)
-                                edg.Source = srcnod
-                                edg.Target = tarnod
-                                If IsNumeric(lab) Then
-                                    edg.Weight = CInt(lab)
-                                Else
-                                    edg.Weight = 1
-                                End If
-                                edg.id = id
-                                srcnod.AddEdge(edg)
-                                tarnod.AddEdge(edg)
-                                edges.Add(edg, id)
-                            End If
-                        End If
-                End Select
-            End If
-        End While
-        GraphML = True
-    End Function
-
-    Private Function UNL(ByVal path) As Boolean
-        Dim xr As XmlReader = XmlReader.Create(path)
-        Dim tree As New clsNetwork, nods As Collection, edgs As Collection
-        nods = tree.nodes
-        edgs = tree.edges
-        Dim i As Integer
-        While xr.Read()
-            If xr.IsStartElement Then
-                If xr.Name = "S" Then
-                    While xr.Read()
-                        If xr.IsStartElement Then
-                            Select Case xr.Name
-                                Case "W"
-                                    Dim word As strWord, srcnod As clsNode, tarnod As clsNode, edg As clsEdge
-                                    word.Id = xr.GetAttribute("ID")
-                                    word.Lemma = xr.GetAttribute("LEMMA")
-                                    word.Link = xr.GetAttribute("LINK")
-                                    word.Dom = xr.GetAttribute("DOM")
-                                    word.Feat = xr.GetAttribute("FEAT")
-                                    If Not nods.Contains(word.Id) Then
-                                        tarnod = New clsNode
-                                        nods.Add(tarnod, word.Id)
-                                    Else
-                                        tarnod = nods.Item(word.Id)
-                                    End If
-                                    tarnod.Word = word
-                                    tarnod.Weight = 1
-                                    If word.Dom <> "_root" Then
-                                        If Not nods.Contains(word.Dom) Then
-                                            srcnod = New clsNode
-                                            nods.Add(srcnod, word.Dom)
-                                        Else
-                                            srcnod = nods.Item(word.Dom)
-                                        End If
-                                        edg = New clsEdge
-                                        edg.id = CStr(i)
-                                        edg.Type = edgWord
-                                        edg.Weight = 1
-                                        edg.Source = srcnod
-                                        edg.Target = tarnod
-                                        srcnod.AddEdge(edg)
-                                        tarnod.AddEdge(edg)
-                                        edgs.Add(edg, i)
-                                        i += 1
-                                    End If
-                                Case "LF"
-                                    Dim lf As strLFunction, srcnod As clsNode, tarnod As clsNode, edg As clsEdge
-                                    lf.LFArg = xr.GetAttribute("LFARG")
-                                    lf.LFFunc = xr.GetAttribute("LFFUNC")
-                                    lf.LFVal = xr.GetAttribute("LFVAL")
-                                    If Not nods.Contains(lf.LFVal) Then
-                                        tarnod = New clsNode
-                                        nods.Add(tarnod, lf.LFVal)
-                                    Else
-                                        tarnod = nods.Item(lf.LFVal)
-                                    End If
-                                    tarnod.Weight = 1
-                                    If Not nods.Contains(lf.LFArg) Then
-                                        srcnod = New clsNode
-                                        nods.Add(srcnod, lf.LFArg)
-                                    Else
-                                        srcnod = nods.Item(lf.LFArg)
-                                    End If
-                                    edg = New clsEdge
-                                    edg.id = CStr(i)
-                                    edg.Type = edgLFunction
-                                    edg.LFunction = lf
-                                    edg.Weight = 1
-                                    edg.Source = srcnod
-                                    edg.Target = tarnod
-                                    srcnod.AddEdge(edg)
-                                    tarnod.AddEdge(edg)
-                                    edgs.Add(edg, i)
-                                    i += 1
-                            End Select
-                        End If
-                    End While
-                End If
-            End If
-        End While
-        ' Конвертация семантической сети дерева в семантическую сеть понятий
-        If tree.ToConcepts() Then
+    Public Sub Delete(ByRef ent As Object)
+        Dim edg As clsEdge, id As String, sib As clsNode
+        If TypeOf ent Is clsNode Then
+            For Each edg In ent.Edges
+                id = edg.id
+                sib = edg.Sibling(ent)
+                sib.Edges.Remove(id)
+                edges.Remove(id)
+            Next
+            nodes.Remove(ent.id)
+        ElseIf TypeOf ent Is clsEdge Then
+            edges.Remove(ent.Label)
         End If
-        ' Присоединение к сущетсвующей сети
-        If Join(tree) Then
-        End If
-        nodes = tree.nodes
-        edges = tree.edges
-        UNL = True
-UNL_Error:
-    End Function
+    End Sub
 
-    Private Function ToConcepts() As Boolean
-        ToConcepts = True
-    End Function
+    Public Sub Exclude(ByRef nod As clsNode)
+        Dim tar As New Collection, src As New Collection, e As clsEdge, t As clsNode, s As clsNode, edg As clsEdge
+        Dim lab As String, i As Integer
+        For Each e In nod.Edges
+            If e.Source Is nod Then
+                tar.Add(e.Target)
+            ElseIf e.Target Is nod Then
+                src.Add(e.Source)
+            End If
+        Next
+        Delete(nod)
+        For Each t In tar
+            For Each s In src
+                edg = New clsEdge
+                edg.Type = edgWord
+                edg.Weight = 1
+                edg.Source = s
+                edg.Target = t
+                lab = edg.Label
+                i = 1
+                While edges.Contains(lab)
+                    lab = lab & i
+                End While
+                edg.id = lab
+                s.AddEdge(edg, lab)
+                t.AddEdge(edg, lab)
+                edges.Add(edg, lab)
+            Next
+        Next
+    End Sub
 
     Public Sub New()
         nodes = New Collection

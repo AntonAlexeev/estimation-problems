@@ -32,49 +32,66 @@ Partial Class frmEdges
         '
         'dgvEdges
         '
+        Me.dgvEdges.AllowUserToAddRows = False
+        Me.dgvEdges.AllowUserToDeleteRows = False
+        Me.dgvEdges.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.dgvEdges.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.dgvEdges.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvEdges.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEdges.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.clmId, Me.clmSource, Me.clmTarget, Me.clmWeight})
-        Me.dgvEdges.Location = New System.Drawing.Point(1, 2)
-        Me.dgvEdges.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.dgvEdges.Location = New System.Drawing.Point(0, 0)
+        Me.dgvEdges.Margin = New System.Windows.Forms.Padding(2)
         Me.dgvEdges.Name = "dgvEdges"
+        Me.dgvEdges.ReadOnly = True
+        Me.dgvEdges.RowHeadersVisible = False
         Me.dgvEdges.RowTemplate.Height = 24
-        Me.dgvEdges.Size = New System.Drawing.Size(594, 479)
+        Me.dgvEdges.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.dgvEdges.Size = New System.Drawing.Size(579, 500)
         Me.dgvEdges.TabIndex = 0
         '
         'clmId
         '
+        Me.clmId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.clmId.HeaderText = "Id"
+        Me.clmId.MinimumWidth = 50
         Me.clmId.Name = "clmId"
         Me.clmId.ReadOnly = True
         Me.clmId.Width = 50
         '
         'clmSource
         '
+        Me.clmSource.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.clmSource.HeaderText = "Начальная вершина"
+        Me.clmSource.MinimumWidth = 150
         Me.clmSource.Name = "clmSource"
         Me.clmSource.ReadOnly = True
-        Me.clmSource.Width = 200
+        Me.clmSource.Width = 150
         '
         'clmTarget
         '
+        Me.clmTarget.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.clmTarget.HeaderText = "Конечная вершина"
+        Me.clmTarget.MinimumWidth = 150
         Me.clmTarget.Name = "clmTarget"
         Me.clmTarget.ReadOnly = True
-        Me.clmTarget.Width = 200
+        Me.clmTarget.Width = 150
         '
         'clmWeight
         '
+        Me.clmWeight.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.clmWeight.HeaderText = "Вес"
+        Me.clmWeight.MinimumWidth = 50
         Me.clmWeight.Name = "clmWeight"
         Me.clmWeight.ReadOnly = True
+        Me.clmWeight.Width = 51
         '
         'frmEdges
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(620, 483)
+        Me.ClientSize = New System.Drawing.Size(590, 527)
         Me.Controls.Add(Me.dgvEdges)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "frmEdges"
         Me.Text = "frmEdge"
         CType(Me.dgvEdges, System.ComponentModel.ISupportInitialize).EndInit()

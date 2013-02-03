@@ -202,10 +202,7 @@ Public Class frmEstimation
     End Sub
 
     Private Sub itmNodes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmNodes.Click, itmMNodes.Click
-        Dim dtv As DataGridView, net As clsNetwork, lab As String, cnt As Integer, itm As Object
-        Dim dgvRow As DataGridViewRow, dgvCell As DataGridViewCell
-        Dim nod As clsNode, edg As clsEdge
-        dtv = frmNodes.dgvNodes
+        Dim net As clsNetwork, lab As String, cnt As Integer, itm As Object
         cnt = lbActive.SelectedItems.Count
         lab = ""
         If cnt = 1 Then
@@ -221,33 +218,12 @@ Public Class frmEstimation
             Exit Sub
         End If
         frmNodes.Text = lab
-        dtv.Rows.Clear()
-        For Each nod In net.GetNodes
-            dgvRow = New DataGridViewRow
-            dgvCell = New DataGridViewTextBoxCell()
-            dgvCell.Value = nod.Id
-            dgvRow.Cells.Add(dgvCell)
-            dgvCell = New DataGridViewTextBoxCell()
-            dgvCell.Value = nod.Label
-            dgvRow.Cells.Add(dgvCell)
-            dgvCell = New DataGridViewTextBoxCell()
-            dgvCell.Value = nod.Weight
-            dgvRow.Cells.Add(dgvCell)
-            dgvCell = New DataGridViewTextBoxCell()
-            For Each edg In nod.Edges
-                dgvCell.Value += edg.Sibling(nod).Label & " | "
-            Next
-            dgvRow.Cells.Add(dgvCell)
-            dtv.Rows.Add(dgvRow)
-        Next
+        frmNodes.SetNodes = net.GetNodes
         frmNodes.ShowDialog(Me)
     End Sub
 
     Private Sub itmEdges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmEdges.Click, itmMEdges.Click
-        Dim dtv As DataGridView, net As clsNetwork, lab As String, cnt As Integer, itm As Object
-        Dim dgvRow As DataGridViewRow, dgvCell As DataGridViewCell
-        Dim edg As clsEdge
-        dtv = frmEdges.dgvEdges
+        Dim net As clsNetwork, lab As String, cnt As Integer, itm As Object
         cnt = lbActive.SelectedItems.Count
         lab = ""
         If cnt = 1 Then
@@ -262,24 +238,8 @@ Public Class frmEstimation
         Else
             Exit Sub
         End If
-        frmNodes.Text = lab
-        dtv.Rows.Clear()
-        For Each edg In net.GetEdges
-            dgvRow = New DataGridViewRow
-            dgvCell = New DataGridViewTextBoxCell()
-            dgvCell.Value = edg.id
-            dgvRow.Cells.Add(dgvCell)
-            dgvCell = New DataGridViewTextBoxCell()
-            dgvRow.Cells.Add(dgvCell)
-            dgvCell.Value = edg.Source.Label
-            dgvCell = New DataGridViewTextBoxCell()
-            dgvRow.Cells.Add(dgvCell)
-            dgvCell.Value = edg.Target.Label
-            dgvCell = New DataGridViewTextBoxCell()
-            dgvRow.Cells.Add(dgvCell)
-            dgvCell.Value = edg.Weight
-            dtv.Rows.Add(dgvRow)
-        Next
+        frmEdges.Text = lab
+        frmEdges.SetEdges = net.GetEdges
         frmEdges.ShowDialog(Me)
     End Sub
 
@@ -347,6 +307,10 @@ Public Class frmEstimation
             End If
         End If
     End Sub
+
+    'Private Sub itmConvert_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmConvert.Click
+    '    networks.Item(lbActive.SelectedItem).Convert()
+    'End Sub
 
     'Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
     '    Dim syn As clsSyntax = New clsSyntax()
