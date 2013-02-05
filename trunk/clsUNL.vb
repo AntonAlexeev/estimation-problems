@@ -14,6 +14,7 @@ Public Class clsUNL
 
     Public Function Load(ByVal path) As Boolean
         Dim xr As XmlReader = XmlReader.Create(path)
+        Dim word As strWord, lf As strLFunction, srcnod As clsNode, tarnod As clsNode, edg As clsEdge
         Dim i As Integer
         While xr.Read()
             If xr.IsStartElement Then
@@ -22,7 +23,7 @@ Public Class clsUNL
                         If xr.IsStartElement Then
                             Select Case xr.Name
                                 Case "W"
-                                    Dim word As strWord, srcnod As clsNode, tarnod As clsNode, edg As clsEdge
+                                    word = New strWord
                                     word.Id = xr.GetAttribute("ID")
                                     word.Lemma = xr.GetAttribute("LEMMA")
                                     word.Link = xr.GetAttribute("LINK")
@@ -55,7 +56,7 @@ Public Class clsUNL
                                         i += 1
                                     End If
                                 Case "LF"
-                                    Dim lf As strLFunction, srcnod As clsNode, tarnod As clsNode, edg As clsEdge
+                                    lf = New strLFunction
                                     lf.LFArg = xr.GetAttribute("LFARG")
                                     lf.LFFunc = xr.GetAttribute("LFFUNC")
                                     lf.LFVal = xr.GetAttribute("LFVAL")
