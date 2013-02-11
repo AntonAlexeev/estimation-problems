@@ -10,6 +10,21 @@ Module mdlGlobal
         edgLFunction = 1
     End Enum
 
+    Public Enum enCategory
+        catNoun = 0     ' —ущестительное
+        catAdj = 1      ' ѕрилагательное
+        catVerb = 2     ' глагол
+        catAdv = 3      ' наречие
+        catNum = 4      ' числительное
+        catExc = 5      ' предлог
+        catComp = 6     ' композит
+        catUnion = 7    ' союз
+        catPart = 8     ' частица
+        catSent = 9     ' слово-предложени
+        catInt = 10     ' междометие
+        catFor = 11     ' ино€зычное
+    End Enum
+
     Public Structure strEstimation
         Private dif As Double
         Private SD As Double

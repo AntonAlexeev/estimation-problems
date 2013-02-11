@@ -66,10 +66,10 @@
     <Compile Include="clsNetwork.vb" />
     <Compile Include="clsNode.vb" />
     <Compile Include="clsUNL.vb" />
-    <Compile Include="frmEdges.Designer.vb">
-      <DependentUpon>frmEdges.vb</DependentUpon>
+    <Compile Include="frmStatistic.Designer.vb">
+      <DependentUpon>frmStatistic.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmEdges.vb">
+    <Compile Include="frmStatistic.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmEstimation.vb">
@@ -83,12 +83,6 @@
       <DependentUpon>frmGlee.vb</DependentUpon>
     </Compile>
     <Compile Include="frmGlee.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmNodes.Designer.vb">
-      <DependentUpon>frmNodes.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmNodes.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmRename.Designer.vb">
@@ -115,9 +109,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="frmEdges.resx">
+    <EmbeddedResource Include="frmStatistic.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>frmEdges.vb</DependentUpon>
+      <DependentUpon>frmStatistic.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEstimation.resx">
       <SubType>Designer</SubType>
@@ -126,10 +120,6 @@
     <EmbeddedResource Include="frmGlee.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmGlee.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmNodes.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmNodes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmRename.resx">
       <SubType>Designer</SubType>
