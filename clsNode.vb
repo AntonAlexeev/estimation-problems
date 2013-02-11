@@ -5,6 +5,7 @@ Public Class clsNode
     Private label_ As String
     Private weight_ As Integer
     Private word_ As strWord
+    Private category_ As Integer
     Private edges_ As New Collection
 
     Public Property Id() As String
@@ -48,6 +49,15 @@ Public Class clsNode
             word_ = value
             id_ = value.Id
             label_ = value.Lemma
+        End Set
+    End Property
+
+    Public Property Category() As Object
+        Get
+            Category = category_
+        End Get
+        Set(ByVal value As Object)
+            category_ = value
         End Set
     End Property
 

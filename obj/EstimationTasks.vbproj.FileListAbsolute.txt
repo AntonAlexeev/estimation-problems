@@ -30,8 +30,6 @@ C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.Resourc
 C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.vbproj.GenerateResource.Cache
 C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.frmEdges.resources
 C:\Users\INaumov.LANIT\Desktop\EstimationTasks\obj\Debug\EstimationTasks.frmNodes.resources
-C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.frmEdges.resources
-C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.frmNodes.resources
 C:\Users\Naigsa\Desktop\EstimationProblem\bin\Release\EstimationTasks.exe
 C:\Users\Naigsa\Desktop\EstimationProblem\bin\Release\EstimationTasks.pdb
 C:\Users\Naigsa\Desktop\EstimationProblem\bin\Release\EstimationTasks.xml
@@ -103,3 +101,4 @@ C:\Users\INaumov\Desktop\estimation-problems\obj\Debug\EstimationTasks.frmNodes.
 C:\Users\INaumov\Desktop\estimation-problems\obj\Debug\EstimationTasks.frmRename.resources
 C:\Users\INaumov\Desktop\estimation-problems\obj\Debug\EstimationTasks.Resources.resources
 C:\Users\INaumov\Desktop\estimation-problems\obj\Debug\EstimationTasks.vbproj.GenerateResource.Cache
+C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.frmStatistic.resources

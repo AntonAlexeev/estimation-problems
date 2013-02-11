@@ -11,10 +11,8 @@ Public Class frmEstimation
     Private WithEvents itmLoad As MenuItem
     Private WithEvents itmSLoad As MenuItem
     Private WithEvents itmMLoad As MenuItem
-    Private WithEvents itmNodes As MenuItem
-    Private WithEvents itmMNodes As MenuItem
-    Private WithEvents itmEdges As MenuItem
-    Private WithEvents itmMEdges As MenuItem
+    Private WithEvents itmStatistic As MenuItem
+    Private WithEvents itmMStatistic As MenuItem
     Private WithEvents itmRename As MenuItem
     Private WithEvents itmCombain As MenuItem
     Private WithEvents itmDelete As MenuItem
@@ -56,33 +54,29 @@ Public Class frmEstimation
         ' Формирвоание контекстного меню mnuSingle
         mnuSingle = New ContextMenu
         itmSLoad = New MenuItem
-        itmNodes = New MenuItem
-        itmEdges = New MenuItem
+        itmStatistic = New MenuItem
         itmGraph = New MenuItem
         itmRename = New MenuItem
         itmDelete = New MenuItem
-        mnuSingle.MenuItems.AddRange(New MenuItem() {itmSLoad, itmNodes, itmEdges, itmGraph, itmRename, itmDelete})
+        mnuSingle.MenuItems.AddRange(New MenuItem() {itmSLoad, itmStatistic, itmGraph, itmRename, itmDelete})
         itmSLoad.Index = 0 : itmSLoad.Text = "Загрузить"
-        itmNodes.Index = 1 : itmNodes.Text = "Вершины"
-        itmEdges.Index = 2 : itmEdges.Text = "Отношения"
-        itmGraph.Index = 3 : itmGraph.Text = "Граф"
-        itmRename.Index = 4 : itmRename.Text = "Переименовать"
-        itmDelete.Index = 5 : itmDelete.Text = "Удалить"
+        itmStatistic.Index = 1 : itmStatistic.Text = "Статистика"
+        itmGraph.Index = 2 : itmGraph.Text = "Граф"
+        itmRename.Index = 3 : itmRename.Text = "Переименовать"
+        itmDelete.Index = 4 : itmDelete.Text = "Удалить"
         ' Формирвоание контекстного меню mnuMulti
         mnuMulti = New ContextMenu
         itmMLoad = New MenuItem
-        itmMNodes = New MenuItem
-        itmMEdges = New MenuItem
+        itmMStatistic = New MenuItem
         itmCombain = New MenuItem
         itmMGraph = New MenuItem
         itmMDelete = New MenuItem
-        mnuMulti.MenuItems.AddRange(New MenuItem() {itmMLoad, itmMNodes, itmMEdges, itmMGraph, itmCombain, itmMDelete})
+        mnuMulti.MenuItems.AddRange(New MenuItem() {itmMLoad, itmMStatistic, itmMGraph, itmCombain, itmMDelete})
         itmMLoad.Index = 0 : itmMLoad.Text = "Загрузить"
-        itmMNodes.Index = 1 : itmMNodes.Text = "Вершины"
-        itmMEdges.Index = 2 : itmMEdges.Text = "Отношения"
-        itmMGraph.Index = 3 : itmMGraph.Text = "Граф"
-        itmCombain.Index = 4 : itmCombain.Text = "Объединить"
-        itmMDelete.Index = 5 : itmMDelete.Text = "Удалить"
+        itmMStatistic.Index = 1 : itmMStatistic.Text = "Статистика"
+        itmMGraph.Index = 2 : itmMGraph.Text = "Граф"
+        itmCombain.Index = 3 : itmCombain.Text = "Объединить"
+        itmMDelete.Index = 4 : itmMDelete.Text = "Удалить"
         ' Назначение событий
         AddHandler lbSubjectDomain.MouseDown, AddressOf lbNetwork_MouseDown
         AddHandler lbSolvedProblem.MouseDown, AddressOf lbNetwork_MouseDown
@@ -201,7 +195,7 @@ Public Class frmEstimation
         OpenFileDialog.ShowDialog()
     End Sub
 
-    Private Sub itmNodes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmNodes.Click, itmMNodes.Click
+    Private Sub itmStatistic_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmStatistic.Click, itmMStatistic.Click
         Dim net As clsNetwork, lab As String, cnt As Integer, itm As Object
         cnt = lbActive.SelectedItems.Count
         lab = ""
@@ -217,30 +211,10 @@ Public Class frmEstimation
         Else
             Exit Sub
         End If
-        frmNodes.Text = lab
-        frmNodes.SetNodes = net.GetNodes
-        frmNodes.ShowDialog(Me)
-    End Sub
-
-    Private Sub itmEdges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmEdges.Click, itmMEdges.Click
-        Dim net As clsNetwork, lab As String, cnt As Integer, itm As Object
-        cnt = lbActive.SelectedItems.Count
-        lab = ""
-        If cnt = 1 Then
-            lab = lbActive.SelectedItem
-            net = networks(lab)
-        ElseIf cnt > 1 Then
-            net = New clsNetwork
-            For Each itm In lbActive.SelectedItems
-                net.Join(networks(itm))
-                lab = lab & itm & "| "
-            Next
-        Else
-            Exit Sub
-        End If
-        frmEdges.Text = lab
-        frmEdges.SetEdges = net.GetEdges
-        frmEdges.ShowDialog(Me)
+        frmStatistic.Text = lab
+        frmStatistic.SetNodes = net.GetNodes
+        frmStatistic.SetEdges = net.GetEdges
+        frmStatistic.ShowDialog(Me)
     End Sub
 
     Private Sub itmGraph_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmGraph.Click, itmMGraph.Click
