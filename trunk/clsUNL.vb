@@ -1,5 +1,6 @@
 Imports System.Xml
 Imports EstimationTasks.mdlGlobal.enEdge
+Imports EstimationTasks.mdlGlobal.enCategory
 
 Public Class clsUNL
     Private network As clsNetwork
@@ -36,6 +37,7 @@ Public Class clsUNL
                                         tarnod = nodes.Item(word.Id)
                                     End If
                                     tarnod.Word = word
+                                    tarnod.Category = Category(word.Feat)
                                     tarnod.Weight = 1
                                     If word.Dom <> "_root" Then
                                         If Not nodes.Contains(word.Dom) Then
@@ -46,7 +48,12 @@ Public Class clsUNL
                                         End If
                                         edg = New clsEdge
                                         edg.id = CStr(i)
-                                        edg.Type = edgWord
+                                        Select Case word.Link
+                                            Case "fictit"
+                                                edg.Type = edgFictit
+                                            Case Else
+                                                edg.Type = edgWord
+                                        End Select
                                         edg.Weight = 1
                                         edg.Source = srcnod
                                         edg.Target = tarnod
@@ -98,12 +105,43 @@ Public Class clsUNL
         Dim n As clsNode
         For Each n In nodes
             If Not n.Word Is Nothing Then
-                If n.Word.Feat = "NID" Then
+                If n.Category = catNid Then
                     network.Exclude(n)
                 End If
             End If
         Next
     End Sub
+
+    Private Function Category(ByVal str As String) As Integer
+        Select Case str.Split(" "c)(0)
+            Case "S"
+                Category = catS
+            Case "A"
+                Category = catA
+            Case "V"
+                Category = catV
+            Case "ADV"
+                Category = catAdv
+            Case "NUM"
+                Category = catNum
+            Case "PR"
+                Category = catPr
+            Case "COM"
+                Category = catCom
+            Case "CONJ"
+                Category = catConj
+            Case "PART"
+                Category = catPart
+            Case "P"
+                Category = catP
+            Case "INTJ"
+                Category = catIntj
+            Case "NID"
+                Category = catNid
+            Case Else
+                Category = 0
+        End Select
+    End Function
 
     Public Sub New()
         network = New clsNetwork
