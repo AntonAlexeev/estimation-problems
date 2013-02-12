@@ -13,17 +13,14 @@ Public Class frmGlee
             de = graph.AddEdge(e.Source.Id, e.Target.Id)
             Select Case e.Type
                 Case edgWord
-                    Select Case e.Target.Word.Link
-                        Case "fictit"
-                            de.Attr.Label = e.Weight.ToString
-                            de.Attr.Color = Color.Red
-                        Case Else
-                            de.Attr.Label = e.Weight.ToString
-                            de.Attr.Color = Color.DarkBlue
-                    End Select
+                    de.Attr.Label = e.Weight.ToString
+                    de.Attr.Color = Color.DarkBlue
                 Case edgLFunction
                     de.Attr.Label = e.LFunction.LFFunc
                     de.Attr.Color = Color.Orange
+                Case edgFictit
+                    de.Attr.Label = e.Weight.ToString
+                    de.Attr.Color = Color.Red
             End Select
         Next
         For Each n In net.GetNodes

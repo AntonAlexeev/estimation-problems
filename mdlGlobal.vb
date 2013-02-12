@@ -8,22 +8,45 @@ Module mdlGlobal
     Public Enum enEdge
         edgWord = 0
         edgLFunction = 1
+        edgFictit = 2
     End Enum
 
     Public Enum enCategory
-        catNoun = 0     ' Сущестительное
-        catAdj = 1      ' Прилагательное
-        catVerb = 2     ' глагол
-        catAdv = 3      ' наречие
-        catNum = 4      ' числительное
-        catExc = 5      ' предлог
-        catComp = 6     ' композит
-        catUnion = 7    ' союз
-        catPart = 8     ' частица
-        catSent = 9     ' слово-предложени
-        catInt = 10     ' междометие
-        catFor = 11     ' иноязычное
+        catS = 1     ' Сущестительное
+        catA = 2      ' Прилагательное
+        catV = 3     ' глагол
+        catAdv = 4      ' наречие
+        catNum = 5      ' числительное
+        catPr = 6      ' предлог
+        catCom = 7     ' композит
+        catConj = 8    ' союз
+        catPart = 9     ' частица
+        catP = 10     ' слово-предложени
+        catIntj = 11     ' междометие
+        catNid = 12     ' иноязычное
     End Enum
+
+    Public arrCategory() As String = { _
+        "", _
+        "Сущестительное", _
+        "Прилагательное", _
+        "Глагол", _
+        "Наречие", _
+        "Числительное", _
+        "Предлог", _
+        "Композит", _
+        "Союз", _
+        "Частица", _
+        "Слово-предложени", _
+        "Междометие", _
+        "Иноязычное" _
+}
+
+    Public arrEdges() As String = { _
+        "Обычное", _
+        "Лексическая функция", _
+        "Фиктивное" _
+}
 
     Public Structure strEstimation
         Private dif As Double

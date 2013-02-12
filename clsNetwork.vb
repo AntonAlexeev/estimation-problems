@@ -78,6 +78,7 @@ Public Class clsNetwork
                 nod.Label = lab
                 nod.Id = lab
                 nod.Weight = n.Weight
+                nod.Category = n.Category
                 nodes.Add(nod, lab)
             End If
         Next
@@ -100,6 +101,7 @@ Public Class clsNetwork
                 If src <> tar Then
                     nodes(tar).AddEdge(edg, lab)
                 End If
+                edg.Type = e.Type
                 edg.Weight = e.Weight
                 edg.id = lab
                 edges.Add(edg, lab)
