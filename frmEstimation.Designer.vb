@@ -39,6 +39,7 @@ Partial Class frmEstimation
         Me.lbSolvedProblem = New System.Windows.Forms.ListBox
         Me.gbEstimation = New System.Windows.Forms.GroupBox
         Me.btnEstimate = New System.Windows.Forms.Button
+        Me.clmDiff = New System.Windows.Forms.DataGridViewTextBoxColumn
         CType(Me.dgvUnsolvedProblems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbNetworks.SuspendLayout()
         Me.gbEstimation.SuspendLayout()
@@ -53,7 +54,7 @@ Partial Class frmEstimation
         Me.dgvUnsolvedProblems.BackgroundColor = System.Drawing.SystemColors.Control
         Me.dgvUnsolvedProblems.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvUnsolvedProblems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvUnsolvedProblems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Problem, Me.Difficulty, Me.Complexity})
+        Me.dgvUnsolvedProblems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Problem, Me.Difficulty, Me.Complexity, Me.clmDiff})
         Me.dgvUnsolvedProblems.Cursor = System.Windows.Forms.Cursors.Default
         Me.dgvUnsolvedProblems.Location = New System.Drawing.Point(13, 36)
         Me.dgvUnsolvedProblems.Margin = New System.Windows.Forms.Padding(2)
@@ -62,7 +63,7 @@ Partial Class frmEstimation
         Me.dgvUnsolvedProblems.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.dgvUnsolvedProblems.RowHeadersVisible = False
         Me.dgvUnsolvedProblems.RowTemplate.Height = 24
-        Me.dgvUnsolvedProblems.Size = New System.Drawing.Size(272, 348)
+        Me.dgvUnsolvedProblems.Size = New System.Drawing.Size(390, 348)
         Me.dgvUnsolvedProblems.TabIndex = 6
         '
         'Problem
@@ -206,14 +207,14 @@ Partial Class frmEstimation
         Me.gbEstimation.Margin = New System.Windows.Forms.Padding(2)
         Me.gbEstimation.Name = "gbEstimation"
         Me.gbEstimation.Padding = New System.Windows.Forms.Padding(2)
-        Me.gbEstimation.Size = New System.Drawing.Size(296, 429)
+        Me.gbEstimation.Size = New System.Drawing.Size(407, 429)
         Me.gbEstimation.TabIndex = 13
         Me.gbEstimation.TabStop = False
         Me.gbEstimation.Text = "Оценка нерешенных задач"
         '
         'btnEstimate
         '
-        Me.btnEstimate.Location = New System.Drawing.Point(170, 388)
+        Me.btnEstimate.Location = New System.Drawing.Point(315, 388)
         Me.btnEstimate.Margin = New System.Windows.Forms.Padding(2)
         Me.btnEstimate.Name = "btnEstimate"
         Me.btnEstimate.Size = New System.Drawing.Size(75, 20)
@@ -221,11 +222,18 @@ Partial Class frmEstimation
         Me.btnEstimate.Text = "Оценить"
         Me.btnEstimate.UseVisualStyleBackColor = True
         '
+        'clmDiff
+        '
+        Me.clmDiff.HeaderText = "Разность"
+        Me.clmDiff.Name = "clmDiff"
+        Me.clmDiff.ReadOnly = True
+        Me.clmDiff.Width = 80
+        '
         'frmEstimation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(712, 452)
+        Me.ClientSize = New System.Drawing.Size(813, 452)
         Me.Controls.Add(Me.gbEstimation)
         Me.Controls.Add(Me.gbNetworks)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -256,5 +264,6 @@ Partial Class frmEstimation
     Friend WithEvents Problem As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Difficulty As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Complexity As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents clmDiff As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

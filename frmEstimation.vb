@@ -1,7 +1,6 @@
 Imports System.Windows.Forms
 Imports EstimationTasks.mdlGlobal.strEstimation
 
-
 Public Class frmEstimation
     Private networks As Collection
     Private lbActive As ListBox
@@ -107,19 +106,8 @@ Public Class frmEstimation
         If lbUnsolvedProblem.Items.Count > 0 Then
             dgvUnsolvedProblems.Rows.Clear()
             For Each item In lbUnsolvedProblem.Items
-                Dim dgvRow As New DataGridViewRow
-                Dim dgvCell As DataGridViewCell
                 est = EstimateNetwork(netSD, netSP, networks(item))
-                dgvCell = New DataGridViewTextBoxCell()
-                dgvCell.Value = item
-                dgvRow.Cells.Add(dgvCell)
-                dgvCell = New DataGridViewTextBoxCell()
-                dgvCell.Value = est.Difficulty
-                dgvRow.Cells.Add(dgvCell)
-                dgvCell = New DataGridViewTextBoxCell()
-                dgvCell.Value = est.SDComplexity
-                dgvRow.Cells.Add(dgvCell)
-                dgvUnsolvedProblems.Rows.Add(dgvRow)
+                AddRow(dgvUnsolvedProblems, New Object() {item, est.Difficulty, est.SDComplexity, est.SDComplexity - est.Difficulty})
             Next
         Else
             MsgBox("Отсутсвуют задачи для оценки.")
@@ -170,13 +158,13 @@ Public Class frmEstimation
     End Sub
 
     Private Sub OpenFileDialog_FileOk(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles OpenFileDialog.FileOk
-        Dim nam As String, net As clsNetwork, path As String
+        Dim nam As String, net As clsNetwork, path As String, msg As String = ""
         For Each path In OpenFileDialog.FileNames
             nam = IO.Path.GetFileNameWithoutExtension(path)
             If Not networks.Contains(nam) Then
                 net = New clsNetwork
                 If Not net.Load(path) Then
-                    MsgBox("Не удалось загрузить семантичскую сеть " & nam)
+                    msg += "Не удалось загрузить семантичскую сеть " & nam + Environment.NewLine
                     Continue For
                 End If
                 net.Name = nam
@@ -184,10 +172,13 @@ Public Class frmEstimation
                 networks.Add(net, nam)
                 lbActive.Items.Add(nam)
             Else
-                MsgBox("Имя " & nam & " уже используется")
+                msg += "Имя " & nam & " уже используется" + Environment.NewLine
                 Continue For
             End If
         Next
+        If msg <> "" Then
+            MsgBox(msg)
+        End If
     End Sub
 
     Private Sub itmLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmLoad.Click, itmSLoad.Click, itmMLoad.Click

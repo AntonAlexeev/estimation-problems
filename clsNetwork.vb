@@ -1,5 +1,4 @@
 Imports System.IO
-Imports System.Xml
 Imports EstimationTasks.mdlGlobal.strEstimation
 Imports EstimationTasks.mdlGlobal.enEdge
 
@@ -76,9 +75,9 @@ Public Class clsNetwork
             Else
                 nod = New clsNode
                 nod.Label = lab
-                nod.Id = lab
                 nod.Weight = n.Weight
                 nod.Category = n.Category
+                nod.Id = lab
                 nodes.Add(nod, lab)
             End If
         Next

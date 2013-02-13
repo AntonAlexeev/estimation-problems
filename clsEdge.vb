@@ -64,9 +64,9 @@ Public Class clsEdge
 
     Public Function Label(Optional ByVal inverted As Boolean = False) As String
         If inverted Then
-            Label = IIf(target_ Is Nothing, "", target_.Label) & "-" & IIf(source_ Is Nothing, "", source_.Label)
+            Label = IIf(target_ Is Nothing, "", target_.Label) & "-" & IIf(source_ Is Nothing, "", source_.Label) & CStr(type_)
         Else
-            Label = IIf(source_ Is Nothing, "", source_.Label) & "-" & IIf(target_ Is Nothing, "", target_.Label)
+            Label = IIf(source_ Is Nothing, "", source_.Label) & "-" & IIf(target_ Is Nothing, "", target_.Label) & CStr(type_)
         End If
     End Function
 

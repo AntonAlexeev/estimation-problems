@@ -26,32 +26,32 @@ Partial Class frmStatistic
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStatistic))
         Me.tcStat = New System.Windows.Forms.TabControl
         Me.tpCommon = New System.Windows.Forms.TabPage
+        Me.dgvStat = New System.Windows.Forms.DataGridView
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.dgvCategory = New System.Windows.Forms.DataGridView
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.tpNodes = New System.Windows.Forms.TabPage
         Me.dgvNodes = New System.Windows.Forms.DataGridView
-        Me.tpEdges = New System.Windows.Forms.TabPage
-        Me.dgvEdges = New System.Windows.Forms.DataGridView
         Me.clmNode = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.clmCategory = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.clmFrequency = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.clmEdges = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.dgvStat = New System.Windows.Forms.DataGridView
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.tpEdges = New System.Windows.Forms.TabPage
+        Me.dgvEdges = New System.Windows.Forms.DataGridView
         Me.clmSource = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.clmTarget = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.clmType = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.clmWeight = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.tcStat.SuspendLayout()
         Me.tpCommon.SuspendLayout()
+        CType(Me.dgvStat, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvCategory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpNodes.SuspendLayout()
         CType(Me.dgvNodes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpEdges.SuspendLayout()
         CType(Me.dgvEdges, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvStat, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tcStat
@@ -77,6 +77,42 @@ Partial Class frmStatistic
         Me.tpCommon.TabIndex = 0
         Me.tpCommon.Text = "Общие"
         Me.tpCommon.UseVisualStyleBackColor = True
+        '
+        'dgvStat
+        '
+        Me.dgvStat.AllowUserToAddRows = False
+        Me.dgvStat.AllowUserToDeleteRows = False
+        Me.dgvStat.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.dgvStat.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvStat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvStat.ColumnHeadersVisible = False
+        Me.dgvStat.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4})
+        Me.dgvStat.Location = New System.Drawing.Point(311, 0)
+        Me.dgvStat.Margin = New System.Windows.Forms.Padding(2)
+        Me.dgvStat.Name = "dgvStat"
+        Me.dgvStat.ReadOnly = True
+        Me.dgvStat.RowHeadersVisible = False
+        Me.dgvStat.RowTemplate.Height = 24
+        Me.dgvStat.Size = New System.Drawing.Size(313, 438)
+        Me.dgvStat.TabIndex = 4
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn3.HeaderText = ""
+        Me.DataGridViewTextBoxColumn3.MinimumWidth = 150
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.Width = 150
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn4.HeaderText = ""
+        Me.DataGridViewTextBoxColumn4.MinimumWidth = 150
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Width = 150
         '
         'dgvCategory
         '
@@ -142,6 +178,36 @@ Partial Class frmStatistic
         Me.dgvNodes.Size = New System.Drawing.Size(632, 438)
         Me.dgvNodes.TabIndex = 2
         '
+        'clmNode
+        '
+        Me.clmNode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.clmNode.HeaderText = "Вершина"
+        Me.clmNode.MinimumWidth = 100
+        Me.clmNode.Name = "clmNode"
+        Me.clmNode.ReadOnly = True
+        '
+        'clmCategory
+        '
+        Me.clmCategory.HeaderText = "Часть речи"
+        Me.clmCategory.Name = "clmCategory"
+        Me.clmCategory.ReadOnly = True
+        '
+        'clmFrequency
+        '
+        Me.clmFrequency.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.clmFrequency.HeaderText = "Частота"
+        Me.clmFrequency.Name = "clmFrequency"
+        Me.clmFrequency.ReadOnly = True
+        Me.clmFrequency.Width = 74
+        '
+        'clmEdges
+        '
+        Me.clmEdges.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.clmEdges.HeaderText = "Связи"
+        Me.clmEdges.Name = "clmEdges"
+        Me.clmEdges.ReadOnly = True
+        Me.clmEdges.Width = 63
+        '
         'tpEdges
         '
         Me.tpEdges.Controls.Add(Me.dgvEdges)
@@ -173,72 +239,6 @@ Partial Class frmStatistic
         Me.dgvEdges.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.dgvEdges.Size = New System.Drawing.Size(634, 438)
         Me.dgvEdges.TabIndex = 2
-        '
-        'clmNode
-        '
-        Me.clmNode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.clmNode.HeaderText = "Вершина"
-        Me.clmNode.MinimumWidth = 100
-        Me.clmNode.Name = "clmNode"
-        Me.clmNode.ReadOnly = True
-        '
-        'clmCategory
-        '
-        Me.clmCategory.HeaderText = "Часть речи"
-        Me.clmCategory.Name = "clmCategory"
-        Me.clmCategory.ReadOnly = True
-        '
-        'clmFrequency
-        '
-        Me.clmFrequency.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.clmFrequency.HeaderText = "Частота"
-        Me.clmFrequency.Name = "clmFrequency"
-        Me.clmFrequency.ReadOnly = True
-        Me.clmFrequency.Width = 74
-        '
-        'clmEdges
-        '
-        Me.clmEdges.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.clmEdges.HeaderText = "Связи"
-        Me.clmEdges.Name = "clmEdges"
-        Me.clmEdges.ReadOnly = True
-        Me.clmEdges.Width = 63
-        '
-        'dgvStat
-        '
-        Me.dgvStat.AllowUserToAddRows = False
-        Me.dgvStat.AllowUserToDeleteRows = False
-        Me.dgvStat.BackgroundColor = System.Drawing.SystemColors.Control
-        Me.dgvStat.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvStat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvStat.ColumnHeadersVisible = False
-        Me.dgvStat.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4})
-        Me.dgvStat.Location = New System.Drawing.Point(315, 0)
-        Me.dgvStat.Margin = New System.Windows.Forms.Padding(2)
-        Me.dgvStat.Name = "dgvStat"
-        Me.dgvStat.ReadOnly = True
-        Me.dgvStat.RowHeadersVisible = False
-        Me.dgvStat.RowTemplate.Height = 24
-        Me.dgvStat.Size = New System.Drawing.Size(309, 438)
-        Me.dgvStat.TabIndex = 4
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.DataGridViewTextBoxColumn3.HeaderText = ""
-        Me.DataGridViewTextBoxColumn3.MinimumWidth = 150
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        Me.DataGridViewTextBoxColumn3.Width = 150
-        '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.DataGridViewTextBoxColumn4.HeaderText = ""
-        Me.DataGridViewTextBoxColumn4.MinimumWidth = 150
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
-        Me.DataGridViewTextBoxColumn4.Width = 150
         '
         'clmSource
         '
@@ -288,12 +288,12 @@ Partial Class frmStatistic
         Me.Text = "Статистические данные"
         Me.tcStat.ResumeLayout(False)
         Me.tpCommon.ResumeLayout(False)
+        CType(Me.dgvStat, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvCategory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpNodes.ResumeLayout(False)
         CType(Me.dgvNodes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpEdges.ResumeLayout(False)
         CType(Me.dgvEdges, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvStat, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
