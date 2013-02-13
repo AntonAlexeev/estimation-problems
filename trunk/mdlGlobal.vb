@@ -12,7 +12,7 @@ Module mdlGlobal
     End Enum
 
     Public Enum enCategory
-        catS = 1     ' Сущестительное
+        catS = 1     ' Существительное
         catA = 2      ' Прилагательное
         catV = 3     ' глагол
         catAdv = 4      ' наречие
@@ -28,7 +28,7 @@ Module mdlGlobal
 
     Public arrCategory() As String = { _
         "", _
-        "Сущестительное", _
+        "Существительное", _
         "Прилагательное", _
         "Глагол", _
         "Наречие", _
@@ -90,4 +90,22 @@ Module mdlGlobal
         Public LFFunc As String
         Public LFVal As String
     End Structure
+
+    Public Sub AddRow(ByRef dgv As DataGridView, ByVal val() As Object)
+        Dim dgvRow As DataGridViewRow, dgvCell As DataGridViewCell, s As Object
+        dgvRow = New DataGridViewRow
+        For Each s In val
+            dgvCell = New DataGridViewTextBoxCell()
+            Select Case s.GetType.Name
+                Case "Int32"
+                    dgvCell.Value = Convert.ToInt32(s)
+                Case "Double"
+                    dgvCell.Value = Convert.ToDouble(s)
+                Case Else
+                    dgvCell.Value = s.ToString
+            End Select
+            dgvRow.Cells.Add(dgvCell)
+        Next
+        dgv.Rows.Add(dgvRow)
+    End Sub
 End Module

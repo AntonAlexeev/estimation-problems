@@ -34,9 +34,7 @@ C:\Users\Naigsa\Desktop\EstimationProblem\bin\Release\EstimationTasks.exe
 C:\Users\Naigsa\Desktop\EstimationProblem\bin\Release\EstimationTasks.pdb
 C:\Users\Naigsa\Desktop\EstimationProblem\bin\Release\EstimationTasks.xml
 C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\ResolveAssemblyReference.cache
-C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.frmEdges.resources
 C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.frmEstimation.resources
-C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.frmNodes.resources
 C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.Resources.resources
 C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.vbproj.GenerateResource.Cache
 C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.exe
@@ -102,3 +100,9 @@ C:\Users\INaumov\Desktop\estimation-problems\obj\Debug\EstimationTasks.frmRename
 C:\Users\INaumov\Desktop\estimation-problems\obj\Debug\EstimationTasks.Resources.resources
 C:\Users\INaumov\Desktop\estimation-problems\obj\Debug\EstimationTasks.vbproj.GenerateResource.Cache
 C:\Users\Naigsa\Desktop\EstimationProblem\obj\Debug\EstimationTasks.frmStatistic.resources
+C:\Users\Naigsa\Desktop\EstimationProblem\bin\Release\Microsoft.GLEE.dll
+C:\Users\Naigsa\Desktop\EstimationProblem\bin\Release\Microsoft.GLEE.Drawing.dll
+C:\Users\Naigsa\Desktop\EstimationProblem\bin\Release\Microsoft.GLEE.GraphViewerGDI.dll
+C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.frmStatistic.resources
+C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.frmGlee.resources
+C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.frmRename.resources

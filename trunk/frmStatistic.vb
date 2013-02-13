@@ -28,7 +28,7 @@ Public Class frmStatistic
                 For Each edg In nod.Edges
                     names += edg.Sibling(nod).Label & " | "
                 Next
-                AddRow(dgvNodes, New String() {nod.Label, arrCategory(nod.Category), nod.Weight, names})
+                AddRow(dgvNodes, New Object() {nod.Label, arrCategory(nod.Category), nod.Weight, names})
             Next
         End If
         If Edges Is Nothing Then
@@ -36,7 +36,7 @@ Public Class frmStatistic
         Else
             dgvEdges.Rows.Clear()
             For Each edg In Edges
-                AddRow(dgvEdges, New String() {edg.Source.Label, edg.Target.Label, arrEdges(edg.Type), edg.Weight})
+                AddRow(dgvEdges, New Object() {edg.Source.Label, edg.Target.Label, arrEdges(edg.Type), edg.Weight})
             Next
         End If
         Common()
@@ -83,37 +83,22 @@ Public Class frmStatistic
                     F += 1
             End Select
         Next
-        AddRow(dgvCategory, New String() {arrCategory(catS), CStr(S)})
-        AddRow(dgvCategory, New String() {arrCategory(catA), CStr(A)})
-        AddRow(dgvCategory, New String() {arrCategory(catV), CStr(V)})
-        AddRow(dgvCategory, New String() {arrCategory(catAdv), CStr(Adv)})
-        AddRow(dgvCategory, New String() {arrCategory(catNum), CStr(Num)})
-        AddRow(dgvCategory, New String() {arrCategory(catPr), CStr(Pr)})
-        AddRow(dgvCategory, New String() {arrCategory(catCom), CStr(Com)})
-        AddRow(dgvCategory, New String() {arrCategory(catConj), CStr(Conj)})
-        AddRow(dgvCategory, New String() {arrCategory(catPart), CStr(Part)})
-        AddRow(dgvCategory, New String() {arrCategory(catP), CStr(P)})
-        AddRow(dgvCategory, New String() {arrCategory(catIntj), CStr(Intj)})
-        AddRow(dgvCategory, New String() {arrCategory(catNid), CStr(Nid)})
-
-        AddRow(dgvStat, New String() {"Понятия", CStr(Nodes.Count)})
-        AddRow(dgvStat, New String() {"Отношения", CStr(Edges.Count)})
-        AddRow(dgvStat, New String() {"Лексические функции", CStr(LF)})
-        AddRow(dgvStat, New String() {"Фиктивные отношения", CStr(F)})
-    End Sub
-
-    Private Sub AddRow(ByRef dgv As DataGridView, ByVal val() As String)
-        Dim dgvRow As DataGridViewRow, dgvCell As DataGridViewCell, s As String, res As Integer
-        dgvRow = New DataGridViewRow
-        For Each s In val
-            dgvCell = New DataGridViewTextBoxCell()
-            If Integer.TryParse(s, res) Then
-                dgvCell.Value = res
-            Else
-                dgvCell.Value = s
-            End If
-            dgvRow.Cells.Add(dgvCell)
-        Next
-        dgv.Rows.Add(dgvRow)
+        AddRow(dgvCategory, New Object() {arrCategory(catS), S})
+        AddRow(dgvCategory, New Object() {arrCategory(catA), A})
+        AddRow(dgvCategory, New Object() {arrCategory(catV), V})
+        AddRow(dgvCategory, New Object() {arrCategory(catAdv), Adv})
+        AddRow(dgvCategory, New Object() {arrCategory(catNum), Num})
+        AddRow(dgvCategory, New Object() {arrCategory(catPr), Pr})
+        AddRow(dgvCategory, New Object() {arrCategory(catCom), Com})
+        AddRow(dgvCategory, New Object() {arrCategory(catConj), Conj})
+        AddRow(dgvCategory, New Object() {arrCategory(catPart), Part})
+        AddRow(dgvCategory, New Object() {arrCategory(catP), P})
+        AddRow(dgvCategory, New Object() {arrCategory(catIntj), Intj})
+        AddRow(dgvCategory, New Object() {arrCategory(catNid), Nid})
+        dgvStat.Rows.Clear()
+        AddRow(dgvStat, New Object() {"Слова", Nodes.Count})
+        AddRow(dgvStat, New Object() {"Синтаксические связи", Edges.Count})
+        AddRow(dgvStat, New Object() {"Лексические функции", LF})
+        AddRow(dgvStat, New Object() {"Фиктивные связи", F})
     End Sub
 End Class
