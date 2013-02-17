@@ -91,6 +91,17 @@ Public Class clsNode
                 Next edg
         End Select
     End Function
+
+    Public Function IsSibling(ByRef nod As clsNode) As Boolean
+        Dim edg As clsEdge
+        IsSibling = False
+        For Each edg In edges_
+            If edg.Sibling(Me) Is nod Then
+                IsSibling = True
+                Exit For
+            End If
+        Next edg
+    End Function
 End Class
 
 

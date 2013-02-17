@@ -107,7 +107,12 @@ Public Class frmEstimation
             dgvUnsolvedProblems.Rows.Clear()
             For Each item In lbUnsolvedProblem.Items
                 est = EstimateNetwork(netSD, netSP, networks(item))
-                AddRow(dgvUnsolvedProblems, New Object() {item, est.Difficulty, est.SDComplexity, est.SDComplexity - est.Difficulty})
+                AddRow(dgvUnsolvedProblems, New Object() { _
+                    item, _
+                    Math.Round(est.Difficulty, 2), _
+                    Math.Round(est.SDComplexity, 2), _
+                    Math.Round(est.SDComplexity - est.Difficulty, 2) _
+                })
             Next
         Else
             MsgBox("Отсутсвуют задачи для оценки.")
