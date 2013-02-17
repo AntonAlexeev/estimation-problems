@@ -1,4 +1,5 @@
 Imports System.Xml
+Imports EstimationTasks.mdlGlobal.enCategory
 
 Public Class clsGraphml
     Private network As clsNetwork
@@ -57,6 +58,7 @@ Public Class clsGraphml
                                 nod.Id = id
                                 nod.Label = lab
                                 nod.Weight = wei
+                                nod.Category = catS
                                 nodes.Add(nod, id)
                             End If
                         End If

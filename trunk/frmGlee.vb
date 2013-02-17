@@ -4,10 +4,13 @@ Imports System.Windows
 Imports EstimationTasks.mdlGlobal.enEdge
 
 Public Class frmGlee
+    Private viewer As GViewer
+
     Public Sub CreateView(ByRef net As clsNetwork)
         Dim n As clsNode, e As clsEdge, dn As Node, de As Edge
-        Dim viewer As GViewer = New GViewer()
-        Dim graph As Graph = New Graph("graph")
+        Dim graph As Graph
+        viewer = New GViewer()
+        graph = New Graph("graph")
         Me.Controls.Clear()
         For Each e In net.GetEdges
             de = graph.AddEdge(e.Source.Id, e.Target.Id)
@@ -39,5 +42,11 @@ Public Class frmGlee
         Me.Controls.Add(viewer)
         Me.ResumeLayout()
         Me.ShowDialog()
+    End Sub
+
+    Private Sub frmGlee_Close(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
+        viewer.Graph = Nothing
+        viewer.Refresh()
+        viewer = Nothing
     End Sub
 End Class

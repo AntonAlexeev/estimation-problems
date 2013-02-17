@@ -42,6 +42,10 @@ Public Class frmStatistic
         Common()
     End Sub
 
+    Private Sub tpCommon_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpCommon.Click
+        MsgBox("")
+    End Sub
+
     Private Sub Common()
         Dim S As Integer, A As Integer, V As Integer, Adv As Integer, Num As Integer, Pr As Integer, Com As Integer, Conj As Integer, Part As Integer, P As Integer, Intj As Integer, Nid As Integer
         Dim F As Integer, LF As Integer
