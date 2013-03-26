@@ -1,0 +1,16 @@
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\obj\Debug\EstimationTasks.exe
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\obj\Debug\EstimationTasks.xml
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\obj\Debug\EstimationTasks.pdb
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\bin\Debug\EstimationTasks.exe
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\bin\Debug\EstimationTasks.pdb
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\bin\Debug\EstimationTasks.xml
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\bin\Debug\Microsoft.GLEE.dll
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\bin\Debug\Microsoft.GLEE.Drawing.dll
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\bin\Debug\Microsoft.GLEE.GraphViewerGDI.dll
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\obj\Debug\EstimationTasks.vbprojResolveAssemblyReference.cache
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\obj\Debug\EstimationTasks.frmStatistic.resources
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\obj\Debug\EstimationTasks.frmEstimation.resources
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\obj\Debug\EstimationTasks.frmGlee.resources
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\obj\Debug\EstimationTasks.frmRename.resources
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\obj\Debug\EstimationTasks.Resources.resources
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\obj\Debug\EstimationTasks.vbproj.GenerateResource.Cache

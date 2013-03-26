@@ -45,7 +45,7 @@ Public Class frmGlee
     End Sub
 
     Private Sub frmGlee_Close(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
-        viewer.Graph = Nothing
+        'viewer.Graph = Nothing
         viewer.Refresh()
         viewer = Nothing
     End Sub
