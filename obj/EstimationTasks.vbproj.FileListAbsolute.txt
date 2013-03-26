@@ -106,3 +106,6 @@ C:\Users\Naigsa\Desktop\EstimationProblem\bin\Release\Microsoft.GLEE.GraphViewer
 C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.frmStatistic.resources
 C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.frmGlee.resources
 C:\Users\Naigsa\Desktop\EstimationProblem\obj\Release\EstimationTasks.frmRename.resources
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\obj\Debug\EstimationTasks.exe
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\obj\Debug\EstimationTasks.xml
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\obj\Debug\EstimationTasks.pdb
