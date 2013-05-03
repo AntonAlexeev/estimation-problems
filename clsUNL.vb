@@ -104,7 +104,7 @@ Public Class clsUNL
     Private Sub Convert()
         Dim n As clsNode
         For Each n In nodes
-            If Not n.Word Is Nothing Then
+            If n.Word IsNot Nothing Then
                 If n.Category = catNid Then
                     network.Exclude(n)
                 End If

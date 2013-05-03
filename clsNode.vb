@@ -1,71 +1,71 @@
 Imports EstimationTasks.mdlGlobal.enDirection
 
 Public Class clsNode
-    Private id_ As String
-    Private label_ As String
-    Private weight_ As Integer
-    Private word_ As strWord
-    Private category_ As Integer
-    Private edges_ As New Collection
+    Private m_id As String
+    Private m_label As String
+    Private m_weight As Integer
+    Private m_word As strWord
+    Private m_category As Integer
+    Private m_edges As New Collection
 
     Public Property Id() As String
         Get
-            Id = id_
+            Id = m_id
         End Get
         Set(ByVal value As String)
-            id_ = value
+            m_id = value
         End Set
     End Property
 
     Public Property Label() As String
         Get
-            Label = label_
+            Label = m_label
         End Get
         Set(ByVal value As String)
-            label_ = value
+            m_label = value
         End Set
     End Property
 
     Public ReadOnly Property Edges() As Collection
         Get
-            Edges = edges_
+            Edges = m_edges
         End Get
     End Property
 
     Public Property Weight() As Integer
         Get
-            Weight = weight_
+            Weight = m_weight
         End Get
         Set(ByVal value As Integer)
-            weight_ = value
+            m_weight = value
         End Set
     End Property
 
     Public Property Word() As Object
         Get
-            Word = word_
+            Word = m_word
         End Get
         Set(ByVal value As Object)
-            word_ = value
-            id_ = value.Id
-            label_ = value.Lemma
+            m_word = value
+            m_id = value.Id
+            m_label = value.Lemma
         End Set
     End Property
 
     Public Property Category() As Object
         Get
-            Category = category_
+            Category = m_category
         End Get
         Set(ByVal value As Object)
-            category_ = value
+            m_category = value
         End Set
     End Property
 
     Public Sub AddEdge(ByRef edg As clsEdge, Optional ByVal key As String = "")
         If key = "" Then
-            edges_.Add(edg)
+            m_edges.Add(edg)
         Else
-            edges_.Add(edg, key)
+            m_edges.Add(edg, key)
         End If
     End Sub
 
@@ -74,17 +74,17 @@ Public Class clsNode
         Siblings = New Collection
         Select Case dir
             Case dirNone
-                For Each edg In edges_
+                For Each edg In m_edges
                     Siblings.Add(edg.Sibling(Me))
                 Next edg
             Case dirForward
-                For Each edg In edges_
+                For Each edg In m_edges
                     If edg.Source Is Me Then
                         Siblings.Add(edg.Target)
                     End If
                 Next edg
             Case dirBackward
-                For Each edg In edges_
+                For Each edg In m_edges
                     If edg.Target Is Me Then
                         Siblings.Add(edg.Source)
                     End If
@@ -95,7 +95,7 @@ Public Class clsNode
     Public Function IsSibling(ByRef nod As clsNode) As Boolean
         Dim edg As clsEdge
         IsSibling = False
-        For Each edg In edges_
+        For Each edg In m_edges
             If edg.Sibling(Me) Is nod Then
                 IsSibling = True
                 Exit For
