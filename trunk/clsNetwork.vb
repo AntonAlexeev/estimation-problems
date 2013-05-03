@@ -4,38 +4,38 @@ Imports EstimationTasks.mdlGlobal.enEdge
 Imports EstimationTasks.mdlGlobal.enCategory
 
 Public Class clsNetwork
-    Private nam As String
-    Private url_ As String
-    Private nodes As Collection
-    Private edges As Collection
+    Private m_name As String
+    Private m_url As String
+    Private m_nodes As Collection
+    Private m_edges As Collection
 
     Public Property Name()
         Get
-            Name = nam
+            Name = m_name
         End Get
         Set(ByVal value)
-            nam = value
+            m_name = value
         End Set
     End Property
 
     Public Property URL()
         Get
-            URL = url_
+            URL = m_url
         End Get
         Set(ByVal value)
-            url_ = value
+            m_url = value
         End Set
     End Property
 
     Public ReadOnly Property GetNodes()
         Get
-            GetNodes = nodes
+            GetNodes = m_nodes
         End Get
     End Property
 
     Public ReadOnly Property GetEdges()
         Get
-            GetEdges = edges
+            GetEdges = m_edges
         End Get
     End Property
 
@@ -55,9 +55,9 @@ Public Class clsNetwork
                     net = unl.GetNetwork
                 End If
         End Select
-        If Not net Is Nothing Then
-            nodes = net.GetNodes
-            edges = net.GetEdges
+        If net IsNot Nothing Then
+            m_nodes = net.GetNodes
+            m_edges = net.GetEdges
             '    If Join(net) Then
             Load = True
             '    End If
@@ -70,8 +70,8 @@ Public Class clsNetwork
         ' Объединение вершин
         For Each n In net.GetNodes
             lab = n.Label
-            If nodes.Contains(lab) Then
-                nod = nodes(lab)
+            If m_nodes.Contains(lab) Then
+                nod = m_nodes(lab)
                 nod.Weight = nod.Weight + n.Weight
             Else
                 nod = New clsNode
@@ -79,7 +79,7 @@ Public Class clsNetwork
                 nod.Weight = n.Weight
                 nod.Category = n.Category
                 nod.Id = lab
-                nodes.Add(nod, lab)
+                m_nodes.Add(nod, lab)
             End If
         Next
         ' Объединение дуг
@@ -87,25 +87,25 @@ Public Class clsNetwork
             src = e.Source.Label
             tar = e.Target.Label
             lab = e.Label
-            If edges.Contains(lab) Then
-                edg = edges(lab)
+            If m_edges.Contains(lab) Then
+                edg = m_edges(lab)
                 edg.Weight = edg.Weight + e.Weight
-            ElseIf edges.Contains(e.Label(True)) Then ' Объединение дуг, имеющих обратное направление
-                edg = edges(e.Label(True))
+            ElseIf m_edges.Contains(e.Label(True)) Then ' Объединение дуг, имеющих обратное направление
+                edg = m_edges(e.Label(True))
                 edg.Weight = edg.Weight + e.Weight
             Else
                 edg = New clsEdge
-                edg.Source = nodes(e.Source.Label)
-                edg.Target = nodes(e.Target.Label)
-                nodes(src).AddEdge(edg, lab)
+                edg.Source = m_nodes(e.Source.Label)
+                edg.Target = m_nodes(e.Target.Label)
+                m_nodes(src).AddEdge(edg, lab)
                 If src <> tar Then
-                    nodes(tar).AddEdge(edg, lab)
+                    m_nodes(tar).AddEdge(edg, lab)
                 End If
                 edg.Type = e.Type
                 edg.Weight = e.Weight
                 edg.id = lab
-                edges.Add(edg, lab)
-                End If
+                m_edges.Add(edg, lab)
+            End If
         Next
         Join = True
     End Function
@@ -169,7 +169,7 @@ Public Class clsNetwork
                 ' Continue For
             End If
             ' Поиск прямых связей
-            For Each ed In edges
+            For Each ed In m_edges
                 If ed.Label() = lab Or ed.Label(True) = lab Then
                     est += ed.Weight
                 End If
@@ -179,7 +179,7 @@ Public Class clsNetwork
                 Dim n As clsNode, src As clsNode, tar As clsNode
                 src = Nothing
                 tar = Nothing
-                For Each n In nodes
+                For Each n In m_nodes
                     If n.Label = e.Source.Label Then
                         src = n
                     End If
@@ -187,7 +187,7 @@ Public Class clsNetwork
                         tar = n
                     End If
                 Next
-                If Not src Is Nothing And Not tar Is Nothing Then
+                If src IsNot Nothing And tar IsNot Nothing Then
                     est += ComplexEdge(src, tar, 3)
                 End If
             End If
@@ -219,11 +219,11 @@ Public Class clsNetwork
                 id = edg.id
                 sib = edg.Sibling(ent)
                 sib.Edges.Remove(id)
-                edges.Remove(id)
+                m_edges.Remove(id)
             Next
-            nodes.Remove(ent.id)
+            m_nodes.Remove(ent.id)
         ElseIf TypeOf ent Is clsEdge Then
-            edges.Remove(ent.Label)
+            m_edges.Remove(ent.Label)
         End If
     End Sub
 
@@ -247,19 +247,19 @@ Public Class clsNetwork
                 edg.Target = t
                 lab = edg.Label
                 i = 1
-                While edges.Contains(lab)
+                While m_edges.Contains(lab)
                     lab = lab & i
                 End While
                 edg.id = lab
                 s.AddEdge(edg, lab)
                 t.AddEdge(edg, lab)
-                edges.Add(edg, lab)
+                m_edges.Add(edg, lab)
             Next
         Next
     End Sub
 
     Public Sub New()
-        nodes = New Collection
-        edges = New Collection
+        m_nodes = New Collection
+        m_edges = New Collection
     End Sub
 End Class

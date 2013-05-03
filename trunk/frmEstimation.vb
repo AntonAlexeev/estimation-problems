@@ -35,12 +35,32 @@ Public Class frmEstimation
 
     Private Function EstimateNetwork(ByRef netSD As clsNetwork, ByRef netSP As clsNetwork, ByRef net As clsNetwork) As strEstimation
         EstimateNetwork = New strEstimation
-        If Not netSP Is Nothing Then
+        If netSP IsNot Nothing Then
             EstimateNetwork.SDComplexity = netSD.Complexity(net)
         End If
-        If Not netSP Is Nothing Then
+        If netSP IsNot Nothing Then
             EstimateNetwork.SPComplexity = netSP.Complexity(net)
         End If
+    End Function
+
+    Private Function LoadNetwork(ByVal path As String, ByVal lb As ListBox, ByRef msg As String) As Boolean
+        Dim net As clsNetwork, nam As String
+        nam = IO.Path.GetFileNameWithoutExtension(path)
+        If Not networks.Contains(nam) Then
+            net = New clsNetwork
+            If Not net.Load(path) Then
+                msg = "Не удалось загрузить семантичскую сеть " & nam + Environment.NewLine
+                Return False
+            End If
+            net.Name = nam
+            net.URL = path
+            networks.Add(net, nam)
+            lb.Items.Add(nam)
+        Else
+            msg = "Имя " & nam & " уже используется" + Environment.NewLine
+            Return False
+        End If
+        Return True
     End Function
 
     Private Sub frmEstimation_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -146,9 +166,25 @@ Public Class frmEstimation
     End Sub
 
     Private Sub lbNetwork_DragDrop(ByVal sender As Object, ByVal e As DragEventArgs)
-        If sender.FindStringExact(e.Data.GetData(DataFormats.Text).ToString) = -1 Then
-            sender.Items.Add(e.Data.GetData(DataFormats.Text).ToString)
-            lbActive.Items.Remove(lbActive.Items(lbActive.SelectedIndex))
+        Dim data As Object, path As String, msg As String = "", mes As String = ""
+        data = e.Data.GetData(DataFormats.Text)
+        If data Is Nothing Then
+            data = e.Data.GetData(DataFormats.FileDrop)
+            If data IsNot Nothing Then
+                For Each path In data
+                    If Not LoadNetwork(path, sender, msg) Then
+                        mes += msg
+                    End If
+                Next
+                If mes <> "" Then
+                    MsgBox(mes)
+                End If
+            End If
+        Else
+            If sender.FindStringExact(e.Data.GetData(DataFormats.Text).ToString) = -1 Then
+                sender.Items.Add(e.Data.GetData(DataFormats.Text).ToString)
+                lbActive.Items.Remove(lbActive.Items(lbActive.SelectedIndex))
+            End If
         End If
     End Sub
 
@@ -163,26 +199,14 @@ Public Class frmEstimation
     End Sub
 
     Private Sub OpenFileDialog_FileOk(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles OpenFileDialog.FileOk
-        Dim nam As String, net As clsNetwork, path As String, msg As String = ""
+        Dim path As String, msg As String = "", mes As String = ""
         For Each path In OpenFileDialog.FileNames
-            nam = IO.Path.GetFileNameWithoutExtension(path)
-            If Not networks.Contains(nam) Then
-                net = New clsNetwork
-                If Not net.Load(path) Then
-                    msg += "Не удалось загрузить семантичскую сеть " & nam + Environment.NewLine
-                    Continue For
-                End If
-                net.Name = nam
-                net.URL = path
-                networks.Add(net, nam)
-                lbActive.Items.Add(nam)
-            Else
-                msg += "Имя " & nam & " уже используется" + Environment.NewLine
-                Continue For
+            If Not LoadNetwork(path, lbActive, msg) Then
+                mes += msg
             End If
         Next
-        If msg <> "" Then
-            MsgBox(msg)
+        If mes <> "" Then
+            MsgBox(mes)
         End If
     End Sub
 
