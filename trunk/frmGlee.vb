@@ -19,7 +19,9 @@ Public Class frmGlee
                     de.Attr.Label = e.Weight.ToString
                     de.Attr.Color = Color.DarkBlue
                 Case edgLFunction
-                    de.Attr.Label = e.LFunction.LFFunc
+                    If e.Names.Count > 0 Then
+                        de.Attr.Label = e.Names(1)
+                    End If
                     de.Attr.Color = Color.Orange
                 Case edgFictit
                     de.Attr.Label = e.Weight.ToString

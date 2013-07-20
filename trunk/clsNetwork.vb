@@ -65,7 +65,7 @@ Public Class clsNetwork
     End Function
 
     Public Function Join(ByRef net As clsNetwork) As Boolean
-        Dim n As clsNode, e As clsEdge, lab As String, edg As clsEdge, nod As clsNode
+        Dim n As clsNode, e As clsEdge, lab As String, edg As clsEdge, nod As clsNode, nam As String
         Dim src As String, tar As String
         ' Объединение вершин
         For Each n In net.GetNodes
@@ -89,10 +89,10 @@ Public Class clsNetwork
             lab = e.Label
             If m_edges.Contains(lab) Then
                 edg = m_edges(lab)
-                edg.Weight = edg.Weight + e.Weight
-            ElseIf m_edges.Contains(e.Label(True)) Then ' Объединение дуг, имеющих обратное направление
-                edg = m_edges(e.Label(True))
-                edg.Weight = edg.Weight + e.Weight
+                edg.Weight += e.Weight
+                'ElseIf m_edges.Contains(e.Label(True)) Then ' Объединение дуг, имеющих обратное направление
+                '    edg = m_edges(e.Label(True))
+                '    edg.Weight += e.Weight
             Else
                 edg = New clsEdge
                 edg.Source = m_nodes(e.Source.Label)
@@ -106,111 +106,74 @@ Public Class clsNetwork
                 edg.id = lab
                 m_edges.Add(edg, lab)
             End If
+            If e.Names.Count > 0 Then
+                For Each nam In e.Names
+                    If Not edg.Names.Contains(nam) Then
+                        edg.Names.Add(nam, nam)
+                    End If
+                Next
+                edg.Weight = edg.Names.Count
+            End If
         Next
         Join = True
     End Function
 
-    'Public Function Complexity(ByRef net As clsNetwork) As Double
-    '    Dim e As clsEdge, ed As clsEdge, lab As String, est As Double
-    '    Complexity = 0
-    '    For Each e In net.GetEdges
-    '        est = 0
-    '        lab = e.Label
-    '        ' Учитываем только отношения между существительными
-    '        If e.Source.Category <> catS Or e.Target.Category <> catS Then
-    '            Continue For
-    '        End If
-    '        ' Поиск прямых связей
-    '        For Each ed In edges
-    '            If ed.Label() = lab Or ed.Label(True) = lab Then
-    '                est += ed.Weight
-    '            End If
-    '        Next
-    '        ' Поиск косвенных связей
-    '        If est = 0 Then
-    '            Dim n As clsNode, src As clsNode, tar As clsNode, e1 As clsEdge, e2 As clsEdge
-    '            Dim w1 As Integer, w2 As Integer
-    '            src = Nothing
-    '            tar = Nothing
-    '            'Поиск связей глубиной 2
-    '            For Each n In nodes
-    '                If n.Label = e.Source.Label Then
-    '                    src = n
-    '                End If
-    '                If n.Label = e.Target.Label Then
-    '                    tar = n
-    '                End If
-    '            Next n
-    '            If Not src Is Nothing And Not tar Is Nothing Then
-    '                For Each e1 In src.Edges
-    '                    n = e1.Sibling(src)
-    '                    For Each e2 In tar.Edges
-    '                        If n Is e2.Sibling(tar) Then
-    '                            w1 = e1.Weight
-    '                            w2 = e2.Weight
-    '                            est += IIf(w1 < w2, w1, w2) / 2
-    '                        End If
-    '                    Next
-    '                Next
-    '            End If
-    '        End If
-    '        Complexity += est
-    '    Next
-    'End Function
-
     Public Function Complexity(ByRef net As clsNetwork) As Double
         Dim e As clsEdge, ed As clsEdge, lab As String, est As Double
+        Dim n As clsNode, src As clsNode, tar As clsNode
         Complexity = 0
         For Each e In net.GetEdges
             est = 0
             lab = e.Label
             ' Учитываем только отношения между существительными
-            If e.Source.Category <> catS Or e.Target.Category <> catS Then
-                ' Continue For
-            End If
+            'If e.Source.Category <> catS Or e.Target.Category <> catS Then
+            ' Continue For
+            'End If
             ' Поиск прямых связей
-            For Each ed In m_edges
-                If ed.Label() = lab Or ed.Label(True) = lab Then
-                    est += ed.Weight
+            'For Each ed In m_edges
+            '    If ed.Label() = lab Then 'Or ed.Label(True) = lab
+            '        est += ed.Weight
+            '    End If
+            'Next
+            ' Поиск косвенных связей
+            'If est = 0 Then
+            src = Nothing : tar = Nothing
+            For Each n In m_nodes
+                If n.Label = e.Source.Label Then
+                    src = n
+                End If
+                If n.Label = e.Target.Label Then
+                    tar = n
                 End If
             Next
-            ' Поиск косвенных связей
-            If est = 0 Then
-                Dim n As clsNode, src As clsNode, tar As clsNode
-                src = Nothing
-                tar = Nothing
-                For Each n In m_nodes
-                    If n.Label = e.Source.Label Then
-                        src = n
-                    End If
-                    If n.Label = e.Target.Label Then
-                        tar = n
-                    End If
-                Next
-                If src IsNot Nothing And tar IsNot Nothing Then
-                    est += ComplexEdge(src, tar, 3)
-                End If
+            If src IsNot Nothing And tar IsNot Nothing Then
+                est += ComplexEdge(src, tar, 3)
             End If
+            'End If
             Complexity += est
         Next
     End Function
 
-    Private Function ComplexEdge(ByRef src As clsNode, ByVal tar As clsNode, ByVal maxdep As Integer, Optional ByVal curdep As Integer = 1, Optional ByVal min As Integer = Int32.MaxValue) As Double
+    Private Function ComplexEdge(ByRef src As clsNode, ByVal tar As clsNode, ByVal maxdep As Integer, Optional ByVal curdep As Integer = 1, Optional ByVal min As Integer = Int32.MaxValue, Optional ByVal root As clsNode = Nothing) As Double
         Dim n As clsNode, e As clsEdge
         ComplexEdge = 0
+        If root Is Nothing Then
+            root = src
+        End If
         For Each e In src.Edges
-            min = Math.Min(e.Weight, min)
-            n = e.Sibling(src)
+            n = e.Target
+            If n Is src Or n Is root Then
+                Continue For
+            End If
             If n Is tar Then
-                ComplexEdge += min / IIf(curdep < 1, 1, curdep)
+                ComplexEdge += Math.Min(e.Weight, min) / IIf(curdep < 1, 1, curdep * curdep)
             Else
                 If curdep < maxdep Then
-                    ComplexEdge += ComplexEdge(n, tar, maxdep, curdep + 1, min)
+                    ComplexEdge += ComplexEdge(n, tar, maxdep, curdep + 1, Math.Min(e.Weight, min), root)
                 End If
             End If
         Next
     End Function
-
 
     Public Sub Delete(ByRef ent As Object)
         Dim edg As clsEdge, id As String, sib As clsNode

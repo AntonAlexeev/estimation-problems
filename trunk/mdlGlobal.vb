@@ -85,12 +85,6 @@ Module mdlGlobal
         Public Feat As String
     End Structure
 
-    Public Structure strLFunction
-        Public LFArg As String
-        Public LFFunc As String
-        Public LFVal As String
-    End Structure
-
     Public Sub AddRow(ByRef dgv As DataGridView, ByVal val() As Object)
         Dim dgvRow As DataGridViewRow, dgvCell As DataGridViewCell, s As Object
         dgvRow = New DataGridViewRow

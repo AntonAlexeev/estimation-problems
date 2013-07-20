@@ -6,7 +6,7 @@ Public Class clsEdge
     Private m_source As clsNode
     Private m_target As clsNode
     Private m_type As Integer
-    Private m_lfunction As strLFunction
+    Private m_names As New Collection
 
     Public Property id() As String
         Get
@@ -53,13 +53,10 @@ Public Class clsEdge
         End Set
     End Property
 
-    Public Property LFunction() As Object
+    Public ReadOnly Property Names As Collection
         Get
-            LFunction = m_lfunction
+            Names = m_names
         End Get
-        Set(ByVal value As Object)
-            m_lfunction = value
-        End Set
     End Property
 
     Public Function Label(Optional ByVal inverted As Boolean = False) As String
