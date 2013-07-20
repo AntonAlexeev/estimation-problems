@@ -130,8 +130,7 @@ Public Class frmEstimation
                 AddRow(dgvUnsolvedProblems, New Object() { _
                     item, _
                     Math.Round(est.Difficulty, 2), _
-                    Math.Round(est.SDComplexity, 2), _
-                    Math.Round(est.SDComplexity - est.Difficulty, 2) _
+                    Math.Round(est.SDComplexity, 2) _
                 })
             Next
         Else
@@ -300,6 +299,62 @@ Public Class frmEstimation
                 Exit Sub
             End If
         End If
+    End Sub
+
+    Private Sub btnChart_Click(sender As Object, e As EventArgs) Handles btnChartLines.Click
+        Dim netSD As clsNetwork, netSP As clsNetwork, item As Object, est As strEstimation
+        Dim i As Integer, j As Integer, solved() As Boolean, data(,) As Double, cnt As Integer, min As Integer, mini As Integer
+        Dim SP As New Collection, names() As String
+        netSD = JoinNetworks(lbSubjectDomain.Items)
+        If netSD Is Nothing Then
+            MsgBox("Не удалось сформировать семантическую сеть предметной области.")
+            Exit Sub
+        End If
+        For Each item In lbSolvedProblem.Items
+            SP.Add(item)
+        Next
+        cnt = lbUnsolvedProblem.Items.Count - 1
+        ReDim data(cnt, cnt) : ReDim names(cnt) : ReDim solved(cnt)
+        For i = 0 To cnt
+            names(i) = lbUnsolvedProblem.Items(i)
+        Next
+        For i = 0 To cnt
+            min = Int32.MaxValue : mini = 0
+            netSP = New clsNetwork
+            For Each item In SP
+                netSP.Join(networks(item))
+            Next
+            For j = 0 To cnt
+                If Not solved(j) Then
+                    est = EstimateNetwork(netSD, netSP, networks(names(j)))
+                    data(i, j) = Math.Round(est.Difficulty, 2)
+                    If est.Difficulty < min Then
+                        min = est.Difficulty
+                        mini = j
+                    End If
+                End If
+            Next
+            solved(mini) = True
+            SP.Add(names(mini))
+        Next
+        frmChart.LineChart(data, names)
+        frmChart.ShowDialog()
+    End Sub
+
+    Private Sub btnChartBars_Click(sender As Object, e As EventArgs) Handles btnChartBars.Click
+        Dim data(,) As Object, row As Integer, col As Integer, a As DataGridView
+        Dim i As Integer, j As Integer
+        row = dgvUnsolvedProblems.Rows.Count - 1
+        col = dgvUnsolvedProblems.ColumnCount - 1
+        ReDim data(col, row + 1)
+        For i = 0 To col
+            data(i, 0) = dgvUnsolvedProblems.Columns(i).HeaderText
+            For j = 0 To row
+                data(i, j + 1) = dgvUnsolvedProblems(i, j).Value
+            Next
+        Next
+        frmChart.BarChart(data)
+        frmChart.ShowDialog()
     End Sub
 
     'Private Sub itmConvert_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles itmConvert.Click

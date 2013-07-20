@@ -46,3 +46,7 @@ C:\Users\Naigsa\Google Drive\EstimationProblem\trunk\obj\Debug\EstimationTasks.f
 C:\Users\Naigsa\Google Drive\EstimationProblem\trunk\obj\Debug\EstimationTasks.frmRename.resources
 C:\Users\Naigsa\Google Drive\EstimationProblem\trunk\obj\Debug\EstimationTasks.Resources.resources
 C:\Users\Naigsa\Google Drive\EstimationProblem\trunk\obj\Debug\EstimationTasks.vbproj.GenerateResource.Cache
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\obj\Debug\EstimationTasks.frmChart.resources
+C:\Users\INaumov\Google Диск\EstimationProblem\trunk\bin\Debug\EstimationTasks.exe.config
+C:\Users\Naigsa\Google Drive\EstimationProblem\trunk\bin\Debug\EstimationTasks.exe.config
+C:\Users\Naigsa\Google Drive\EstimationProblem\trunk\obj\Debug\EstimationTasks.frmChart.resources

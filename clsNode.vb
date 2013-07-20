@@ -48,7 +48,7 @@ Public Class clsNode
         Set(ByVal value As Object)
             m_word = value
             m_id = value.Id
-            m_label = value.Lemma
+            m_label = value.Lemma + "#" + value.Feat.Split(" "c)(0)
         End Set
     End Property
 

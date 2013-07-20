@@ -15,7 +15,7 @@ Public Class clsUNL
 
     Public Function Load(ByVal path) As Boolean
         Dim xr As XmlReader = XmlReader.Create(path)
-        Dim word As strWord, lf As strLFunction, srcnod As clsNode, tarnod As clsNode, edg As clsEdge
+        Dim word As strWord, srcnod As clsNode, tarnod As clsNode, edg As clsEdge, LFArg As String, LFFunc As String, LFVal As String
         Dim i As Integer
         While xr.Read()
             If xr.IsStartElement Then
@@ -57,33 +57,33 @@ Public Class clsUNL
                                         edg.Weight = 1
                                         edg.Source = srcnod
                                         edg.Target = tarnod
+                                        edg.Names.Add(tarnod.Word.Link, tarnod.Word.Link)
                                         srcnod.AddEdge(edg, i)
                                         tarnod.AddEdge(edg, i)
                                         edges.Add(edg, i)
                                         i += 1
                                     End If
                                 Case "LF"
-                                    lf = New strLFunction
-                                    lf.LFArg = xr.GetAttribute("LFARG")
-                                    lf.LFFunc = xr.GetAttribute("LFFUNC")
-                                    lf.LFVal = xr.GetAttribute("LFVAL")
-                                    If Not nodes.Contains(lf.LFVal) Then
+                                    LFArg = xr.GetAttribute("LFARG")
+                                    LFFunc = xr.GetAttribute("LFFUNC")
+                                    LFVal = xr.GetAttribute("LFVAL")
+                                    If Not nodes.Contains(LFVal) Then
                                         tarnod = New clsNode
-                                        nodes.Add(tarnod, lf.LFVal)
+                                        nodes.Add(tarnod, LFVal)
                                     Else
-                                        tarnod = nodes.Item(lf.LFVal)
+                                        tarnod = nodes.Item(LFVal)
                                     End If
                                     tarnod.Weight = 1
-                                    If Not nodes.Contains(lf.LFArg) Then
+                                    If Not nodes.Contains(LFArg) Then
                                         srcnod = New clsNode
-                                        nodes.Add(srcnod, lf.LFArg)
+                                        nodes.Add(srcnod, LFArg)
                                     Else
-                                        srcnod = nodes.Item(lf.LFArg)
+                                        srcnod = nodes.Item(LFArg)
                                     End If
                                     edg = New clsEdge
                                     edg.id = CStr(i)
                                     edg.Type = edgLFunction
-                                    edg.LFunction = lf
+                                    edg.Names.Add(LFFunc, LFFunc)
                                     edg.Weight = 1
                                     edg.Source = srcnod
                                     edg.Target = tarnod
@@ -97,7 +97,7 @@ Public Class clsUNL
                 End If
             End If
         End While
-        Convert()
+        'Convert()
         Load = True
     End Function
 
