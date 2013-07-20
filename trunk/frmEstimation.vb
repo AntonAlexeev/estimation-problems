@@ -20,17 +20,11 @@ Public Class frmEstimation
     Private WithEvents itmMGraph As MenuItem
 
     Private Function JoinNetworks(ByRef list As ListBox.ObjectCollection) As clsNetwork
-        Dim cnt As Integer
         Dim item As Object
-        cnt = list.Count
-        JoinNetworks = Nothing
-        If cnt > 0 Then
-            ' Объединение сетей
-            JoinNetworks = New clsNetwork
-            For Each item In list
-                JoinNetworks.Join(networks(item))
-            Next
-        End If
+        JoinNetworks = New clsNetwork
+        For Each item In list
+            JoinNetworks.Join(networks(item))
+        Next
     End Function
 
     Private Function EstimateNetwork(ByRef netSD As clsNetwork, ByRef netSP As clsNetwork, ByRef net As clsNetwork) As strEstimation
@@ -338,6 +332,7 @@ Public Class frmEstimation
             SP.Add(names(mini))
         Next
         frmChart.LineChart(data, names)
+        frmChart.Text = "Процесс решения задач"
         frmChart.ShowDialog()
     End Sub
 
@@ -354,6 +349,7 @@ Public Class frmEstimation
             Next
         Next
         frmChart.BarChart(data)
+        frmChart.Text = "Оценка задач"
         frmChart.ShowDialog()
     End Sub
 
